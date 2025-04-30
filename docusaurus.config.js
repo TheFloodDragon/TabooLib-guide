@@ -7,7 +7,7 @@ const {themes} = require('prism-react-renderer');
 const config = {
     title: 'TabooLib',
     url: 'https://tabooproject.org',
-    baseUrl: '/',
+    baseUrl: '/TabooLib-guide/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
