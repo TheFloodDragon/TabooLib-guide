@@ -293,6 +293,8 @@ TrMenu 入门学习文档
 
 :::
 
+[![](https://bstats.org/signatures/bukkit/TrMenu.svg)](https://bstats.org/plugin/bukkit/TrMenu/5742)
+
 ## U
 
 暂未收录。
@@ -328,6 +330,8 @@ TrMenu 入门学习文档
 暂未收录。
 
 ## Z
+
+### AzureFlow
 
 物品库插件
 
