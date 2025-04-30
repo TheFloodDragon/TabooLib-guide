@@ -39,7 +39,7 @@ function HomepageHeader() {
             <Link className={styles.primaryCta} to="/intro">
             快速开始
           </Link>
-            <Link className={styles.secondaryCta} to="/tutorial-basics/create-a-page">
+            <Link className={styles.secondaryCta} to="https://tabooproject.org/">
             官方文档
           </Link>
             <Link className={styles.secondaryCta} to="/kether">
