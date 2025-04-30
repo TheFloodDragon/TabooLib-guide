@@ -1,8 +1,8 @@
 ---
-title: 插件列表
+title: 介绍
 sidebar_position: 1
 ---
 
-# 插件
+# 介绍
 
 TODO
