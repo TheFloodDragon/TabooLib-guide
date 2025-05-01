@@ -151,6 +151,8 @@ Chemdah 任务插件附属
 
 :::info
 
+`MineBBS` https://www.minebbs.com/resources/.10851
+
 `GitHub` https://github.com/8aka-Team/Invero
 
 `文档` https://invero.8aka.org
@@ -167,11 +169,11 @@ Chemdah 任务插件附属
 
 ### KalpaDungeon
 
-让你的DungeonPlus拥有更多功能
+让你的 DungeonPlus 拥有更多功能
 
-::: info
+:::info
 
-`MineBBS` https://www.minebbs.com/resources/dungeonplus.9541/
+`MineBBS` https://www.minebbs.com/resources/dungeonplus.9541
 
 `文档` https://wiki.xiao-jie.top/zh/KalpaDungeon/main
 
@@ -183,9 +185,9 @@ Chemdah 任务插件附属
 
 让身上的装备提供药水效果
 
-::: info
+:::info
 
-`MineBBS` https://www.minebbs.com/resources/kalpahandpotioneffect.10263/
+`MineBBS` https://www.minebbs.com/resources/kalpahandpotioneffect.10263
 
 :::
 
