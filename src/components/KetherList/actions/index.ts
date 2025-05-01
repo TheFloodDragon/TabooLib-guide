@@ -21,6 +21,7 @@ export interface KetherAction {
 import adyeshach from './adyeshach';
 import chemdah from './chemdah';
 import dungeonPlus from './dungeonPlus';
+import invero from './invero';
 import kether from './kether';
 import tabooLib from './taboolib';
 import trMenu from './trMenu';
@@ -32,6 +33,7 @@ export const modules: KetherActionModule[] = [
   adyeshach,
   chemdah,
   dungeonPlus,
+  invero,
   kether,
   tabooLib,
   trMenu,
