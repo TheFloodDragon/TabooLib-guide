@@ -17,6 +17,24 @@
       "type": "public",
       "category": "消息显示",
       "example": "actionbar \"Hello World!\""
+    },
+    {
+      "id": "message",
+      "name": "Message",
+      "description": "向玩家发送一个支持 Invero 相关格式化的消息",
+      "provider": "Invero",
+      "type": "private",
+      "category": "消息显示",
+      "example": "msg \"<red>Hello {{player name}}\""
+    },
+    {
+      "id": "trm_money",
+      "name": "Money",
+      "description": "将动作的返回值作为 Vault 货币判断玩家是否持有",
+      "provider": "TrMenu",
+      "type": "private",
+      "category": "经济相关",
+      "example": "print money 100"
     }
   ]
 }
