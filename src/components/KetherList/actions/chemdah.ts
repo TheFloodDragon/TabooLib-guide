@@ -170,7 +170,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{MMOCore\} 属性点数。",
       provider: "Chemdah",
       type: "public",
-      categories: ["MMOCore", "实体操作"],
+      categories: ["实体操作"],
       syntax: "mmocore attribute point",
       example: "\{mmocore attribute point\}"
     },
@@ -180,7 +180,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{MMOCore\} 职业相关数据。",
       provider: "Chemdah",
       type: "public",
-      categories: ["MMOCore", "实体操作"],
+      categories: ["实体操作"],
       syntax: "mmocore class (id|name|point)",
       example: "\{mmocore class\} id\r\\n\{mmocore class\} name"
     },
@@ -190,7 +190,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{MMOCore\} 等级或经验值。",
       provider: "Chemdah",
       type: "public",
-      categories: ["MMOCore", "实体操作"],
+      categories: ["实体操作"],
       syntax: "mmocore (level|experience|exp)",
       example: "\{mmocore level\}\r\\n\{mmocore experience\}"
     },
@@ -200,7 +200,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{MMOCore\} 法力值。",
       provider: "Chemdah",
       type: "public",
-      categories: ["MMOCore", "实体操作"],
+      categories: ["实体操作"],
       syntax: "mmocore mana",
       example: "\{mmocore mana\}"
     },
@@ -210,7 +210,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{MMOCore\} 技能点数。",
       provider: "Chemdah",
       type: "public",
-      categories: ["MMOCore", "实体操作"],
+      categories: ["实体操作"],
       syntax: "mmocore skill point",
       example: "\{mmocore skill point\}"
     },
@@ -220,7 +220,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{MMOCore\} 耐力值。",
       provider: "Chemdah",
       type: "public",
-      categories: ["MMOCore", "实体操作"],
+      categories: ["实体操作"],
       syntax: "mmocore stamina",
       example: "\{mmocore stamina\}"
     },
@@ -230,7 +230,7 @@ const chemdah: KetherActionModule = {
       description: "使玩家执行 \{MythicMobs\} 怪物技能。\r\\n\r\\n可用的 \{Trigger\} 类型：\r\\nDEFAULT, API, ATTACK, BOW_HIT, BLOCK, BLOCK_PLACE, BLOCK_BREAK, \r\\nCOMBAT, CONSUME, CROUCH, UNCROUCH, DAMAGED, DROPCOMBAT, DEATH, \r\\nDESPAWNED, ENTERCOMBAT, EXPLODE, INTERACT, KILL, KILLPLAYER, \r\\nPLAYERDEATH, SHOOT, SIGNAL, SPAWN, SPLASH_POTION, SWING, TARGETCHANGE, \r\\nTARGETED, TELEPORT, TIMER, USE, RIGHTCLICK, READY, CAST, FISH, \r\\nFISH_BITE, FISH_CATCH_FISH, FISH_CATCH_ENTITY, FISH_GROUND, FISH_REEL, \r\\nFISH_FAIL, TAME, TAME_FAIL, TRIDENT_THROW, TRIDENT_HIT, CUSTOM",
       provider: "Chemdah",
       type: "public",
-      categories: ["MythicMobs", "实体操作"],
+      categories: ["实体操作"],
       syntax: "(mythicmobs|mm) cast \{token\} \[with \{trigger\}\]",
       example: "\{mm cast\} skill\r\\n\{mm cast\} skill \{with\} api"
     },
@@ -430,7 +430,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{SkillAPI\} 属性或属性点数。",
       provider: "Chemdah",
       type: "public",
-      categories: ["SkillAPI", "实体操作"],
+      categories: ["实体操作"],
       syntax: "skillapi attribute (point|\{token\})",
       example: "\{skillapi attribute\} foo\r\\n\{skillapi attribute\} bar\r\\n\{skillapi attribute point\}"
     },
@@ -440,7 +440,7 @@ const chemdah: KetherActionModule = {
       description: "使玩家执行 \{SkillAPI\} 技能。\r",
       provider: "Chemdah",
       type: "public",
-      categories: ["SkillAPI", "实体操作"],
+      categories: ["实体操作"],
       syntax: "skillapi cast \{token\}",
       example: "\{skillapi cast\} skill\r"
     },
@@ -450,7 +450,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{SkillAPI\} 职业相关数据。",
       provider: "Chemdah",
       type: "public",
-      categories: ["SkillAPI", "实体操作"],
+      categories: ["实体操作"],
       syntax: "skillapi class (main|size)",
       example: "\{skillapi class\} main\r\\n\{skillapi class\} size"
     },
@@ -460,7 +460,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{SkillAPI\} 当前经验值或升级所需经验。",
       provider: "Chemdah",
       type: "public",
-      categories: ["SkillAPI", "实体操作"],
+      categories: ["实体操作"],
       syntax: "skillapi exp (total|required)",
       example: "\{skillapi experience\} total\r\\n\{skillapi experience\} required"
     },
@@ -470,7 +470,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{SkillAPI\} 等级或是否满级。",
       provider: "Chemdah",
       type: "public",
-      categories: ["SkillAPI", "实体操作"],
+      categories: ["实体操作"],
       syntax: "mmocore level \[maxed\]",
       example: "\{skillapi level\}\r\\n\{skillapi level maxed\}"
     },
@@ -480,7 +480,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{SkillAPI\} 法力值。",
       provider: "Chemdah",
       type: "public",
-      categories: ["SkillAPI", "实体操作"],
+      categories: ["实体操作"],
       syntax: "skillapi mana",
       example: "\{skillapi mana\}"
     },
@@ -490,7 +490,7 @@ const chemdah: KetherActionModule = {
       description: "获取玩家的 \{SkillAPI\} 技能点数。",
       provider: "Chemdah",
       type: "public",
-      categories: ["SkillAPI", "实体操作"],
+      categories: ["实体操作"],
       syntax: "skillapi skill point",
       example: "\{skillapi skill point\}"
     },
@@ -558,3 +558,4 @@ const chemdah: KetherActionModule = {
 };
 
 export default chemdah;
+ 

@@ -80,7 +80,7 @@ const zaphkiel: KetherActionModule = {
       description: "在 \{Zaphkiel\} 物品行为中：\r\\n获取或设置物品的活跃数据。",
       provider: "Zaphkiel",
       type: "private",
-      categories: ["物品属性", "物品操作", "数据存储"],
+      categories: ["物品属性", "物品操作", "数据操作"],
       syntax: "item data \{action\} \[to \{action\}\]",
       example: "\{item data\} durability \{to\} 10\r\\n\{item data\} damage \{to\} 200"
     },
@@ -90,7 +90,7 @@ const zaphkiel: KetherActionModule = {
       description: "在 \{Zaphkiel\} 物品行为中：\r\\n将缓存写入物品流。",
       provider: "Zaphkiel",
       type: "private",
-      categories: ["数据存储", "物品操作"],
+      categories: ["数据操作", "物品操作"],
       syntax: "save",
       example: "\{save\}"
     },

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import styles from './styles.module.css';
 import { IoSearch, IoFilter, IoGrid, IoList, IoApps, IoClose, IoChevronDown, IoChevronForward } from 'react-icons/io5';
 import { KetherAction, KetherActionModule, modules, getAllActions } from './actions';
+// @ts-ignore
+import CodeBlock from '@theme/CodeBlock';
 
 // 布局类型
 type LayoutType = 'grid' | 'compact' | 'list';
@@ -634,18 +636,18 @@ export default function KetherList(): JSX.Element {
             {selectedAction.syntax && (
               <div className={styles.detailSection}>
                 <h3 className={styles.detailSectionTitle}>语法</h3>
-                <div className={styles.codeBlock}>
-                  <pre><code><RenderWithLineBreaks text={selectedAction.syntax} /></code></pre>
-                </div>
+                <CodeBlock language="kotlin" showLineNumbers>
+                  {parseText(selectedAction.syntax)}
+                </CodeBlock>
               </div>
             )}
             
             {selectedAction.example && (
               <div className={styles.detailSection}>
                 <h3 className={styles.detailSectionTitle}>示例代码</h3>
-                <div className={styles.codeBlock}>
-                  <pre><code><RenderWithLineBreaks text={selectedAction.example} /></code></pre>
-                </div>
+                <CodeBlock language="kotlin" showLineNumbers>
+                  {parseText(selectedAction.example)}
+                </CodeBlock>
               </div>
             )}
 

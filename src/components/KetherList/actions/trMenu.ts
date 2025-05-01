@@ -30,7 +30,7 @@ const trMenu: KetherActionModule = {
       description: "获取或赋值玩家的\{元数据\}。\r\\n\r\\n\{meta\} 是临时存储在服务器内存,\r\\n\{data\} 则会调用 TabooLib 提供的 \{LocalPlayer\} 存储在玩家独立数据文件。",
       provider: "TrMenu",
       type: "private",
-      categories: ["数据存储", "变量操作"],
+      categories: ["数据操作", "变量操作"],
       syntax: "data (get|set|del) \{action\} \[to \{action\}\]\r\\nmeta (get|set|del) \{action\} \[to \{action\}\]",
       example: "\{data\} \{set\} test \{to\} value\r\\n\{data\} \{del\} test\r\\n\r\\n\{meta\} \{set\} test \{to\} value\r\\n\{meta\} \{del\} test\r\\n\r\\nprint \{data\} \{get\} test"
     },
