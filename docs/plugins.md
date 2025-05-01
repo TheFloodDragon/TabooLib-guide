@@ -51,6 +51,22 @@ npc 插件
 
 [![](https://bstats.org/signatures/bukkit/AttributePlus.svg)](https://bstats.org/plugin/bukkit/AttributePlus/5571)
 
+### AkariLevel
+
+自定义玩家等级
+
+:::info
+
+`MCBBS` https://www.mcbbs.co/thread-213-1-1.html
+
+`Github` https://github.com/CPJiNan/AkariLevel
+
+`文档` https://cpjinan.github.io/Wiki/AkariLevel/
+
+:::
+
+[![](https://bstats.org/signatures/bukkit/CPJiNan.svg)](https://bstats.org/signatures/bukkit/CPJiNan.svg)
+
 ## B
 
 ### BilibiliVideo
@@ -344,6 +360,18 @@ TrMenu 入门学习文档
 :::
 
 [![](https://bstats.org/signatures/bukkit/Vulpecula.svg)](https://bstats.org/plugin/bukkit/Vulpecula/17183)
+
+### VitaSell
+
+物品出售插件
+
+:::info
+
+`文档` https://cpjinan.github.io/Wiki/VitaSell/
+
+:::
+
+[![](https://bstats.org/signatures/bukkit/CPJiNan.svg)](https://bstats.org/signatures/bukkit/CPJiNan.svg)
 
 ## W
 
