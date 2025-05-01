@@ -81,7 +81,7 @@ const config = {
                         position: 'left',
                     },
                     {
-                        href: 'https://github.com/taboolib/taboolib',
+                        href: 'https://github.com/8aka-Team/TabooLib-guide',
                         label: 'GitHub',
                         position: 'right',
                     },
