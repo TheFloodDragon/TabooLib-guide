@@ -165,6 +165,32 @@ Chemdah 任务插件附属
 
 ## K
 
+### KalpaDungeon
+
+让你的DungeonPlus拥有更多功能
+
+::: info
+
+`MineBBS` https://www.minebbs.com/resources/dungeonplus.9541/
+
+`文档` https://wiki.xiao-jie.top/zh/KalpaDungeon/main
+
+:::
+
+[![](https://bstats.org/signatures/bukkit/KalpaDungeon.svg)](https://bstats.org/plugin/bukkit/KalpaDungeon/19431))
+
+### KalpaHandPotionEffect
+
+让身上的装备提供药水效果
+
+::: info
+
+`MineBBS` https://www.minebbs.com/resources/kalpahandpotioneffect.10263/
+
+:::
+
+[![](https://bstats.org/signatures/bukkit/KalpaHandPotionEffect.svg)](https://bstats.org/plugin/bukkit/KalpaHandPotionEffect/24515))
+
 ### KetherModulesLite
 
 多功能插件
