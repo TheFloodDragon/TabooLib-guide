@@ -28,7 +28,7 @@ TabooLib 真牛逼啊! [你好世界](b;u) 太好用了
 
 显示效果如下：
 
-<img id="game_img" src="/img/Xnip2023-07-25_13-46-48.png" width="600"/>
+<img id="game_img" src="_images/Xnip2023-07-25_13-46-48.png" width="600"/>
 
 当然，您也可以使用反斜杠 `\` 来转译 `[]`，使其能够正常输出。
 
@@ -38,7 +38,7 @@ TabooLib 真牛逼啊! [你好世界](b;u) 太好用了
 
 显示效果如下：
 
-<img id="game_img" src="/img/Xnip2023-07-25_13-43-41.png" width="600"/>
+<img id="game_img" src="_images/Xnip2023-07-25_13-43-41.png" width="600"/>
 
 :::tip
 当您没有配置文本参数时，您的中括号也需要反斜杠转译，否则中括号会被解析掉。
