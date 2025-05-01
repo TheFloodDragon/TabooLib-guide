@@ -44,6 +44,24 @@
       "type": "private",
       "category": "经济相关",
       "example": "print money 100"
+    },
+    {
+      "id": "max",
+      "name": "Max",
+      "description": "取两值之最大",
+      "provider": "Chemdah",
+      "type": "private",
+      "category": "数学运算",
+      "example": "max 1 10"
+    },
+    {
+      "id": "min",
+      "name": "Min",
+      "description": "取两值之最小",
+      "provider": "Chemdah",
+      "type": "private",
+      "category": "数学运算",
+      "example": "min 1 10"
     }
   ]
 }
