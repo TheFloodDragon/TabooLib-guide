@@ -173,6 +173,8 @@ Chemdah 任务插件附属
 
 `MineBBS` https://www.minebbs.com/resources/dungeonplus.9541/
 
+`文档` https://wiki.xiao-jie.top/zh/KalpaDungeon/main
+
 :::
 
 [![](https://bstats.org/signatures/bukkit/KalpaDungeon .svg)](https://bstats.org/plugin/bukkit/KalpaDungeon/19431))
