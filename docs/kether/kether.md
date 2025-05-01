@@ -9,7 +9,7 @@ kether 并不是一个插件，而是使用 Taboolib 框架开发的插件(如Tr
 
 推荐教程：https://www.yuque.com/sacredcraft/kether
 
-kether语句表：https://kether.tabooproject.org/list.html
+kether语句表：[/kether-list](/kether-list)
 
 vscode插件-kether动作补全：https://github.com/LiteCat0905/Kether-snippet
 

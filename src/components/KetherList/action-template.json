@@ -1,0 +1,12 @@
+{
+  "action": {
+    "id": "action_id",
+    "name": "动作名称",
+    "description": "动作的详细描述",
+    "provider": "提供者名称 (例如: Kether, Vulpecula)",
+    "type": "public 或 private 或 both",
+    "category": "类别 (例如: 变量操作, 数学运算, 流程控制)",
+    "example": "示例代码"
+  },
+  "instructions": "要添加新的动作，请将此模板的'action'部分复制到ketherActions.json文件的'actions'数组中，并填写相应的信息。"
+} 

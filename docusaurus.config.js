@@ -76,7 +76,7 @@ const config = {
                         position: 'left',
                     },
                     {
-                        href: '/kether',
+                        href: '/kether-list',
                         label: 'Kehter 语句',
                         position: 'left',
                     },

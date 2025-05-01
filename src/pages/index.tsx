@@ -1,9 +1,6 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import HomepageQuickStart from '../components/HomepageQuickStart';
-import HomepageCodeExample from '../components/HomepageCodeExample';
 import styles from './styles.module.css';
 
 // @ts-ignore - 忽略类型错误
@@ -19,7 +16,6 @@ function HomepageHeader() {
       
       {/* 内容区域 */}
       <div className={styles.bannerContainer}>
-
         
         <div className={styles.heroContent}>
           <div className={styles.pixelTitleWrapper}>
@@ -42,7 +38,7 @@ function HomepageHeader() {
             <Link className={styles.secondaryCta} to="https://tabooproject.org/">
             官方文档
           </Link>
-            <Link className={styles.secondaryCta} to="/kether">
+            <Link className={styles.secondaryCta} to="/kether-list">
             Kether 语句
           </Link>
           </div>
@@ -59,8 +55,36 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   
-  // 添加粒子效果脚本
+  // 添加粒子效果脚本和隐藏导航元素
   React.useEffect(() => {
+    // 隐藏导航栏和页脚以及所有其他不需要的元素
+    const style = document.createElement('style');
+    style.innerHTML = `
+      nav, footer, .navbar, .navbar-sidebar, .theme-doc-sidebar-container, .theme-doc-footer {
+        display: none !important;
+      }
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+      }
+      #__docusaurus {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100vh !important;
+      }
+      .main-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100vh !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // 移除DOM中的导航元素
+    document.querySelector('nav')?.remove();
+    document.querySelector('footer')?.remove();
+    
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
     script.async = true;
@@ -92,23 +116,13 @@ export default function Home(): JSX.Element {
 
     return () => {
       document.body.removeChild(script);
+      document.head.removeChild(style);
     };
   }, []);
   
   return (
-    <>
-      <div className={styles.fullscreenBanner}>
-        <HomepageHeader />
-      </div>
-      
-      <Layout
-        title={`${siteConfig.title} - 多平台 Minecraft 插件开发框架`}
-        description="Taboolib 非官方用户文档，整合了大量社区资源">
-        <main>
-          <HomepageQuickStart />
-          <HomepageCodeExample />
-        </main>
-      </Layout>
-    </>
+    <div className={styles.fullscreenBanner} style={{ height: '100vh', margin: 0, padding: 0 }}>
+      <HomepageHeader />
+    </div>
   );
 } 
