@@ -22,6 +22,29 @@ export default function KetherList(): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'public' | 'private'>('all');
 
+  // 处理转义字符，将字符串中的'\n'转换为实际的换行符
+  const parseText = (text: string) => {
+    // 正则表达式匹配转义序列的模式
+    return text.replace(/\\n/g, '\n')
+               .replace(/\\r/g, '\r')
+               .replace(/\\t/g, '\t');
+  };
+
+  // 用于渲染带换行符的文本
+  const RenderWithLineBreaks = ({text}: {text: string}) => {
+    const parsed = parseText(text);
+    return (
+      <>
+        {parsed.split('\n').map((line, index, array) => (
+          <React.Fragment key={index}>
+            {line}
+            {index < array.length - 1 && <br />}
+          </React.Fragment>
+        ))}
+      </>
+    );
+  };
+
   // 获取模块颜色
   const getModuleColor = (provider: string): string => {
     const module = moduleList.find(m => m.name === provider);
@@ -435,8 +458,8 @@ export default function KetherList(): JSX.Element {
                             
                             <p className={styles.actionDescription}>
                               {action.description.length > 100 && layoutType !== 'list'
-                                ? `${action.description.substring(0, 100)}...`
-                                : action.description.split('\n')[0]}
+                                ? `${parseText(action.description).split('\n')[0].substring(0, 100)}...`
+                                : parseText(action.description).split('\n')[0]}
                             </p>
                           </div>
                         </div>
@@ -486,12 +509,7 @@ export default function KetherList(): JSX.Element {
             <div className={styles.detailSection}>
               <h3 className={styles.detailSectionTitle}>描述</h3>
               <p className={styles.detailDescription}>
-                {selectedAction.description.split('\n').map((line, i) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    {i < selectedAction.description.split('\n').length - 1 && <br />}
-                  </React.Fragment>
-                ))}
+                <RenderWithLineBreaks text={selectedAction.description} />
               </p>
             </div>
             
@@ -499,7 +517,7 @@ export default function KetherList(): JSX.Element {
               <div className={styles.detailSection}>
                 <h3 className={styles.detailSectionTitle}>语法</h3>
                 <div className={styles.codeBlock}>
-                  <pre><code>{selectedAction.syntax}</code></pre>
+                  <pre><code><RenderWithLineBreaks text={selectedAction.syntax} /></code></pre>
                 </div>
               </div>
             )}
@@ -508,7 +526,7 @@ export default function KetherList(): JSX.Element {
               <div className={styles.detailSection}>
                 <h3 className={styles.detailSectionTitle}>示例代码</h3>
                 <div className={styles.codeBlock}>
-                  <pre><code>{selectedAction.example}</code></pre>
+                  <pre><code><RenderWithLineBreaks text={selectedAction.example} /></code></pre>
                 </div>
               </div>
             )}

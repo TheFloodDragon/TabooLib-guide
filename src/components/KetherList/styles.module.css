@@ -23,6 +23,8 @@
   --kether-radius-xl: 16px;
   
   --kether-transition: all 0.2s ease;
+  --kether-transition-fast: all 0.15s ease;
+  --kether-transition-slow: all 0.3s ease;
 }
 
 [data-theme='dark'] {
@@ -46,6 +48,7 @@
   top: 0;
   z-index: 100;
   box-shadow: var(--kether-shadow-sm);
+  transition: var(--kether-transition);
 }
 
 [data-theme='dark'] .header {
@@ -80,6 +83,12 @@
   font-weight: 700;
   margin-right: 12px;
   box-shadow: var(--kether-shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: var(--kether-shadow);
 }
 
 .title {
@@ -87,6 +96,11 @@
   font-weight: 600;
   margin: 0;
   color: var(--kether-text);
+  transition: color 0.2s ease;
+}
+
+.title:hover {
+  color: var(--kether-primary);
 }
 
 .searchSection {
@@ -107,6 +121,7 @@
   transform: translateY(-50%);
   color: var(--kether-text-light);
   font-size: 18px;
+  transition: color 0.2s ease;
 }
 
 .searchInput {
@@ -124,6 +139,11 @@
   outline: none;
   border-color: var(--kether-primary-light);
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+
+.searchInput:focus + .searchIcon {
+  color: var(--kether-primary);
 }
 
 .clearButton {
@@ -146,6 +166,7 @@
 .clearButton:hover {
   background-color: var(--kether-hover);
   color: var(--kether-primary);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .filterToggle {
@@ -165,16 +186,24 @@
 
 .filterToggle:hover {
   background-color: var(--kether-hover);
+  transform: translateY(-1px);
 }
 
 .filterToggle.active {
   background-color: var(--kether-primary);
   color: white;
   border-color: var(--kether-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
 }
 
 .filterToggle svg {
   font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.filterToggle:hover svg {
+  transform: rotate(15deg);
 }
 
 .layoutControls {
@@ -183,6 +212,11 @@
   border: 1px solid var(--kether-border);
   border-radius: var(--kether-radius);
   overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.layoutControls:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .layoutButton {
@@ -199,11 +233,13 @@
 
 .layoutButton:hover {
   background-color: var(--kether-hover);
+  transform: translateY(-1px);
 }
 
 .layoutButton.active {
   background-color: var(--kether-primary);
   color: white;
+  transform: translateY(-1px);
 }
 
 /* 选项卡 */
@@ -233,11 +269,13 @@
 
 .tabButton:hover {
   color: var(--kether-primary);
+  transform: translateY(-1px);
 }
 
 .tabButton.active {
   color: var(--kether-primary);
   border-bottom-color: var(--kether-primary);
+  transform: translateY(-1px);
 }
 
 /* 筛选器面板 */
@@ -251,6 +289,19 @@
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
+  animation: slideDown 0.3s ease;
+  transform-origin: top center;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
 }
 
 .filterGroup {
@@ -265,6 +316,11 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--kether-text);
+  transition: color 0.2s ease;
+}
+
+.filterGroup:hover .filterLabel {
+  color: var(--kether-primary);
 }
 
 .filterOptions {
@@ -286,12 +342,15 @@
 
 .filterOption:hover {
   background-color: var(--kether-hover);
+  transform: translateY(-1px);
 }
 
 .filterOption.active {
   background-color: var(--kether-primary);
   color: white;
   border-color: var(--kether-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
 }
 
 .clearFiltersButton {
@@ -313,10 +372,17 @@
   background-color: var(--kether-primary);
   color: white;
   border-color: var(--kether-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
 }
 
 .clearFiltersButton svg {
   font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.clearFiltersButton:hover svg {
+  transform: rotate(90deg);
 }
 
 /* 活跃筛选标签 */
@@ -340,15 +406,33 @@
   color: var(--kether-primary);
   font-size: 13px;
   cursor: pointer;
-  transition: var(--kether-transition);
+  transition: all 0.2s ease;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .activeTag:hover {
   background-color: rgba(37, 99, 235, 0.2);
+  transform: translateY(-1px);
 }
 
 .activeTag svg {
   font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.activeTag:hover svg {
+  transform: rotate(90deg);
 }
 
 /* 内容区域 */
@@ -388,6 +472,19 @@
 .loaderContainer p {
   color: var(--kether-text-light);
   font-size: 16px;
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
 /* 空状态 */
@@ -398,11 +495,33 @@
   justify-content: center;
   padding: 60px 0;
   text-align: center;
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .emptyIcon {
   font-size: 48px;
   margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .emptyState h3 {
@@ -431,6 +550,13 @@
 
 .resetButton:hover {
   background-color: var(--kether-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+}
+
+.resetButton:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* 结果头部 */
@@ -451,6 +577,11 @@
   font-size: 24px;
   font-weight: 600;
   color: var(--kether-primary);
+  transition: transform 0.3s ease;
+}
+
+.resultCount:hover {
+  transform: scale(1.05);
 }
 
 .resultLabel {
@@ -476,6 +607,7 @@
 
 .expandCollapseButton:hover {
   text-decoration: underline;
+  transform: translateY(-1px);
 }
 
 .expandCollapseControls span {
@@ -495,6 +627,13 @@
   border-radius: var(--kether-radius-lg);
   overflow: hidden;
   box-shadow: var(--kether-shadow);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease;
+}
+
+.categorySection:hover {
+  box-shadow: var(--kether-shadow-lg);
+  transform: translateY(-2px);
 }
 
 [data-theme='dark'] .categorySection {
@@ -505,6 +644,11 @@
   padding: 16px 20px;
   cursor: pointer;
   border-bottom: 1px solid var(--kether-border);
+  transition: background-color 0.2s ease;
+}
+
+.categoryHeader:hover {
+  background-color: var(--kether-hover);
 }
 
 .categoryTitle {
@@ -515,10 +659,20 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--kether-text);
+  transition: color 0.2s ease;
+}
+
+.categoryTitle:hover {
+  color: var(--kether-primary);
 }
 
 .categoryTitle svg {
   color: var(--kether-primary);
+  transition: transform 0.3s ease;
+}
+
+.categoryHeader:hover .categoryTitle svg {
+  transform: scale(1.2);
 }
 
 .categoryBadge {
@@ -528,6 +682,11 @@
   padding: 2px 8px;
   border-radius: 12px;
   margin-left: 8px;
+  transition: all 0.2s ease;
+}
+
+.categoryHeader:hover .categoryBadge {
+  transform: scale(1.05);
 }
 
 /* 动作网格 */
@@ -535,6 +694,7 @@
   display: grid;
   gap: 16px;
   padding: 20px;
+  animation: fadeIn 0.3s ease;
 }
 
 /* 布局变种 */
@@ -556,19 +716,34 @@
   border-radius: var(--kether-radius);
   border: 1px solid var(--kether-border);
   overflow: hidden;
-  transition: var(--kether-transition);
+  transition: all 0.3s ease;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
+  animation: cardFadeIn 0.5s ease;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .actionCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--kether-shadow);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border-color: var(--kether-primary-lightest);
 }
 
 .actionCard.selected {
   border-color: var(--kether-primary);
   box-shadow: 0 0 0 1px var(--kether-primary), var(--kether-shadow);
+  transform: translateY(-3px) scale(1.02);
 }
 
 .actionCardContent {
@@ -586,6 +761,11 @@
   font-size: 16px;
   font-weight: 600;
   color: var(--kether-text);
+  transition: color 0.2s ease;
+}
+
+.actionCard:hover .actionName {
+  color: var(--kether-primary);
 }
 
 .actionMeta {
@@ -602,6 +782,11 @@
   border-radius: var(--kether-radius-sm);
   margin-bottom: 12px;
   display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.actionCard:hover .actionId {
+  background-color: rgba(37, 99, 235, 0.2);
 }
 
 .actionDescription {
@@ -609,6 +794,11 @@
   font-size: 14px;
   line-height: 1.5;
   margin: 0;
+  transition: color 0.2s ease;
+}
+
+.actionCard:hover .actionDescription {
+  color: var(--kether-text);
 }
 
 .actionTag {
@@ -617,6 +807,11 @@
   border-radius: var(--kether-radius-sm);
   font-weight: 500;
   text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.actionCard:hover .actionTag {
+  transform: scale(1.05);
 }
 
 .publicType {
@@ -652,20 +847,18 @@
   z-index: 200;
   display: flex;
   flex-direction: column;
-  animation: slideIn 0.3s ease;
+  animation: slideInRight 0.3s ease;
   overflow-y: auto;
 }
 
-[data-theme='dark'] .detailSidebar {
-  background-color: var(--ifm-background-color);
-}
-
-@keyframes slideIn {
+@keyframes slideInRight {
   from {
     transform: translateX(100%);
+    opacity: 0;
   }
   to {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
@@ -673,6 +866,7 @@
   padding: 20px;
   border-bottom: 1px solid var(--kether-border);
   position: relative;
+  animation: fadeIn 0.4s ease;
 }
 
 .closeDetailButton {
@@ -689,12 +883,13 @@
   justify-content: center;
   padding: 4px;
   border-radius: 50%;
-  transition: var(--kether-transition);
+  transition: all 0.2s ease;
 }
 
 .closeDetailButton:hover {
   background-color: var(--kether-hover);
   color: var(--kether-text);
+  transform: rotate(90deg);
 }
 
 .detailTitle {
@@ -703,6 +898,11 @@
   color: var(--kether-text);
   margin-bottom: 8px;
   padding-right: 32px;
+  transition: color 0.2s ease;
+}
+
+.detailTitle:hover {
+  color: var(--kether-primary);
 }
 
 .detailId {
@@ -713,12 +913,19 @@
   padding: 4px 10px;
   border-radius: var(--kether-radius);
   display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.detailId:hover {
+  background-color: rgba(37, 99, 235, 0.2);
+  transform: translateY(-1px);
 }
 
 .detailBody {
   padding: 20px;
   flex: 1;
   overflow-y: auto;
+  animation: fadeIn 0.5s ease;
 }
 
 .detailTags {
@@ -733,6 +940,11 @@
   border-radius: var(--kether-radius);
   font-size: 13px;
   font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.detailTag:hover {
+  transform: translateY(-1px);
 }
 
 .publicTag {
@@ -762,6 +974,20 @@
 
 .detailSection {
   margin-bottom: 24px;
+  animation: fadeInUp 0.4s ease;
+  animation-fill-mode: both;
+}
+
+.detailSection:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.detailSection:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.detailSection:nth-child(4) {
+  animation-delay: 0.3s;
 }
 
 .detailSectionTitle {
@@ -771,18 +997,34 @@
   margin: 0 0 12px 0;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--kether-border);
+  transition: color 0.2s ease;
+}
+
+.detailSection:hover .detailSectionTitle {
+  color: var(--kether-primary);
 }
 
 .detailDescription {
   font-size: 14px;
   line-height: 1.6;
   color: var(--kether-text-light);
+  white-space: pre-wrap;
+  transition: color 0.2s ease;
+}
+
+.detailSection:hover .detailDescription {
+  color: var(--kether-text);
 }
 
 .detailProviderInfo {
   font-size: 14px;
   line-height: 1.6;
   color: var(--kether-text-light);
+  transition: color 0.2s ease;
+}
+
+.detailSection:hover .detailProviderInfo {
+  color: var(--kether-text);
 }
 
 .codeBlock {
@@ -791,6 +1033,13 @@
   padding: 16px;
   overflow-x: auto;
   margin-top: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.codeBlock:hover {
+  border-color: var(--kether-primary-lightest);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .codeBlock pre {
@@ -811,6 +1060,7 @@
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
+  transition: background-color 0.3s ease;
 }
 
 [data-theme='dark'] .footer {
@@ -828,7 +1078,11 @@
 
 .statItem {
   min-width: 80px;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.statItem:hover {
+  transform: translateY(-5px);
 }
 
 .statItem:hover .statValue {
@@ -841,7 +1095,7 @@
   font-weight: 700;
   color: var(--kether-text);
   margin-bottom: 4px;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .statLabel {
@@ -849,6 +1103,11 @@
   font-size: 13px;
   color: var(--kether-text-light);
   font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.statItem:hover .statLabel {
+  color: var(--kether-primary-light);
 }
 
 .copyright {
@@ -858,6 +1117,11 @@
   color: var(--kether-text-light);
   border-top: 1px solid var(--kether-border);
   margin-top: 16px;
+  transition: color 0.3s ease;
+}
+
+.copyright:hover {
+  color: var(--kether-primary);
 }
 
 /* 响应式设计 */

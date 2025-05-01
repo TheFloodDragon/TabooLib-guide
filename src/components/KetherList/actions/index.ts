@@ -18,20 +18,28 @@ export interface KetherAction {
 }
 
 // 导入各个模块
-import taboolib from './taboolib';
-import trMenu from './trMenu';
+import adyeshach from './adyeshach';
 import chemdah from './chemdah';
-import invero from './invero';
+import dungeonPlus from './dungeonPlus';
+import kether from './kether';
+import tabooLib from './tabooLib';
+import trMenu from './trMenu';
+import vulpecula from './vulpecula';
+import zaphkiel from './zaphkiel';
 
 // 导出所有模块
 export const modules: KetherActionModule[] = [
-  taboolib,
-  trMenu,
+  adyeshach,
   chemdah,
-  invero
+  dungeonPlus,
+  kether,
+  tabooLib,
+  trMenu,
+  vulpecula,
+  zaphkiel
 ];
 
 // 导出所有动作的扁平数组
 export const getAllActions = (): KetherAction[] => {
   return modules.flatMap(module => module.actions);
-}; 
+};

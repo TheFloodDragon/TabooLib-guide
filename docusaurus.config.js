@@ -88,7 +88,7 @@ const config = {
                 ]
             },
             footer: {
-                copyright: `Copyright © 2015 ~ ${new Date().getFullYear()} <b>TABOO-PROJECT</b> All Rights Reserved.`,
+                copyright: `Copyright © ${new Date().getFullYear()} <b>8aka-Team</b> All Rights Reserved.`,
             },
             prism: {
                 theme: themes.github,
