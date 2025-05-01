@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   # 自动部署GitPage
   gitpage:
@@ -10,16 +14,34 @@ jobs:
     steps:
     # 拉取代码
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v3
       with:
         persist-credentials: false
+        fetch-depth: 0
+
+    # 设置Node.js环境
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    # 安装依赖
+    - name: Install Dependencies
+      run: npm ci
+      
     # 编译出静态页面
-    - name: Install and Build
-      run: npm install && npm run build
+    - name: Build
+      run: npm run build
+      env:
+        NODE_OPTIONS: --max-old-space-size=4096
+
     # 塞进gh-pages分支(即部署到GitPage)
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+      if: github.event_name != 'pull_request'
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
+        token: ${{ secrets.ACCESS_TOKEN }}
+        branch: gh-pages
+        folder: build
+        clean: true
