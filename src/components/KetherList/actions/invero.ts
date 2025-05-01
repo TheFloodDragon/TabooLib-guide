@@ -17,4 +17,4 @@ const invero: KetherActionModule = {
   ]
 };
 
-export default invero; 
+export default invero;
