@@ -177,7 +177,7 @@ Chemdah 任务插件附属
 
 :::
 
-[![](https://bstats.org/signatures/bukkit/KalpaDungeon .svg)](https://bstats.org/plugin/bukkit/KalpaDungeon/19431))
+[![](https://bstats.org/signatures/bukkit/KalpaDungeon.svg)](https://bstats.org/plugin/bukkit/KalpaDungeon/19431))
 
 ### KalpaHandPotionEffect
 
@@ -189,7 +189,7 @@ Chemdah 任务插件附属
 
 :::
 
-[![](https://bstats.org/signatures/bukkit/KalpaHandPotionEffect .svg)](https://bstats.org/plugin/bukkit/KalpaHandPotionEffect/24515))
+[![](https://bstats.org/signatures/bukkit/KalpaHandPotionEffect.svg)](https://bstats.org/plugin/bukkit/KalpaHandPotionEffect/24515))
 
 ### KetherModulesLite
 
