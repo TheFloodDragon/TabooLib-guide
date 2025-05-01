@@ -12,7 +12,7 @@ export interface KetherAction {
   description: string;  // 描述
   provider: string;     // 提供者
   type: 'public' | 'private' | 'both'; // 类型
-  category: string;     // 类别
+  categories: string[];  // 类别（修改为数组以支持多个分类）
   example?: string;     // 示例代码
   syntax?: string;      // 语法
 }

@@ -22,6 +22,98 @@ export default function KetherList(): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'public' | 'private'>('all');
 
+  // 模糊搜索辅助函数
+  const fuzzyMatch = (text: string, query: string): boolean => {
+    if (!query) return true;
+    if (!text) return false;
+    
+    // 转换为小写进行比较
+    text = text.toLowerCase();
+    query = query.toLowerCase();
+    
+    // 精确子字符串匹配
+    if (text.includes(query)) return true;
+    
+    // 分词匹配（词组中每个词都匹配）
+    const queryTerms = query.split(/\s+/).filter(term => term.length > 0);
+    if (queryTerms.length > 1) {
+      return queryTerms.every(term => fuzzyMatch(text, term));
+    }
+    
+    // 特殊字符处理 - 忽略标点符号和特殊字符
+    const cleanQuery = query.replace(/[^\p{L}\p{N}]/gu, '');
+    const cleanText = text.replace(/[^\p{L}\p{N}]/gu, '');
+    
+    if (cleanText.includes(cleanQuery)) return true;
+    
+    // 缩写匹配 - 检查首字母是否匹配
+    if (query.length <= 5) {
+      const textWords = text.split(/\s+/);
+      const firstLetters = textWords.map(word => word.charAt(0)).join('');
+      if (firstLetters.includes(query)) return true;
+    }
+    
+    // 编辑距离匹配（Levenshtein距离）
+    // 允许较短的查询有更少的错误，较长的查询有更多的错误
+    const maxDistance = Math.max(1, Math.floor(query.length / 4));
+    
+    // 如果查询字符串较短，在文本中寻找编辑距离较小的子串
+    if (query.length <= 5) {
+      for (let i = 0; i <= cleanText.length - query.length; i++) {
+        const subText = cleanText.substr(i, query.length + 2);
+        if (getEditDistance(subText, cleanQuery) <= maxDistance) {
+          return true;
+        }
+      }
+    }
+    
+    // 字符串序列匹配（query中的字符按顺序出现在text中）
+    let textIndex = 0;
+    for (let i = 0; i < query.length; i++) {
+      const char = query[i];
+      // 查找当前字符
+      const found = text.indexOf(char, textIndex);
+      if (found === -1) return false;
+      textIndex = found + 1;
+    }
+    
+    return true;
+  };
+  
+  // 计算编辑距离 (Levenshtein距离)
+  const getEditDistance = (a: string, b: string): number => {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    
+    const matrix: number[][] = [];
+    
+    // 初始化矩阵
+    for (let i = 0; i <= b.length; i++) {
+      matrix[i] = [i];
+    }
+    
+    for (let j = 0; j <= a.length; j++) {
+      matrix[0][j] = j;
+    }
+    
+    // 填充矩阵
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1, // 替换
+            matrix[i][j - 1] + 1,     // 插入
+            matrix[i - 1][j] + 1      // 删除
+          );
+        }
+      }
+    }
+    
+    return matrix[b.length][a.length];
+  };
+
   // 处理转义字符，将字符串中的'\n'转换为实际的换行符
   const parseText = (text: string) => {
     // 正则表达式匹配转义序列的模式
@@ -60,7 +152,11 @@ export default function KetherList(): JSX.Element {
       
       // 默认展开所有类别
       const allCategories = new Set<string>();
-      getAllActions().forEach(action => allCategories.add(action.category));
+      getAllActions().forEach(action => {
+        if (Array.isArray(action.categories)) {
+          action.categories.forEach(cat => allCategories.add(cat));
+        }
+      });
       setExpandedCategories(allCategories);
     }, 500);
     return () => clearTimeout(timer);
@@ -69,7 +165,11 @@ export default function KetherList(): JSX.Element {
   // 获取所有类别
   const categories = useMemo(() => {
     const cats = new Set<string>();
-    actions.forEach(action => cats.add(action.category));
+    actions.forEach(action => {
+      if (Array.isArray(action.categories)) {
+        action.categories.forEach(cat => cats.add(cat));
+      }
+    });
     return Array.from(cats).sort();
   }, [actions]);
 
@@ -83,11 +183,12 @@ export default function KetherList(): JSX.Element {
     return actions.filter(action => {
       const matchesSearch = 
         searchTerm === '' || 
-        action.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        action.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        action.description.toLowerCase().includes(searchTerm.toLowerCase());
+        fuzzyMatch(action.id, searchTerm) ||
+        fuzzyMatch(action.name, searchTerm) ||
+        fuzzyMatch(action.description, searchTerm);
       
-      const matchesCategory = selectedCategory === 'all' || action.category === selectedCategory;
+      const matchesCategory = selectedCategory === 'all' || 
+        (Array.isArray(action.categories) && action.categories.includes(selectedCategory));
       const matchesProvider = selectedProvider === 'all' || action.provider === selectedProvider;
       const matchesType = selectedType === 'all' || action.type === selectedType;
       const matchesTab = activeTab === 'all' || action.type === activeTab;
@@ -100,15 +201,30 @@ export default function KetherList(): JSX.Element {
   const groupedActions = useMemo(() => {
     const groups: Record<string, KetherAction[]> = {};
     
-    filteredActions.forEach(action => {
-      if (!groups[action.category]) {
-        groups[action.category] = [];
-      }
-      groups[action.category].push(action);
+    // 初始化所有类别
+    categories.forEach(cat => {
+      groups[cat] = [];
     });
     
-    return Object.entries(groups).sort(([a], [b]) => a.localeCompare(b));
-  }, [filteredActions]);
+    filteredActions.forEach(action => {
+      if (Array.isArray(action.categories)) {
+        action.categories.forEach(cat => {
+          if (!groups[cat]) {
+            groups[cat] = [];
+          }
+          // 避免重复添加
+          if (!groups[cat].some(a => a.id === action.id)) {
+            groups[cat].push(action);
+          }
+        });
+      }
+    });
+    
+    // 过滤掉没有动作的分类
+    return Object.entries(groups)
+      .filter(([_, actions]) => actions.length > 0)
+      .sort(([a], [b]) => a.localeCompare(b));
+  }, [filteredActions, categories]);
 
   // 按提供者分组
   const groupedByProvider = useMemo(() => {
@@ -140,7 +256,7 @@ export default function KetherList(): JSX.Element {
   // 展开所有类别
   const expandAllCategories = () => {
     const allCategories = new Set<string>();
-    actions.forEach(action => allCategories.add(action.category));
+    categories.forEach(cat => allCategories.add(cat));
     setExpandedCategories(allCategories);
   };
 
@@ -501,9 +617,11 @@ export default function KetherList(): JSX.Element {
               >
                 {selectedAction.provider}
               </span>
-              <span className={`${styles.detailTag} ${styles.detailCategoryTag}`}>
-                {selectedAction.category}
-              </span>
+              {Array.isArray(selectedAction.categories) && selectedAction.categories.map((category, index) => (
+                <span key={index} className={`${styles.detailTag} ${styles.detailCategoryTag}`}>
+                  {category}
+                </span>
+              ))}
             </div>
             
             <div className={styles.detailSection}>
