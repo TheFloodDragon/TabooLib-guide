@@ -5,17 +5,20 @@ const {themes} = require('prism-react-renderer');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+    future: {
+        experimental_faster: true,
+    },
     title: 'TabooLib',
-    url: 'https://tabooproject.org',
-    baseUrl: '/TabooLib-guide/',
+    url: 'https://taboo.8aka.org',
+    baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
-    organizationName: 'taboolib', // Usually your GitHub org/user name.
-    projectName: 'taboolib', // Usually your repo name.
+    organizationName: '8aka-Team', // Usually your GitHub org/user name.
+    projectName: 'TabooLib-Guide', // Usually your repo name.
 
     // Even if you don't use internalization, you can use this field to set useful
     // metadata like html lang. For example, if your site is Chinese, you may want
@@ -26,7 +29,9 @@ const config = {
         locales: ['zh-Hans'],
     },
 
-    plugins: [],
+    plugins: [
+        'docusaurus-plugin-image-zoom',
+    ],
 
     themes: [
         // ... Your other themes.
@@ -61,6 +66,13 @@ const config = {
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            zoom: {
+                selector: '.markdown :not(em) > img',
+                background: {
+                    light: 'rgb(255, 255, 255)',
+                    dark: 'rgb(36 36 36 / 80%)',
+                },
+            },
             navbar: {
                 hideOnScroll: false,
                 title: 'TabooLib',
@@ -89,6 +101,39 @@ const config = {
             },
             footer: {
                 copyright: `Copyright © ${new Date().getFullYear()} <b>8aka-Team</b> All Rights Reserved.`,
+                style: 'dark',
+                links: [
+                    {
+                        title: '文档',
+                        items: [
+                            {
+                                label: '驿站主页',
+                                to: 'https://8aka.org',
+                            },
+                            {
+                                label: 'Docusaurus 主题',
+                                to: 'https://nitwikit.8aka.org',
+                            },
+                            {
+                                label: 'VitePress 主题',
+                                to: 'https://nitwikit2.8aka.org',
+                            },
+                            {
+                                label: 'GitHub',
+                                href: 'https://github.com/8aka-Team/NitWikit',
+                            },
+                        ],
+                    },
+                    {
+                        title: '交流',
+                        items: [
+                            {
+                                label: 'QQ 群',
+                                href: 'https://qm.qq.com/q/dENGavSflK',
+                            },
+                        ],
+                    },
+                ],
             },
             prism: {
                 theme: themes.github,
