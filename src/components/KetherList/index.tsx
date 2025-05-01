@@ -1,36 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-// 声明模块以解决导入错误
-declare module '*.module.css' {
-  const classes: { [key: string]: string };
-  export default classes;
-}
 import styles from './styles.module.css';
-import actionsData from './ketherActions.json';
 import { IoSearch, IoFilter, IoGrid, IoList, IoApps, IoClose, IoChevronDown, IoChevronForward } from 'react-icons/io5';
-
-// 定义接口来匹配JSON文件结构
-interface KetherActionsData {
-  actions: {
-    id: string;
-    name: string;
-    description: string;
-    provider: string;
-    type: string;
-    category: string;
-    example?: string;
-  }[];
-}
-
-// 定义Kether动作的接口
-interface KetherAction {
-  id: string;
-  name: string;
-  description: string;
-  provider: string;
-  type: 'public' | 'private' | 'both';
-  category: string;
-  example?: string;
-}
+import { KetherAction, KetherActionModule, modules, getAllActions } from './actions';
 
 // 布局类型
 type LayoutType = 'grid' | 'compact' | 'list';
@@ -39,6 +10,7 @@ type LayoutType = 'grid' | 'compact' | 'list';
 export default function KetherList(): JSX.Element {
   // 状态管理
   const [actions, setActions] = useState<KetherAction[]>([]);
+  const [moduleList, setModuleList] = useState<KetherActionModule[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -50,19 +22,22 @@ export default function KetherList(): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'public' | 'private'>('all');
 
-  // 从JSON文件加载数据
+  // 获取模块颜色
+  const getModuleColor = (provider: string): string => {
+    const module = moduleList.find(m => m.name === provider);
+    return module?.color || '#6b7280'; // 默认灰色
+  };
+
+  // 从模块加载数据
   useEffect(() => {
     const timer = setTimeout(() => {
-      const typedActions = (actionsData as KetherActionsData).actions.map(action => ({
-        ...action,
-        type: action.type as 'public' | 'private' | 'both'
-      }));
-      setActions(typedActions);
+      setModuleList(modules);
+      setActions(getAllActions());
       setIsLoading(false);
       
       // 默认展开所有类别
       const allCategories = new Set<string>();
-      typedActions.forEach(action => allCategories.add(action.category));
+      getAllActions().forEach(action => allCategories.add(action.category));
       setExpandedCategories(allCategories);
     }, 500);
     return () => clearTimeout(timer);
@@ -77,10 +52,8 @@ export default function KetherList(): JSX.Element {
 
   // 获取所有提供者
   const providers = useMemo(() => {
-    const provs = new Set<string>();
-    actions.forEach(action => provs.add(action.provider));
-    return Array.from(provs).sort();
-  }, [actions]);
+    return moduleList.map(module => module.name).sort();
+  }, [moduleList]);
 
   // 筛选动作
   const filteredActions = useMemo(() => {
@@ -189,7 +162,9 @@ export default function KetherList(): JSX.Element {
           
           <div className={styles.searchSection}>
             <div className={styles.searchContainer}>
-              <IoSearch style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--kether-text-light)', fontSize: '18px' }} />
+              <div className={styles.searchIcon}>
+                <IoSearch />
+              </div>
               <input
                 type="text"
                 placeholder="搜索动作..."
@@ -324,6 +299,7 @@ export default function KetherList(): JSX.Element {
                     key={provider}
                     className={`${styles.filterOption} ${selectedProvider === provider ? styles.active : ''}`}
                     onClick={() => setSelectedProvider(provider)}
+                    style={{ borderLeft: `3px solid ${getModuleColor(provider)}` }}
                   >
                     {provider}
                   </button>
@@ -368,7 +344,11 @@ export default function KetherList(): JSX.Element {
               </div>
             )}
             {selectedProvider !== 'all' && (
-              <div className={styles.activeTag} onClick={() => setSelectedProvider('all')}>
+              <div 
+                className={styles.activeTag} 
+                onClick={() => setSelectedProvider('all')}
+                style={{ borderLeft: `3px solid ${getModuleColor(selectedProvider)}` }}
+              >
                 <span>提供者: {selectedProvider}</span>
                 <IoClose />
               </div>
@@ -430,6 +410,7 @@ export default function KetherList(): JSX.Element {
                           key={action.id}
                           className={`${styles.actionCard} ${selectedAction?.id === action.id ? styles.selected : ''}`}
                           onClick={() => setSelectedAction(action)}
+                          style={{ borderLeft: `3px solid ${getModuleColor(action.provider)}` }}
                         >
                           <div className={styles.actionCardContent}>
                             <div className={styles.actionHeader}>
@@ -438,7 +419,13 @@ export default function KetherList(): JSX.Element {
                                 <span className={`${styles.actionTag} ${styles[action.type]}Type`}>
                                   {action.type === 'public' ? '公共' : '私有'}
                                 </span>
-                                <span className={`${styles.actionTag} ${styles.providerTag}`}>
+                                <span 
+                                  className={styles.actionTag}
+                                  style={{ 
+                                    backgroundColor: getModuleColor(action.provider),
+                                    color: '#fff'
+                                  }}
+                                >
                                   {action.provider}
                                 </span>
                               </div>
@@ -449,7 +436,7 @@ export default function KetherList(): JSX.Element {
                             <p className={styles.actionDescription}>
                               {action.description.length > 100 && layoutType !== 'list'
                                 ? `${action.description.substring(0, 100)}...`
-                                : action.description}
+                                : action.description.split('\n')[0]}
                             </p>
                           </div>
                         </div>
@@ -466,7 +453,7 @@ export default function KetherList(): JSX.Element {
       {/* 详情侧边栏 */}
       {selectedAction && (
         <div className={styles.detailSidebar}>
-          <div className={styles.detailHeader}>
+          <div className={styles.detailHeader} style={{ borderBottom: `2px solid ${getModuleColor(selectedAction.provider)}` }}>
             <button 
               className={styles.closeDetailButton}
               onClick={() => setSelectedAction(null)}
@@ -482,7 +469,13 @@ export default function KetherList(): JSX.Element {
               <span className={`${styles.detailTag} ${styles[selectedAction.type]}Tag`}>
                 {selectedAction.type === 'public' ? '公共' : '私有'}
               </span>
-              <span className={`${styles.detailTag} ${styles.detailProviderTag}`}>
+              <span 
+                className={styles.detailTag}
+                style={{ 
+                  backgroundColor: getModuleColor(selectedAction.provider),
+                  color: '#fff'
+                }}
+              >
                 {selectedAction.provider}
               </span>
               <span className={`${styles.detailTag} ${styles.detailCategoryTag}`}>
@@ -492,8 +485,24 @@ export default function KetherList(): JSX.Element {
             
             <div className={styles.detailSection}>
               <h3 className={styles.detailSectionTitle}>描述</h3>
-              <p className={styles.detailDescription}>{selectedAction.description}</p>
+              <p className={styles.detailDescription}>
+                {selectedAction.description.split('\n').map((line, i) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    {i < selectedAction.description.split('\n').length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </p>
             </div>
+            
+            {selectedAction.syntax && (
+              <div className={styles.detailSection}>
+                <h3 className={styles.detailSectionTitle}>语法</h3>
+                <div className={styles.codeBlock}>
+                  <pre><code>{selectedAction.syntax}</code></pre>
+                </div>
+              </div>
+            )}
             
             {selectedAction.example && (
               <div className={styles.detailSection}>
@@ -507,7 +516,7 @@ export default function KetherList(): JSX.Element {
             <div className={styles.detailSection}>
               <h3 className={styles.detailSectionTitle}>提供者</h3>
               <p className={styles.detailProviderInfo}>
-                {selectedAction.provider === 'Kether' 
+                {selectedAction.provider === 'TabooLib' 
                   ? '原生动作' 
                   : `由 ${selectedAction.provider} 提供的${translateType(selectedAction.type)}动作`}
               </p>
@@ -536,7 +545,7 @@ export default function KetherList(): JSX.Element {
             <span className={styles.statLabel}>类别数</span>
           </div>
           <div className={styles.statItem}>
-            <span className={styles.statValue}>{providers.length}</span>
+            <span className={styles.statValue}>{moduleList.length}</span>
             <span className={styles.statLabel}>提供者数</span>
           </div>
         </div>
