@@ -22,7 +22,7 @@ import adyeshach from './adyeshach';
 import chemdah from './chemdah';
 import dungeonPlus from './dungeonPlus';
 import kether from './kether';
-import tabooLib from './tabooLib';
+import tabooLib from './taboolib';
 import trMenu from './trMenu';
 import vulpecula from './vulpecula';
 import zaphkiel from './zaphkiel';
