@@ -2,7 +2,7 @@ import { KetherActionModule } from './index';
 
 const arim: KetherActionModule = {
     name: "Arim",
-    color: "hsl(185, 69.6%, 27.1%)",
+    color: "#8b5cf6",
     actions: [
         {
             id: "arim-weight",
