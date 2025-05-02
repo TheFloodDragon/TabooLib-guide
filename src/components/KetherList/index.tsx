@@ -211,15 +211,25 @@ export default function KetherList(): JSX.Element {
         fuzzyMatch(action.name, searchTerm) ||
         fuzzyMatch(action.description, searchTerm);
       
-      const matchesCategory = selectedCategory === 'all' || 
-        (Array.isArray(action.categories) && action.categories.includes(selectedCategory));
-      const matchesProvider = selectedProvider === 'all' || action.provider === selectedProvider;
-      const matchesType = selectedType === 'all' || action.type === selectedType;
+      // 多选筛选逻辑
+      const matchesCategory = 
+        activeFilters.category.length === 0 || 
+        (Array.isArray(action.categories) && 
+          action.categories.some(cat => activeFilters.category.includes(cat)));
+      
+      const matchesProvider = 
+        activeFilters.provider.length === 0 || 
+        activeFilters.provider.includes(action.provider);
+      
+      const matchesType = 
+        activeFilters.type.length === 0 || 
+        activeFilters.type.includes(action.type);
+      
       const matchesTab = activeTab === 'all' || action.type === activeTab;
       
       return matchesSearch && matchesCategory && matchesProvider && matchesType && matchesTab;
     });
-  }, [actions, searchTerm, selectedCategory, selectedProvider, selectedType, activeTab]);
+  }, [actions, searchTerm, activeFilters, activeTab]);
 
   // 按类别分组
   const groupedActions = useMemo(() => {
@@ -289,42 +299,27 @@ export default function KetherList(): JSX.Element {
     setExpandedCategories(new Set());
   };
 
-  // 添加筛选条件
-  const addFilter = (type: 'category' | 'provider' | 'type', value: string) => {
+  // 修改筛选类型的处理函数，支持多选
+  const toggleFilter = (type: 'category' | 'provider' | 'type', value: string) => {
     setActiveFilters(prev => {
       const newFilters = {...prev};
-      if (!newFilters[type].includes(value)) {
+      if (newFilters[type].includes(value)) {
+        // 如果已经存在，就移除
+        newFilters[type] = newFilters[type].filter(v => v !== value);
+      } else {
+        // 如果不存在，就添加
         newFilters[type] = [...newFilters[type], value];
       }
       return newFilters;
     });
-    
-    // 更新对应的单选筛选条件
-    if (type === 'category') setSelectedCategory(value);
-    if (type === 'provider') setSelectedProvider(value);
-    if (type === 'type') setSelectedType(value);
-  };
-  
-  // 移除筛选条件
-  const removeFilter = (type: 'category' | 'provider' | 'type', value: string) => {
-    setActiveFilters(prev => {
-      const newFilters = {...prev};
-      newFilters[type] = newFilters[type].filter(v => v !== value);
-      return newFilters;
-    });
-    
-    // 重置对应的单选筛选条件
-    if (type === 'category') setSelectedCategory('all');
-    if (type === 'provider') setSelectedProvider('all');
-    if (type === 'type') setSelectedType('all');
   };
   
   // 清除所有筛选条件
   const clearFilters = () => {
     setSearchTerm('');
-    setSelectedCategory('all');
-    setSelectedProvider('all');
-    setSelectedType('all');
+    setSelectedCategory('all'); // 保留这个状态更新以确保向后兼容
+    setSelectedProvider('all'); // 保留这个状态更新以确保向后兼容
+    setSelectedType('all'); // 保留这个状态更新以确保向后兼容
     setActiveTab('all');
     setActiveFilters({
       category: [],
@@ -446,18 +441,18 @@ export default function KetherList(): JSX.Element {
               <h3 className={styles.filterSectionTitle}>动作类型</h3>
               <div className={styles.filterChips}>
                 <button 
-                  className={`${styles.filterChip} ${selectedType === 'public' ? styles.active : ''}`}
-                  onClick={() => setSelectedType(selectedType === 'public' ? 'all' : 'public')}
+                  className={`${styles.filterChip} ${activeFilters.type.includes('public') ? styles.active : ''}`}
+                  onClick={() => toggleFilter('type', 'public')}
                 >
                   公共动作
-                  {selectedType === 'public' && <IoClose className={styles.chipCloseIcon} />}
+                  {activeFilters.type.includes('public') && <IoClose className={styles.chipCloseIcon} />}
                 </button>
                 <button 
-                  className={`${styles.filterChip} ${selectedType === 'private' ? styles.active : ''}`}
-                  onClick={() => setSelectedType(selectedType === 'private' ? 'all' : 'private')}
+                  className={`${styles.filterChip} ${activeFilters.type.includes('private') ? styles.active : ''}`}
+                  onClick={() => toggleFilter('type', 'private')}
                 >
                   私有动作
-                  {selectedType === 'private' && <IoClose className={styles.chipCloseIcon} />}
+                  {activeFilters.type.includes('private') && <IoClose className={styles.chipCloseIcon} />}
                 </button>
               </div>
             </div>
@@ -469,12 +464,12 @@ export default function KetherList(): JSX.Element {
                 {categories.map(category => (
                   <button 
                     key={category}
-                    className={`${styles.filterCard} ${selectedCategory === category ? styles.active : ''}`}
-                    onClick={() => setSelectedCategory(selectedCategory === category ? 'all' : category)}
+                    className={`${styles.filterCard} ${activeFilters.category.includes(category) ? styles.active : ''}`}
+                    onClick={() => toggleFilter('category', category)}
                   >
                     <div className={styles.filterCardContent}>
                       <span className={styles.filterCardText}>{category}</span>
-                      {selectedCategory === category && <IoClose className={styles.filterCardIcon} />}
+                      {activeFilters.category.includes(category) && <IoClose className={styles.filterCardIcon} />}
                     </div>
                   </button>
                 ))}
@@ -488,16 +483,16 @@ export default function KetherList(): JSX.Element {
                 {providers.map(provider => (
                   <button 
                     key={provider}
-                    className={`${styles.providerFilterCard} ${selectedProvider === provider ? styles.active : ''}`}
-                    onClick={() => setSelectedProvider(selectedProvider === provider ? 'all' : provider)}
+                    className={`${styles.providerFilterCard} ${activeFilters.provider.includes(provider) ? styles.active : ''}`}
+                    onClick={() => toggleFilter('provider', provider)}
                     style={{ 
                       borderLeft: `3px solid ${getModuleColor(provider)}`,
-                      borderColor: selectedProvider === provider ? getModuleColor(provider) : undefined,
+                      borderColor: activeFilters.provider.includes(provider) ? getModuleColor(provider) : undefined,
                     }}
                   >
                     <div className={styles.providerFilterContent}>
                       <span className={styles.providerName}>{provider}</span>
-                      {selectedProvider === provider && <IoClose className={styles.providerFilterIcon} />}
+                      {activeFilters.provider.includes(provider) && <IoClose className={styles.providerFilterIcon} />}
                     </div>
                   </button>
                 ))}
@@ -506,7 +501,7 @@ export default function KetherList(): JSX.Element {
             
             {/* 底部操作按钮 */}
             <div className={styles.filterActions}>
-              {(searchTerm || selectedCategory !== 'all' || selectedProvider !== 'all' || selectedType !== 'all' || activeTab !== 'all') && (
+              {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
                 <button className={styles.clearFiltersButton} onClick={clearFilters}>
                   <IoClose />
                   清除所有筛选条件
@@ -517,7 +512,7 @@ export default function KetherList(): JSX.Element {
         </div>
         
         {/* 活跃筛选标签 */}
-        {(searchTerm || selectedCategory !== 'all' || selectedProvider !== 'all' || selectedType !== 'all' || activeTab !== 'all') && (
+        {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
           <div className={styles.activeTagsContainer}>
             <div className={styles.activeTags}>
               {searchTerm && (
@@ -532,30 +527,31 @@ export default function KetherList(): JSX.Element {
                   <IoClose />
                 </div>
               )}
-              {selectedType !== 'all' && (
-                <div className={styles.activeTag} onClick={() => setSelectedType('all')}>
-                  <span>类型: {selectedType === 'public' ? '公共' : '私有'}</span>
+              {activeFilters.type.map(type => (
+                <div key={type} className={styles.activeTag} onClick={() => toggleFilter('type', type)}>
+                  <span>类型: {type === 'public' ? '公共' : '私有'}</span>
                   <IoClose />
                 </div>
-              )}
-              {selectedCategory !== 'all' && (
-                <div className={styles.activeTag} onClick={() => setSelectedCategory('all')}>
-                  <span>类别: {selectedCategory}</span>
+              ))}
+              {activeFilters.category.map(category => (
+                <div key={category} className={styles.activeTag} onClick={() => toggleFilter('category', category)}>
+                  <span>类别: {category}</span>
                   <IoClose />
                 </div>
-              )}
-              {selectedProvider !== 'all' && (
+              ))}
+              {activeFilters.provider.map(provider => (
                 <div 
+                  key={provider}
                   className={styles.activeTag} 
-                  onClick={() => setSelectedProvider('all')}
-                  style={{ borderLeft: `3px solid ${getModuleColor(selectedProvider)}` }}
+                  onClick={() => toggleFilter('provider', provider)}
+                  style={{ borderLeft: `3px solid ${getModuleColor(provider)}` }}
                 >
-                  <span>提供者: {selectedProvider}</span>
+                  <span>提供者: {provider}</span>
                   <IoClose />
                 </div>
-              )}
+              ))}
               
-              {(searchTerm || selectedCategory !== 'all' || selectedProvider !== 'all' || selectedType !== 'all' || activeTab !== 'all') && (
+              {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
                 <div className={styles.activeTagsClearButton} onClick={clearFilters}>
                   <span>清除全部</span>
                 </div>

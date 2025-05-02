@@ -105,6 +105,7 @@ declare const styles: {
   readonly filterCardContent: string;
   readonly filterCardText: string;
   readonly filterCardIcon: string;
+  readonly filterGrid: string;
   readonly providerFilterGrid: string;
   readonly providerFilterCard: string;
   readonly providerFilterContent: string;
