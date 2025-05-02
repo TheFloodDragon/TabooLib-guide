@@ -111,14 +111,6 @@ const config = {
                                 to: 'https://8aka.org',
                             },
                             {
-                                label: 'Docusaurus 主题',
-                                to: 'https://nitwikit.8aka.org',
-                            },
-                            {
-                                label: 'VitePress 主题',
-                                to: 'https://nitwikit2.8aka.org',
-                            },
-                            {
                                 label: 'GitHub',
                                 href: 'https://github.com/8aka-Team/NitWikit',
                             },
