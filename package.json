@@ -17,15 +17,19 @@
     "starthttps": "cross-env HTTPS=true docusaurus start"
   },
   "dependencies": {
-    "@docusaurus/core": "3.7.0",
-    "@docusaurus/preset-classic": "3.7.0",
+    "@docusaurus/core": "^3.7.0",
+    "@docusaurus/preset-classic": "^3.7.0",
     "@easyops-cn/docusaurus-search-local": "^0.49.2",
+    "@docusaurus/faster": "^3.7.0",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "@docusaurus/plugin-sitemap": "^3.7.0",
+    "docusaurus": "^1.14.7",
+    "docusaurus-plugin-image-zoom": "^2.0.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.7.0",
@@ -52,5 +56,5 @@
     "type": "git",
     "url": "https://github.com/8aka-Team/TabooLib-guide"
   },
-  "homepage": "https://8aka-team.github.io/TabooLib-guide/"
+  "homepage": "https://taboo.8aka.org"
 }

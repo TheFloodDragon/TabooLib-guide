@@ -1,6 +1,6 @@
 import { KetherActionModule } from './index';
 
-const trMenu: KetherActionModule = {
+const trmenu: KetherActionModule = {
   name: "TrMenu",
   color: "#00dee6",
   actions: [
@@ -67,4 +67,4 @@ const trMenu: KetherActionModule = {
   ]
 };
 
-export default trMenu;
+export default trmenu;

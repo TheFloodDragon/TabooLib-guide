@@ -24,7 +24,8 @@ import dungeonPlus from './dungeonPlus';
 import invero from './invero';
 import kether from './kether';
 import tabooLib from './taboolib';
-import trMenu from './trMenu';
+import arim from './arim';
+import trmenu from './trmenu';
 import vulpecula from './vulpecula';
 import zaphkiel from './zaphkiel';
 
@@ -36,7 +37,8 @@ export const modules: KetherActionModule[] = [
   invero,
   kether,
   tabooLib,
-  trMenu,
+  arim,
+  trmenu,
   vulpecula,
   zaphkiel
 ];

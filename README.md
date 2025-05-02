@@ -4,7 +4,12 @@ TabooLib 非官方用户文档
 
 # 阅读
 
-- https://8aka-team.github.io/TabooLib-guide
+- https://taboo.8aka.org
+
+
+[加入 QQ 群(611076407)](https://8aka.org/qq)
+[加入 Discord](https://discord.gg/dAmsfCs3)
+
 
 # 声明
 
