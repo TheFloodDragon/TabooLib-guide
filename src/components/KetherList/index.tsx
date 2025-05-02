@@ -615,7 +615,7 @@ export default function KetherList(): JSX.Element {
                     <div className={styles.actionsGrid}>
                       {categoryActions.map(action => (
                         <div 
-                          key={action.id}
+                          key={`${category}-${action.provider}-${action.id}`}
                           className={`${styles.actionCard} ${selectedAction?.id === action.id ? styles.selected : ''}`}
                           onClick={() => setSelectedAction(action)}
                           style={{ borderLeft: `3px solid ${getModuleColor(action.provider)}` }}
@@ -689,7 +689,7 @@ export default function KetherList(): JSX.Element {
                       action.categories.includes(selectedAction.categories[0])
                     ).map(action => (
                       <div 
-                        key={action.id} 
+                        key={`${selectedAction.categories[0]}-${action.provider}-${action.id}`} 
                         className={`${styles.indexActionItem} ${selectedAction.id === action.id ? styles.indexActionActive : ''}`}
                         onClick={() => setSelectedAction(action)}
                         style={{ borderLeft: `2px solid ${getModuleColor(action.provider)}`}}
@@ -710,7 +710,7 @@ export default function KetherList(): JSX.Element {
                         action.categories.includes(category)
                       ).map(action => (
                         <div 
-                          key={action.id} 
+                          key={`${category}-${action.provider}-${action.id}`} 
                           className={`${styles.indexActionItem} ${selectedAction.id === action.id ? styles.indexActionActive : ''}`}
                           onClick={() => setSelectedAction(action)}
                           style={{ borderLeft: `2px solid ${getModuleColor(action.provider)}`}}
