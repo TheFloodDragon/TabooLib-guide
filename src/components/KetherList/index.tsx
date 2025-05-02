@@ -23,6 +23,21 @@ export default function KetherList(): JSX.Element {
   const [layoutType, setLayoutType] = useState<LayoutType>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'public' | 'private'>('all');
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+
+  // 检测屏幕尺寸
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 1200);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
 
   // 模糊搜索辅助函数
   const fuzzyMatch = (text: string, query: string): boolean => {
@@ -292,7 +307,7 @@ export default function KetherList(): JSX.Element {
 
   // 主渲染函数
   return (
-    <div className={styles.ketherContainer}>
+    <div className={`${styles.ketherContainer} ${selectedAction && !isSmallScreen ? styles.withSidebar : ''}`}>
       {/* 顶部导航栏 */}
       <div className={styles.header}>
         <div className={styles.headerContent}>
@@ -499,7 +514,7 @@ export default function KetherList(): JSX.Element {
       </div>
 
       {/* 主要内容区域 */}
-      <div className={styles.content}>
+      <div className={`${styles.content} ${selectedAction && !isSmallScreen ? styles.withSidebar : ''}`}>
         {isLoading ? (
           <div className={styles.loaderContainer}>
             <div className={styles.loader}></div>
@@ -593,7 +608,7 @@ export default function KetherList(): JSX.Element {
 
       {/* 详情侧边栏 */}
       {selectedAction && (
-        <div className={styles.detailSidebar}>
+        <div className={`${styles.detailSidebar} ${isSmallScreen ? styles.fullscreen : ''}`}>
           <div className={styles.detailHeader} style={{ borderBottom: `2px solid ${getModuleColor(selectedAction.provider)}` }}>
             <button 
               className={styles.closeDetailButton}
@@ -605,66 +620,97 @@ export default function KetherList(): JSX.Element {
             <div className={styles.detailId}>{selectedAction.id}</div>
           </div>
           
-          <div className={styles.detailBody}>
-            <div className={styles.detailTags}>
-              <span className={`${styles.detailTag} ${styles[selectedAction.type]}Tag`}>
-                {selectedAction.type === 'public' ? '公共' : '私有'}
-              </span>
-              <span 
-                className={styles.detailTag}
-                style={{ 
-                  backgroundColor: getModuleColor(selectedAction.provider),
-                  color: '#fff'
-                }}
-              >
-                {selectedAction.provider}
-              </span>
-              {Array.isArray(selectedAction.categories) && selectedAction.categories.map((category, index) => (
-                <span key={index} className={`${styles.detailTag} ${styles.detailCategoryTag}`}>
-                  {category}
-                </span>
+          <div className={styles.sidebarLayout}>
+            {/* 类别索引区域 */}
+            <div className={styles.categoryIndex}>
+              <div className={styles.indexHeader}>
+                <h3>分类导航</h3>
+              </div>
+              
+              {selectedAction.categories && selectedAction.categories.map(category => (
+                <div key={category} className={styles.indexCategory}>
+                  <div className={styles.indexCategoryTitle}>{category}</div>
+                  <div className={styles.indexActionsList}>
+                    {actions.filter(action => 
+                      action.categories && 
+                      action.categories.includes(category)
+                    ).map(action => (
+                      <div 
+                        key={action.id} 
+                        className={`${styles.indexActionItem} ${selectedAction.id === action.id ? styles.indexActionActive : ''}`}
+                        onClick={() => setSelectedAction(action)}
+                        style={{ borderLeft: `2px solid ${getModuleColor(action.provider)}`}}
+                      >
+                        {action.name}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
             
-            <div className={styles.detailSection}>
-              <h3 className={styles.detailSectionTitle}>描述</h3>
-              <p className={styles.detailDescription}>
-                <RenderWithLineBreaks text={selectedAction.description} />
-              </p>
-            </div>
-            
-            {selectedAction.syntax && (
-              <div className={styles.detailSection}>
-                <h3 className={styles.detailSectionTitle}>语法</h3>
-                <CodeBlock language="kotlin" showLineNumbers>
-                  {parseText(selectedAction.syntax)}
-                </CodeBlock>
+            {/* 详情内容区域 */}
+            <div className={styles.detailBody}>
+              <div className={styles.detailTags}>
+                <span className={`${styles.detailTag} ${styles[selectedAction.type]}Tag`}>
+                  {selectedAction.type === 'public' ? '公共' : '私有'}
+                </span>
+                <span 
+                  className={styles.detailTag}
+                  style={{ 
+                    backgroundColor: getModuleColor(selectedAction.provider),
+                    color: '#fff'
+                  }}
+                >
+                  {selectedAction.provider}
+                </span>
+                {Array.isArray(selectedAction.categories) && selectedAction.categories.map((category, index) => (
+                  <span key={index} className={`${styles.detailTag} ${styles.detailCategoryTag}`}>
+                    {category}
+                  </span>
+                ))}
               </div>
-            )}
-            
-            {selectedAction.example && (
+              
               <div className={styles.detailSection}>
-                <h3 className={styles.detailSectionTitle}>示例代码</h3>
-                <CodeBlock language="kotlin" showLineNumbers>
-                  {parseText(selectedAction.example)}
-                </CodeBlock>
+                <h3 className={styles.detailSectionTitle}>描述</h3>
+                <p className={styles.detailDescription}>
+                  <RenderWithLineBreaks text={selectedAction.description} />
+                </p>
               </div>
-            )}
+              
+              {selectedAction.syntax && (
+                <div className={styles.detailSection}>
+                  <h3 className={styles.detailSectionTitle}>语法</h3>
+                  <CodeBlock language="kotlin" showLineNumbers>
+                    {parseText(selectedAction.syntax)}
+                  </CodeBlock>
+                </div>
+              )}
+              
+              {selectedAction.example && (
+                <div className={styles.detailSection}>
+                  <h3 className={styles.detailSectionTitle}>示例代码</h3>
+                  <CodeBlock language="kotlin" showLineNumbers>
+                    {parseText(selectedAction.example)}
+                  </CodeBlock>
+                </div>
+              )}
 
-            <div className={styles.detailSection}>
-              <h3 className={styles.detailSectionTitle}>提供者</h3>
-              <p className={styles.detailProviderInfo}>
-                {selectedAction.provider === 'TabooLib' 
-                  ? '原生动作' 
-                  : `由 ${selectedAction.provider} 提供的${translateType(selectedAction.type)}动作`}
-              </p>
+              <div className={styles.detailSection}>
+                <h3 className={styles.detailSectionTitle}>提供者</h3>
+                <p className={styles.detailProviderInfo}>
+                  {selectedAction.provider === 'TabooLib' 
+                    ? '原生动作' 
+                    : `由 ${selectedAction.provider} 提供的${translateType(selectedAction.type)}动作`}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {/* 底部统计 */}
-      <div className={styles.footer}>
+      <div className={`${styles.footer} ${selectedAction && !isSmallScreen ? styles.withSidebar : ''}`}>
         <div className={styles.statsSection}>
           <div className={styles.statItem}>
             <span className={styles.statValue}>{actions.length}</span>
@@ -690,4 +736,4 @@ export default function KetherList(): JSX.Element {
       </div>
     </div>
   );
-} 
+}
