@@ -22,7 +22,7 @@ sidebar_position: 3
 
 效果如下：
 
-<img id="game_img" src="_images/Xnip2023-07-25_15-04-02.png" width="600"/>
+![渐变文本效果图](/img/components/Xnip2023-07-25_15-04-02.png)
 
 ## 自定义字体
 
@@ -35,7 +35,7 @@ sidebar_position: 3
 
 效果如下：
 
-<img id="game_img" src="_images/Xnip2023-07-25_15-27-35.png" width="600"/>
+![自定义字体效果图](/img/components/Xnip2023-07-25_15-27-35.png)
 
 ## 插入文本
 
@@ -52,7 +52,7 @@ sidebar_position: 3
 
 效果如下：
 
-<img id="game_img" src="_images/Xnip2023-07-25_20-44-32.png" width="600"/>
+![插入文本效果图](/img/components/Xnip2023-07-25_20-44-32.png)
 
 ## 键位
 
@@ -65,7 +65,7 @@ sidebar_position: 3
 
 效果如下：
 
-<img id="game_img" src="_images/Xnip2023-07-25_20-50-30.png" width="600"/>
+![键位效果图](/img/components/Xnip2023-07-25_20-50-30.png)
 
 :::tip
 第一行是当空格为跳跃键时显示的文本，第二行是设置回车键为跳跃键后显示的文本。
@@ -87,7 +87,7 @@ sidebar_position: 3
 
 效果如下：
 
-<img id="game_img" src="_images/Xnip2023-07-25_20-54-29.png" width="600"/>
+![换行效果图](/img/components/Xnip2023-07-25_20-54-29.png)
 
 ## 翻译键
 
@@ -104,7 +104,7 @@ sidebar_position: 3
 
 效果如下：
 
-<img id="game_img" src="_images/Xnip2023-07-25_21-43-40.png" width="600"/>
+![翻译键效果图](/img/components/Xnip2023-07-25_21-43-40.png)
 
 :::tip
 从上至下依次为：汉语、马来语、日语、英语。
@@ -118,4 +118,4 @@ sidebar_position: 3
 
 **不会**，谁有能力谁去搞。
 
-![](_images/GenshinImpact.png)
+![原神效果图](/img/components/GenshinImpact.png)
