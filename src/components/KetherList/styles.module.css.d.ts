@@ -93,6 +93,27 @@ declare const styles: {
   readonly indexActionsList: string;
   readonly indexActionItem: string;
   readonly indexActionActive: string;
+  readonly filterBadge: string;
+  readonly filtersWrapper: string;
+  readonly show: string;
+  readonly filterSection: string;
+  readonly filterSectionTitle: string;
+  readonly filterChips: string;
+  readonly filterChip: string;
+  readonly chipCloseIcon: string;
+  readonly filterCard: string;
+  readonly filterCardContent: string;
+  readonly filterCardText: string;
+  readonly filterCardIcon: string;
+  readonly providerFilterGrid: string;
+  readonly providerFilterCard: string;
+  readonly providerFilterContent: string;
+  readonly providerName: string;
+  readonly providerFilterIcon: string;
+  readonly filterActions: string;
+  readonly activeTagsContainer: string;
+  readonly activeTagsClearButton: string;
+  readonly hide: string;
 };
 
 export default styles; 

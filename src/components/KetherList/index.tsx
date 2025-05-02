@@ -25,6 +25,13 @@ export default function KetherList(): JSX.Element {
   const [activeTab, setActiveTab] = useState<'all' | 'public' | 'private'>('all');
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 
+  // 筛选器状态
+  const [activeFilters, setActiveFilters] = useState<Record<string, string[]>>({
+    category: [],
+    provider: [],
+    type: []
+  });
+
   // 检测屏幕尺寸
   useEffect(() => {
     const checkScreenSize = () => {
@@ -167,7 +174,7 @@ export default function KetherList(): JSX.Element {
       setActions(getAllActions());
       setIsLoading(false);
       
-      // 默认展开所有类别
+      // 默认展开所有类别，无论是单个分类还是多个分类
       const allCategories = new Set<string>();
       getAllActions().forEach(action => {
         if (Array.isArray(action.categories)) {
@@ -282,13 +289,48 @@ export default function KetherList(): JSX.Element {
     setExpandedCategories(new Set());
   };
 
-  // 清除筛选条件
+  // 添加筛选条件
+  const addFilter = (type: 'category' | 'provider' | 'type', value: string) => {
+    setActiveFilters(prev => {
+      const newFilters = {...prev};
+      if (!newFilters[type].includes(value)) {
+        newFilters[type] = [...newFilters[type], value];
+      }
+      return newFilters;
+    });
+    
+    // 更新对应的单选筛选条件
+    if (type === 'category') setSelectedCategory(value);
+    if (type === 'provider') setSelectedProvider(value);
+    if (type === 'type') setSelectedType(value);
+  };
+  
+  // 移除筛选条件
+  const removeFilter = (type: 'category' | 'provider' | 'type', value: string) => {
+    setActiveFilters(prev => {
+      const newFilters = {...prev};
+      newFilters[type] = newFilters[type].filter(v => v !== value);
+      return newFilters;
+    });
+    
+    // 重置对应的单选筛选条件
+    if (type === 'category') setSelectedCategory('all');
+    if (type === 'provider') setSelectedProvider('all');
+    if (type === 'type') setSelectedType('all');
+  };
+  
+  // 清除所有筛选条件
   const clearFilters = () => {
     setSearchTerm('');
     setSelectedCategory('all');
     setSelectedProvider('all');
     setSelectedType('all');
     setActiveTab('all');
+    setActiveFilters({
+      category: [],
+      provider: [],
+      type: []
+    });
   };
 
   // 处理搜索输入
@@ -341,6 +383,9 @@ export default function KetherList(): JSX.Element {
             >
               <IoFilter />
               <span>筛选</span>
+              {Object.values(activeFilters).flat().length > 0 && (
+                <span className={styles.filterBadge}>{Object.values(activeFilters).flat().length}</span>
+              )}
             </button>
             
             <div className={styles.layoutControls}>
@@ -393,122 +438,129 @@ export default function KetherList(): JSX.Element {
           </div>
         </div>
         
-        {/* 筛选器面板 */}
-        {showFilters && (
+        {/* 全新的筛选器面板 */}
+        <div className={`${styles.filtersWrapper} ${showFilters ? styles.show : ''}`}>
           <div className={styles.filtersPanel}>
-            <div className={styles.filterGroup}>
-              <div className={styles.filterLabel}>类型</div>
-              <div className={styles.filterOptions}>
+            {/* 类型筛选 */}
+            <div className={styles.filterSection}>
+              <h3 className={styles.filterSectionTitle}>动作类型</h3>
+              <div className={styles.filterChips}>
                 <button 
-                  className={`${styles.filterOption} ${selectedType === 'all' ? styles.active : ''}`}
-                  onClick={() => setSelectedType('all')}
+                  className={`${styles.filterChip} ${selectedType === 'public' ? styles.active : ''}`}
+                  onClick={() => setSelectedType(selectedType === 'public' ? 'all' : 'public')}
                 >
-                  全部
+                  公共动作
+                  {selectedType === 'public' && <IoClose className={styles.chipCloseIcon} />}
                 </button>
                 <button 
-                  className={`${styles.filterOption} ${selectedType === 'public' ? styles.active : ''}`}
-                  onClick={() => setSelectedType('public')}
+                  className={`${styles.filterChip} ${selectedType === 'private' ? styles.active : ''}`}
+                  onClick={() => setSelectedType(selectedType === 'private' ? 'all' : 'private')}
                 >
-                  公共
-                </button>
-                <button 
-                  className={`${styles.filterOption} ${selectedType === 'private' ? styles.active : ''}`}
-                  onClick={() => setSelectedType('private')}
-                >
-                  私有
+                  私有动作
+                  {selectedType === 'private' && <IoClose className={styles.chipCloseIcon} />}
                 </button>
               </div>
             </div>
             
-            <div className={styles.filterGroup}>
-              <div className={styles.filterLabel}>类别</div>
-              <div className={styles.filterOptions}>
-                <button 
-                  className={`${styles.filterOption} ${selectedCategory === 'all' ? styles.active : ''}`}
-                  onClick={() => setSelectedCategory('all')}
-                >
-                  全部
-                </button>
+            {/* 类别筛选 */}
+            <div className={styles.filterSection}>
+              <h3 className={styles.filterSectionTitle}>类别</h3>
+              <div className={styles.filterGrid}>
                 {categories.map(category => (
                   <button 
                     key={category}
-                    className={`${styles.filterOption} ${selectedCategory === category ? styles.active : ''}`}
-                    onClick={() => setSelectedCategory(category)}
+                    className={`${styles.filterCard} ${selectedCategory === category ? styles.active : ''}`}
+                    onClick={() => setSelectedCategory(selectedCategory === category ? 'all' : category)}
                   >
-                    {category}
+                    <div className={styles.filterCardContent}>
+                      <span className={styles.filterCardText}>{category}</span>
+                      {selectedCategory === category && <IoClose className={styles.filterCardIcon} />}
+                    </div>
                   </button>
                 ))}
               </div>
             </div>
             
-            <div className={styles.filterGroup}>
-              <div className={styles.filterLabel}>提供者</div>
-              <div className={styles.filterOptions}>
-                <button 
-                  className={`${styles.filterOption} ${selectedProvider === 'all' ? styles.active : ''}`}
-                  onClick={() => setSelectedProvider('all')}
-                >
-                  全部
-                </button>
+            {/* 提供者筛选 */}
+            <div className={styles.filterSection}>
+              <h3 className={styles.filterSectionTitle}>提供者</h3>
+              <div className={styles.providerFilterGrid}>
                 {providers.map(provider => (
                   <button 
                     key={provider}
-                    className={`${styles.filterOption} ${selectedProvider === provider ? styles.active : ''}`}
-                    onClick={() => setSelectedProvider(provider)}
-                    style={{ borderLeft: `3px solid ${getModuleColor(provider)}` }}
+                    className={`${styles.providerFilterCard} ${selectedProvider === provider ? styles.active : ''}`}
+                    onClick={() => setSelectedProvider(selectedProvider === provider ? 'all' : provider)}
+                    style={{ 
+                      borderLeft: `3px solid ${getModuleColor(provider)}`,
+                      borderColor: selectedProvider === provider ? getModuleColor(provider) : undefined,
+                    }}
                   >
-                    {provider}
+                    <div className={styles.providerFilterContent}>
+                      <span className={styles.providerName}>{provider}</span>
+                      {selectedProvider === provider && <IoClose className={styles.providerFilterIcon} />}
+                    </div>
                   </button>
                 ))}
               </div>
             </div>
             
-            {(searchTerm || selectedCategory !== 'all' || selectedProvider !== 'all' || selectedType !== 'all') && (
-              <button className={styles.clearFiltersButton} onClick={clearFilters}>
-                <IoClose />
-                清除筛选
-              </button>
-            )}
+            {/* 底部操作按钮 */}
+            <div className={styles.filterActions}>
+              {(searchTerm || selectedCategory !== 'all' || selectedProvider !== 'all' || selectedType !== 'all' || activeTab !== 'all') && (
+                <button className={styles.clearFiltersButton} onClick={clearFilters}>
+                  <IoClose />
+                  清除所有筛选条件
+                </button>
+              )}
+            </div>
           </div>
-        )}
+        </div>
         
         {/* 活跃筛选标签 */}
         {(searchTerm || selectedCategory !== 'all' || selectedProvider !== 'all' || selectedType !== 'all' || activeTab !== 'all') && (
-          <div className={styles.activeTags}>
-            {searchTerm && (
-              <div className={styles.activeTag} onClick={() => setSearchTerm('')}>
-                <span>搜索: {searchTerm}</span>
-                <IoClose />
-              </div>
-            )}
-            {activeTab !== 'all' && (
-              <div className={styles.activeTag} onClick={() => setActiveTab('all')}>
-                <span>动作类型: {activeTab === 'public' ? '公有' : '私有'}</span>
-                <IoClose />
-              </div>
-            )}
-            {selectedType !== 'all' && (
-              <div className={styles.activeTag} onClick={() => setSelectedType('all')}>
-                <span>类型: {selectedType === 'public' ? '公共' : '私有'}</span>
-                <IoClose />
-              </div>
-            )}
-            {selectedCategory !== 'all' && (
-              <div className={styles.activeTag} onClick={() => setSelectedCategory('all')}>
-                <span>类别: {selectedCategory}</span>
-                <IoClose />
-              </div>
-            )}
-            {selectedProvider !== 'all' && (
-              <div 
-                className={styles.activeTag} 
-                onClick={() => setSelectedProvider('all')}
-                style={{ borderLeft: `3px solid ${getModuleColor(selectedProvider)}` }}
-              >
-                <span>提供者: {selectedProvider}</span>
-                <IoClose />
-              </div>
-            )}
+          <div className={styles.activeTagsContainer}>
+            <div className={styles.activeTags}>
+              {searchTerm && (
+                <div className={styles.activeTag} onClick={() => setSearchTerm('')}>
+                  <span>搜索: {searchTerm}</span>
+                  <IoClose />
+                </div>
+              )}
+              {activeTab !== 'all' && (
+                <div className={styles.activeTag} onClick={() => setActiveTab('all')}>
+                  <span>动作类型: {activeTab === 'public' ? '公有' : '私有'}</span>
+                  <IoClose />
+                </div>
+              )}
+              {selectedType !== 'all' && (
+                <div className={styles.activeTag} onClick={() => setSelectedType('all')}>
+                  <span>类型: {selectedType === 'public' ? '公共' : '私有'}</span>
+                  <IoClose />
+                </div>
+              )}
+              {selectedCategory !== 'all' && (
+                <div className={styles.activeTag} onClick={() => setSelectedCategory('all')}>
+                  <span>类别: {selectedCategory}</span>
+                  <IoClose />
+                </div>
+              )}
+              {selectedProvider !== 'all' && (
+                <div 
+                  className={styles.activeTag} 
+                  onClick={() => setSelectedProvider('all')}
+                  style={{ borderLeft: `3px solid ${getModuleColor(selectedProvider)}` }}
+                >
+                  <span>提供者: {selectedProvider}</span>
+                  <IoClose />
+                </div>
+              )}
+              
+              {(searchTerm || selectedCategory !== 'all' || selectedProvider !== 'all' || selectedType !== 'all' || activeTab !== 'all') && (
+                <div className={styles.activeTagsClearButton} onClick={clearFilters}>
+                  <span>清除全部</span>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -548,18 +600,22 @@ export default function KetherList(): JSX.Element {
             <div className={`${styles.actionGroups} ${styles[layoutType]}`}>
               {groupedActions.map(([category, categoryActions]) => (
                 <div key={category} className={styles.categorySection}>
-                  <div 
-                    className={styles.categoryHeader}
-                    onClick={() => toggleCategoryExpanded(category)}
-                  >
-                    <h2 className={styles.categoryTitle}>
-                      {expandedCategories.has(category) ? <IoChevronDown /> : <IoChevronForward />}
-                      <span>{category}</span>
-                      <span className={styles.categoryBadge}>{categoryActions.length}</span>
-                    </h2>
-                  </div>
+                  {/* 如果只有一个分类，不显示分类标题，直接展示内容 */}
+                  {groupedActions.length > 1 ? (
+                    <div 
+                      className={styles.categoryHeader}
+                      onClick={() => toggleCategoryExpanded(category)}
+                    >
+                      <h2 className={styles.categoryTitle}>
+                        {expandedCategories.has(category) ? <IoChevronDown /> : <IoChevronForward />}
+                        <span>{category}</span>
+                        <span className={styles.categoryBadge}>{categoryActions.length}</span>
+                      </h2>
+                    </div>
+                  ) : null}
                   
-                  {expandedCategories.has(category) && (
+                  {/* 如果只有一个分类或者分类被展开，则显示内容 */}
+                  {(groupedActions.length === 1 || expandedCategories.has(category)) && (
                     <div className={styles.actionsGrid}>
                       {categoryActions.map(action => (
                         <div 
@@ -627,13 +683,14 @@ export default function KetherList(): JSX.Element {
                 <h3>分类导航</h3>
               </div>
               
-              {selectedAction.categories && selectedAction.categories.map(category => (
-                <div key={category} className={styles.indexCategory}>
-                  <div className={styles.indexCategoryTitle}>{category}</div>
+              {selectedAction.categories && selectedAction.categories.length === 1 ? (
+                // 只有一个分类时的布局
+                <div className={styles.indexCategory}>
+                  <div className={styles.indexCategoryTitle}>{selectedAction.categories[0]}</div>
                   <div className={styles.indexActionsList}>
                     {actions.filter(action => 
                       action.categories && 
-                      action.categories.includes(category)
+                      action.categories.includes(selectedAction.categories[0])
                     ).map(action => (
                       <div 
                         key={action.id} 
@@ -646,7 +703,29 @@ export default function KetherList(): JSX.Element {
                     ))}
                   </div>
                 </div>
-              ))}
+              ) : (
+                // 多个分类时的原有布局
+                selectedAction.categories && selectedAction.categories.map(category => (
+                  <div key={category} className={styles.indexCategory}>
+                    <div className={styles.indexCategoryTitle}>{category}</div>
+                    <div className={styles.indexActionsList}>
+                      {actions.filter(action => 
+                        action.categories && 
+                        action.categories.includes(category)
+                      ).map(action => (
+                        <div 
+                          key={action.id} 
+                          className={`${styles.indexActionItem} ${selectedAction.id === action.id ? styles.indexActionActive : ''}`}
+                          onClick={() => setSelectedAction(action)}
+                          style={{ borderLeft: `2px solid ${getModuleColor(action.provider)}`}}
+                        >
+                          {action.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
             
             {/* 详情内容区域 */}
