@@ -15,4 +15,21 @@ declare module '@docusaurus/Link' {
   
   const Link: React.FC<LinkProps>;
   export default Link;
+}
+
+// 添加@theme/Layout的类型声明
+declare module '@theme/Layout' {
+  import React from 'react';
+  
+  export interface LayoutProps {
+    children?: React.ReactNode;
+    title?: string;
+    description?: string;
+    wrapperClassName?: string;
+    pageClassName?: string;
+    noFooter?: boolean;
+  }
+  
+  const Layout: React.FC<LayoutProps>;
+  export default Layout;
 } 

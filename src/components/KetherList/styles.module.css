@@ -633,7 +633,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* PluginStore 风格的筛选面板 */
+/* PluginCatalog 风格的筛选面板 */
 .filterPanel {
   background-color: var(--kether-background);
   border-top: 1px solid var(--kether-border);

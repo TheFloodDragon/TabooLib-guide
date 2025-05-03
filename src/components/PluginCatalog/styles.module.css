@@ -1,7 +1,3 @@
-/* PluginStore 样式文件 */
-/* 参照 KetherList 风格设计 */
-
-/* 使用相同的变量定义 */
 :root {
   --kether-primary: #2563EB;
   --kether-primary-dark: #1d4ed8;

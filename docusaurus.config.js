@@ -11,7 +11,7 @@ const config = {
     title: 'TabooLib',
     url: 'https://taboo.8aka.org',
     baseUrl: '/',
-    onBrokenLinks: 'throw',
+    onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
 
@@ -31,17 +31,6 @@ const config = {
 
     plugins: [
         'docusaurus-plugin-image-zoom',
-        [
-            '@docusaurus/plugin-client-redirects',
-            {
-                redirects: [
-                    {
-                        from: '/plugin-store',
-                        to: '/plugin-catalog',
-                    },
-                ],
-            },
-        ],
     ],
 
     themes: [

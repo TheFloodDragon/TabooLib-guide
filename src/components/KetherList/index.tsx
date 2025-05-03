@@ -438,7 +438,7 @@ export default function KetherList(): JSX.Element {
           </div>
         </div>
         
-        {/* 筛选面板 - 修改为与 PluginStore 相同的样式 */}
+        {/* 筛选面板 - 修改为与 PluginCatalog 相同的样式 */}
         <div className={`${styles.filtersWrapper} ${showFilters ? styles.show : ''}`}>
             <div className={styles.filtersPanel}>
               {/* 类型筛选 */}

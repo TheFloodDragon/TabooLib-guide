@@ -15,10 +15,9 @@ type LayoutType = 'grid' | 'compact' | 'list';
 type SortType = 'name' | 'letter' | 'category';
 
 /**
- * PluginStore 组件
- * 基于 KetherList 设计的插件商店组件
+ * PluginCatalog 组件
  */
-export default function PluginStore(): JSX.Element {
+export default function PluginCatalog(): JSX.Element {
   // 状态管理
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
