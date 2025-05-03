@@ -299,6 +299,11 @@ export default function KetherList(): JSX.Element {
     setExpandedCategories(new Set());
   };
 
+  // 切换筛选面板
+  const toggleFilterPanel = () => {
+    setShowFilters(!showFilters);
+  };
+
   // 修改筛选类型的处理函数，支持多选
   const toggleFilter = (type: 'category' | 'provider' | 'type', value: string) => {
     setActiveFilters(prev => {
@@ -374,7 +379,7 @@ export default function KetherList(): JSX.Element {
             
             <button 
               className={`${styles.filterToggle} ${showFilters ? styles.active : ''}`}
-              onClick={() => setShowFilters(!showFilters)}
+              onClick={toggleFilterPanel}
             >
               <IoFilter />
               <span>筛选</span>
@@ -394,7 +399,7 @@ export default function KetherList(): JSX.Element {
               <button 
                 className={`${styles.layoutButton} ${layoutType === 'compact' ? styles.active : ''}`}
                 onClick={() => setLayoutType('compact')}
-                title="紧凑视图"
+                title="宽松视图"
               >
                 <IoApps />
               </button>
@@ -433,7 +438,7 @@ export default function KetherList(): JSX.Element {
           </div>
         </div>
         
-        {/* 全新的筛选器面板 */}
+        {/* 筛选面板 - 修改为与 PluginStore 相同的样式 */}
         <div className={`${styles.filtersWrapper} ${showFilters ? styles.show : ''}`}>
             <div className={styles.filtersPanel}>
               {/* 类型筛选 */}
@@ -460,18 +465,16 @@ export default function KetherList(): JSX.Element {
               {/* 类别筛选 */}
               <div className={styles.filterSection}>
                 <h3 className={styles.filterSectionTitle}>类别</h3>
-                <div className={styles.filterGrid}>
+              <div className={styles.filterChips}>
                   {categories.map(category => (
-                    <button 
+                  <div 
                       key={category}
-                    className={`${styles.filterCard} ${activeFilters.category.includes(category) ? styles.active : ''}`}
+                    className={`${styles.filterChip} ${activeFilters.category.includes(category) ? styles.active : ''}`}
                     onClick={() => toggleFilter('category', category)}
                     >
-                      <div className={styles.filterCardContent}>
-                        <span className={styles.filterCardText}>{category}</span>
-                      {activeFilters.category.includes(category) && <IoClose className={styles.filterCardIcon} />}
+                    {category}
+                    {activeFilters.category.includes(category) && <IoClose className={styles.chipCloseIcon} />}
                       </div>
-                    </button>
                   ))}
                 </div>
               </div>
@@ -479,39 +482,23 @@ export default function KetherList(): JSX.Element {
               {/* 提供者筛选 */}
               <div className={styles.filterSection}>
                 <h3 className={styles.filterSectionTitle}>提供者</h3>
-                <div className={styles.providerFilterGrid}>
-                  {providers.map(provider => (
-                    <button 
-                      key={provider}
-                    className={`${styles.providerFilterCard} ${activeFilters.provider.includes(provider) ? styles.active : ''}`}
-                    onClick={() => toggleFilter('provider', provider)}
-                      style={{ 
-                        borderLeft: `3px solid ${getModuleColor(provider)}`,
-                      borderColor: activeFilters.provider.includes(provider) ? getModuleColor(provider) : undefined,
-                      }}
+              <div className={styles.filterChips}>
+                {moduleList.map(module => (
+                  <div
+                    key={module.name}
+                    className={`${styles.filterChip} ${activeFilters.provider.includes(module.name) ? styles.active : ''}`}
+                    onClick={() => toggleFilter('provider', module.name)}
+                    style={activeFilters.provider.includes(module.name) ? {} : { borderLeft: `3px solid ${getModuleColor(module.name)}` }}
                     >
-                      <div className={styles.providerFilterContent}>
-                        <span className={styles.providerName}>{provider}</span>
-                      {activeFilters.provider.includes(provider) && <IoClose className={styles.providerFilterIcon} />}
+                    {module.name}
+                    {activeFilters.provider.includes(module.name) && <IoClose className={styles.chipCloseIcon} />}
                       </div>
-                    </button>
                   ))}
                 </div>
-              </div>
-              
-              {/* 底部操作按钮 */}
-              <div className={styles.filterActions}>
-              {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
-                  <button className={styles.clearFiltersButton} onClick={clearFilters}>
-                    <IoClose />
-                    清除所有筛选条件
-                  </button>
-                )}
               </div>
             </div>
           </div>
         
-        {/* 活跃筛选标签 */}
         {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
           <div className={styles.activeTagsContainer}>
             <div className={styles.activeTags}>

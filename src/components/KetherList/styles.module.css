@@ -272,12 +272,12 @@
 /* 自适应类，用于控制分类导航的显示与隐藏 */
 .responsiveHidden {
   display: none !important;
-}
-
+  }
+  
 .responsiveVisible {
   display: flex !important;
-}
-
+  }
+  
 /* 响应式布局优化 - 三级响应式 */
 
 /* 大屏到中屏过渡 - 保持左侧导航布局 */
@@ -633,6 +633,39 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* PluginStore 风格的筛选面板 */
+.filterPanel {
+  background-color: var(--kether-background);
+  border-top: 1px solid var(--kether-border);
+  border-bottom: 1px solid var(--kether-border);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.filterPanel.visible {
+  max-height: 1000px;
+  padding: 16px 20px;
+}
+
+.filterSectionHeader {
+  margin-bottom: 10px;
+}
+
+.filterSectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--kether-text);
+  margin: 0;
+}
+
+.filterDivider {
+  height: 1px;
+  background-color: var(--kether-border);
+  margin: 16px 0;
+}
+
 /* 新的筛选器布局 */
 .filtersWrapper {
   border-top: 1px solid var(--kether-border);
@@ -686,20 +719,22 @@
   border-bottom: 1px solid var(--kether-border-light);
 }
 
-/* 筛选选项卡片式布局 */
+/* 筛选选项 */
 .filterChips {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
 .filterChip {
-  padding: 8px 16px;
-  border-radius: 20px;
-  background-color: transparent;
-  border: 1px solid var(--kether-border);
+  padding: 6px 12px;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.03);
   color: var(--kether-text);
-  font-size: 14px;
+  font-size: 13px;
+  border: none;
+  font-family: inherit;
   cursor: pointer;
   transition: var(--kether-transition);
   display: flex;
@@ -708,15 +743,13 @@
 }
 
 .filterChip:hover {
-  background-color: var(--kether-hover);
+  background-color: rgba(0, 0, 0, 0.06);
   transform: translateY(-1px);
 }
 
 .filterChip.active {
   background-color: var(--kether-primary);
   color: white;
-  border-color: var(--kether-primary);
-  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
 }
 
 .chipCloseIcon {
@@ -1874,6 +1907,26 @@
     pointer-events: none;
     position: absolute;
   }
+  
+  /* 移动设备上减小筛选器面板的间距 */
+  .filtersPanel {
+    padding: 16px 12px;
+  }
+  
+  /* 移动设备上减小筛选分类网格的间距 */
+  .filterGrid {
+    gap: 8px;
+  }
+  
+  /* 移动设备上减小提供者筛选网格的间距 */
+  .providerFilterGrid {
+    gap: 8px;
+  }
+  
+  /* 减小分类部分在移动设备上的左右间距 */
+  .categorySection {
+    margin: 0;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1881,9 +1934,21 @@
   .compact .actionsGrid {
     grid-template-columns: 1fr; /* 小屏幕设备上统一为1列 */
   }
+  
+  /* 进一步减小小屏设备上筛选器面板的间距 */
+  .filtersPanel {
+    padding: 12px 8px;
   }
   
-  .layoutControls {
+  /* 更小屏幕上使用负边距让内容区更宽 */
+  .categorySection {
+    margin: 0 -8px;
+    width: calc(100% + 8px);
+    border-radius: var(--kether-radius-sm);
+  }
+}
+
+.layoutControls {
   display: flex;
   background-color: var(--kether-background);
   border: 1px solid var(--kether-border);
@@ -1896,7 +1961,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   }
   
-  .layoutButton {
+.layoutButton {
   background: transparent;
   border: none;
   padding: 8px 10px;

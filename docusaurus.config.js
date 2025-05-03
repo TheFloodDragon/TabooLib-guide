@@ -93,6 +93,11 @@ const config = {
                         position: 'left',
                     },
                     {
+                        href: '/plugin-store',
+                        label: '插件商店',
+                        position: 'left',
+                    },
+                    {
                         href: 'https://github.com/8aka-Team/TabooLib-guide',
                         label: 'GitHub',
                         position: 'right',
