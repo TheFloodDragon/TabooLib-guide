@@ -313,7 +313,7 @@ export default function PluginStore(): JSX.Element {
               <div className={styles.logo}>
                 <IoStorefront />
               </div>
-              <h2 className={styles.title}>TabooLib 插件商店</h2>
+              <h2 className={styles.title}>TabooLib 插件目录</h2>
             </div>
           </div>
         </div>
@@ -335,7 +335,7 @@ export default function PluginStore(): JSX.Element {
               <div className={styles.logo}>
                 <IoStorefront />
               </div>
-              <h2 className={styles.title}>TabooLib 插件商店</h2>
+              <h2 className={styles.title}>TabooLib 插件目录</h2>
             </div>
             <div className={styles.searchSection}>
               <div className={styles.searchContainer}>
@@ -534,7 +534,7 @@ export default function PluginStore(): JSX.Element {
             <div className={styles.logo}>
               <IoStorefront />
             </div>
-            <h1 className={styles.title}>TabooLib 插件商店</h1>
+            <h1 className={styles.title}>TabooLib 插件目录</h1>
           </div>
           <div className={styles.searchSection}>
             <div className={styles.searchContainer}>

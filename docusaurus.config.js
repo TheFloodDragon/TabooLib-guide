@@ -93,8 +93,8 @@ const config = {
                         position: 'left',
                     },
                     {
-                        href: '/plugin-store',
-                        label: '插件商店',
+                        href: '/plugin-catalog',
+                        label: '插件汇总',
                         position: 'left',
                     },
                     {
