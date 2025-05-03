@@ -6,7 +6,7 @@ import { IoSearch, IoGrid, IoList, IoApps, IoClose, IoChevronDown, IoChevronForw
   IoFilter, IoSwapVertical, IoTimeOutline, IoTextOutline, IoCodeOutline } from 'react-icons/io5';
 import { FaGamepad } from 'react-icons/fa';
 import Link from '@docusaurus/Link';
-import { modules, plugins, Plugin, PluginModule, getCategories, getLetters } from './data/plugins';
+import { Plugin, plugins, getAllPlugins, getCategories, getLetters } from './data/plugins';
 
 // 布局类型
 type LayoutType = 'grid' | 'compact' | 'list';
@@ -22,9 +22,8 @@ export default function PluginStore(): JSX.Element {
   // 状态管理
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set(['all']));
   const [selectedLetter, setSelectedLetter] = useState<string>('all');
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(modules.map(m => m.id)));
   const [layoutType, setLayoutType] = useState<LayoutType>('grid');
   const [selectedPlugin, setSelectedPlugin] = useState<Plugin | null>(null);
   const [sortType, setSortType] = useState<SortType>('name');
@@ -34,47 +33,23 @@ export default function PluginStore(): JSX.Element {
   const [sidebarState, setSidebarState] = useState<'entering' | 'visible' | 'leaving' | 'hidden'>('hidden');
   const [sidebarPlugin, setSidebarPlugin] = useState<Plugin | null>(null);
   
-  // 引用侧边栏元素
+  // 侧边栏引用 - 用于检测点击外部
   const sidebarRef = useRef<HTMLDivElement>(null);
-
-  // 获取所有类别和字母
-  const categories = useMemo(() => getCategories(), []);
-  const letters = useMemo(() => getLetters(), []);
   
-  // 模拟加载
+  // 类别和字母列表
+  const categories = getCategories();
+  const letters = getLetters();
+  
+  // 初始加载
   useEffect(() => {
+    // 模拟加载
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 500);
     
     return () => clearTimeout(timer);
   }, []);
-
-  // 监听侧边栏状态变化，调整主内容区的样式
-  useEffect(() => {
-    if (selectedPlugin) {
-      // 在移动设备上完全隐藏主内容区
-      if (window.innerWidth <= 996) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        // 在大屏幕上允许滚动
-        document.body.style.overflow = '';
-        // 给主内容区添加一个右边距，防止被侧边栏完全遮挡
-        document.documentElement.style.setProperty('--content-right-margin', '400px');
-      }
-    } else {
-      // 侧边栏关闭时恢复正常
-      document.body.style.overflow = '';
-      document.documentElement.style.setProperty('--content-right-margin', '0');
-    }
-
-    // 组件卸载时恢复默认值
-    return () => {
-      document.body.style.overflow = '';
-      document.documentElement.style.setProperty('--content-right-margin', '0');
-    }
-  }, [selectedPlugin]);
-
+  
   // 处理点击外部关闭侧边栏
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -82,19 +57,12 @@ export default function PluginStore(): JSX.Element {
       const target = event.target as HTMLElement;
       const isPluginCard = target.closest(`.${styles.pluginCard}`);
       
-      if (selectedPlugin && sidebarRef.current && 
-          !sidebarRef.current.contains(target) && 
-          !isPluginCard) {
-        // 点击在侧边栏外部且不是插件卡片，关闭侧边栏
+      if (selectedPlugin && sidebarRef.current && !sidebarRef.current.contains(target as Node) && !isPluginCard) {
         closePluginDetail();
       }
     };
-
-    // 只有在侧边栏打开时才添加事件监听器
-    if (selectedPlugin) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
+    
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -156,8 +124,8 @@ export default function PluginStore(): JSX.Element {
 
       // 类别筛选
       const matchesCategory = 
-        selectedCategory === 'all' || 
-        plugin.category === selectedCategory;
+        selectedCategories.has('all') || 
+        selectedCategories.has(plugin.category);
         
       // 字母筛选
       const matchesLetter = 
@@ -171,7 +139,7 @@ export default function PluginStore(): JSX.Element {
     result = sortPlugins(result);
     
     return result;
-  }, [searchTerm, selectedCategory, selectedLetter, sortType, sortAscending]);
+  }, [searchTerm, selectedCategories, selectedLetter, sortType, sortAscending]);
 
   // 处理排序变更
   const handleSortChange = (newSortType: SortType) => {
@@ -185,51 +153,34 @@ export default function PluginStore(): JSX.Element {
     }
   };
 
-  // 组织插件到模块分组
-  const groupedPlugins = useMemo(() => {
-    const result: Record<string, Plugin[]> = {};
-    
-    modules.forEach(module => {
-      const modulePlugins = filteredPlugins.filter(plugin => {
-        if (module.id === 'core') {
-          return ['menu', 'npc', 'quest', 'script', 'item'].includes(plugin.category);
-        }
-        
-        if (module.id === 'feature') {
-          return ['utility', 'chat', 'level', 'attribute', 'dungeon', 'enchant'].includes(plugin.category);
-        }
-        
-        if (module.id === 'expansion') {
-          return ['expansion', 'effect', 'economy', 'ui'].includes(plugin.category);
-        }
-        
-        return false;
-      });
-      
-      if (modulePlugins.length > 0) {
-        result[module.id] = modulePlugins;
-      }
-    });
-    
-    return result;
-  }, [filteredPlugins]);
-
-  // 处理类别折叠/展开
-  const toggleCategoryExpanded = (category: string) => {
-    setExpandedCategories(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(category)) {
-        newSet.delete(category);
-      } else {
-        newSet.add(category);
-      }
-      return newSet;
-    });
-  }; 
-
-  // 类别选择
+  // 处理类别选择
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
+    const newSelected = new Set(selectedCategories);
+    
+    if (category === 'all') {
+      // 如果选择"全部"，则清除其他所有选择
+      newSelected.clear();
+      newSelected.add('all');
+    } else {
+      // 如果已选择了"全部"，先移除它
+      if (newSelected.has('all')) {
+        newSelected.delete('all');
+      }
+      
+      // 如果已选择了这个类别，则移除它
+      if (newSelected.has(category)) {
+        newSelected.delete(category);
+        // 如果移除后没有任何选择，则重新选择"全部"
+        if (newSelected.size === 0) {
+          newSelected.add('all');
+        }
+      } else {
+        // 否则添加这个类别
+        newSelected.add(category);
+      }
+    }
+    
+    setSelectedCategories(newSelected);
   };
 
   // 字母选择
@@ -413,7 +364,7 @@ export default function PluginStore(): JSX.Element {
           <p>尝试使用不同的搜索词或清除筛选条件</p>
           <button className={styles.resetButton} onClick={() => {
             setSearchTerm('');
-            setSelectedCategory('all');
+            setSelectedCategories(new Set(['all']));
             setSelectedLetter('all');
           }}>
             重置筛选条件
@@ -610,9 +561,9 @@ export default function PluginStore(): JSX.Element {
             >
               <IoFilter />
               <span>筛选</span>
-              {(selectedCategory !== 'all' || selectedLetter !== 'all') && (
+              {(selectedCategories.size > 1 || selectedLetter !== 'all') && (
                 <span className={styles.filterBadge}>
-                  {(selectedCategory !== 'all' ? 1 : 0) + (selectedLetter !== 'all' ? 1 : 0)}
+                  {(selectedCategories.size > 1 ? selectedCategories.size - 1 : 0) + (selectedLetter !== 'all' ? 1 : 0)}
                 </span>
               )}
             </button>
@@ -644,54 +595,6 @@ export default function PluginStore(): JSX.Element {
             </div>
           </div>
         </div>
-
-        {/* 选项卡 */}
-        <div className={styles.tabsContainer}>
-          <div className={styles.tabList}>
-            <button
-              className={`${styles.tabButton} ${selectedCategory === 'all' ? styles.active : ''}`}
-              onClick={() => handleCategorySelect('all')}
-            >
-              全部插件
-            </button>
-            <button
-              className={`${styles.tabButton} ${['menu', 'npc', 'quest', 'script', 'item'].includes(selectedCategory) ? styles.active : ''}`}
-              onClick={() => {
-                if (['menu', 'npc', 'quest', 'script', 'item'].includes(selectedCategory)) {
-                  handleCategorySelect('all');
-                } else {
-                  handleCategorySelect('menu');
-                }
-              }}
-            >
-              核心插件
-            </button>
-            <button
-              className={`${styles.tabButton} ${['utility', 'chat', 'level', 'attribute', 'dungeon', 'enchant'].includes(selectedCategory) ? styles.active : ''}`}
-              onClick={() => {
-                if (['utility', 'chat', 'level', 'attribute', 'dungeon', 'enchant'].includes(selectedCategory)) {
-                  handleCategorySelect('all');
-                } else {
-                  handleCategorySelect('utility');
-                }
-              }}
-            >
-              功能插件
-            </button>
-            <button
-              className={`${styles.tabButton} ${['expansion', 'effect', 'economy', 'ui'].includes(selectedCategory) ? styles.active : ''}`}
-              onClick={() => {
-                if (['expansion', 'effect', 'economy', 'ui'].includes(selectedCategory)) {
-                  handleCategorySelect('all');
-                } else {
-                  handleCategorySelect('expansion');
-                }
-              }}
-            >
-              拓展插件
-            </button>
-          </div>
-        </div>
       </div>
 
       {/* 筛选面板 */}
@@ -707,10 +610,10 @@ export default function PluginStore(): JSX.Element {
           </div>
 
           <div className={styles.filterSection}>
-            <h3 className={styles.filterSectionTitle}>分类筛选</h3>
+            <h3 className={styles.filterSectionTitle}>分类筛选 <span className={styles.filterSectionSubTitle}>(可多选)</span></h3>
             <div className={styles.filterChips}>
               <div 
-                className={`${styles.filterChip} ${selectedCategory === 'all' ? styles.active : ''}`}
+                className={`${styles.filterChip} ${selectedCategories.has('all') ? styles.active : ''}`}
                 onClick={() => handleCategorySelect('all')}
               >
                 全部
@@ -718,10 +621,13 @@ export default function PluginStore(): JSX.Element {
               {categories.map(category => (
                 <div
                   key={category}
-                  className={`${styles.filterChip} ${selectedCategory === category ? styles.active : ''}`}
+                  className={`${styles.filterChip} ${selectedCategories.has(category) ? styles.active : ''}`}
                   onClick={() => handleCategorySelect(category)}
                 >
                   {getCategoryDisplayName(category)}
+                  {selectedCategories.has(category) && !selectedCategories.has('all') && (
+                    <span className={styles.chipCheckmark}>✓</span>
+                  )}
                 </div>
               ))}
             </div>
@@ -751,7 +657,7 @@ export default function PluginStore(): JSX.Element {
       </div>
 
       {/* 活跃标签 */}
-      {(searchTerm || selectedCategory !== 'all' || selectedLetter !== 'all') && (
+      {(searchTerm || selectedCategories.size > 1 || selectedLetter !== 'all') && (
         <div className={styles.activeTagsContainer}>
           <div className={styles.activeTags}>
             {searchTerm && (
@@ -760,22 +666,34 @@ export default function PluginStore(): JSX.Element {
                 <IoClose />
               </div>
             )}
-            {selectedCategory !== 'all' && (
-              <div className={styles.activeTag} onClick={() => handleCategorySelect('all')}>
-                <span>分类: {getCategoryDisplayName(selectedCategory)}</span>
+            
+            {/* 显示所有已选类别 */}
+            {!selectedCategories.has('all') && Array.from(selectedCategories).map(category => (
+              <div 
+                key={category} 
+                className={styles.activeTag} 
+                onClick={() => {
+                  // 如果只剩一个类别，点击时会自动切换回"全部"
+                  handleCategorySelect(category);
+                }}
+              >
+                <span>分类: {getCategoryDisplayName(category)}</span>
                 <IoClose />
               </div>
-            )}
+            ))}
+            
             {selectedLetter !== 'all' && (
               <div className={styles.activeTag} onClick={() => handleLetterSelect('all')}>
                 <span>字母: {selectedLetter}</span>
                 <IoClose />
               </div>
             )}
-            {(searchTerm || selectedCategory !== 'all' || selectedLetter !== 'all') && (
+            
+            {/* 清除全部按钮 */}
+            {(searchTerm || !selectedCategories.has('all') || selectedLetter !== 'all') && (
               <div className={styles.activeTagsClearButton} onClick={() => {
                 setSearchTerm('');
-                setSelectedCategory('all');
+                setSelectedCategories(new Set(['all']));
                 setSelectedLetter('all');
               }}>
                 <span>清除全部</span>

@@ -12,12 +12,6 @@ export interface Plugin {
   detail?: string;
 }
 
-export interface PluginModule {
-  name: string;
-  id: string;
-  color: string;
-  plugins: Plugin[];
-}
 // 看到下面的 category 字段了吗，你可以通过 PluginDetail.tsx 来指定新的分类或修改
 // 看到下面的 links 字段了吗，你可以通过 index.tsx 来指定新的链接类型或修改新的，记得改上面的links.type！
 export const plugins: Plugin[] = [
@@ -455,27 +449,6 @@ export const plugins: Plugin[] = [
         label: 'GitHub'
       }
     ]
-  }
-];
-
-export const modules: PluginModule[] = [
-  {
-    name: '核心插件',
-    id: 'core',
-    color: '#2563EB',
-    plugins: plugins.filter(p => ['menu', 'npc', 'quest', 'script', 'item'].includes(p.category))
-  },
-  {
-    name: '功能插件',
-    id: 'feature',
-    color: '#10B981',
-    plugins: plugins.filter(p => ['utility', 'chat', 'level', 'attribute', 'dungeon', 'enchant'].includes(p.category))
-  },
-  {
-    name: '拓展插件',
-    id: 'expansion',
-    color: '#8B5CF6',
-    plugins: plugins.filter(p => ['expansion', 'effect', 'economy', 'ui'].includes(p.category))
   }
 ];
 
