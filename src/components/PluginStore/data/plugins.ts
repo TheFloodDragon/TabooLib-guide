@@ -19,7 +19,7 @@ export interface PluginModule {
   plugins: Plugin[];
 }
 // 看到下面的 category 字段了吗，你可以通过 PluginDetail.tsx 来指定新的分类或修改
-// 看到下面的 links 字段了吗，你可以通过 index.tsx 来指定新的链接类型或修改新的
+// 看到下面的 links 字段了吗，你可以通过 index.tsx 来指定新的链接类型或修改新的，记得改上面的links.type！
 export const plugins: Plugin[] = [
   {
     id: 'aiyatsbus',
