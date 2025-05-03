@@ -727,6 +727,17 @@ export default function PluginStore(): JSX.Element {
         <div className={styles.pluginsGrid}>
           {filteredPlugins.map(plugin => renderPluginCard(plugin))}
         </div>
+        
+        {/* 底部提示信息 */}
+        <div className={styles.disclaimerContainer}>
+          <div className={styles.disclaimer}>
+            <IoTimeOutline className={styles.disclaimerIcon} />
+            <p className={styles.disclaimerText}>
+              本插件目录中的内容均由社区成员人工收录和整理，可能不包含所有TabooLib插件。
+              如果您发现有缺失或需要更新的插件，欢迎在<a href="https://github.com/8aka-Team/TabooLib-guide" target="_blank" rel="noopener noreferrer">GitHub仓库</a>中提交贡献。
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* 插件详情 - 始终渲染但通过状态控制可见性 */}
@@ -835,7 +846,7 @@ export default function PluginStore(): JSX.Element {
                               className={styles.detailLink}
                               target="_blank"
                               rel="noopener noreferrer"
-                              aria-label={`${link.label} 链接`}
+                              aria-label={`${link.label || getLinkTypeName(type)} 链接`}
                             >
                               {getLinkIcon(type)} 
                               {typeLinks.length > 1 
