@@ -31,6 +31,17 @@ const config = {
 
     plugins: [
         'docusaurus-plugin-image-zoom',
+        [
+            '@docusaurus/plugin-client-redirects',
+            {
+                redirects: [
+                    {
+                        from: '/plugin-store',
+                        to: '/plugin-catalog',
+                    },
+                ],
+            },
+        ],
     ],
 
     themes: [
