@@ -55,6 +55,7 @@
   width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
+  --kether-list-sidebar-width: 800px;
 }
 
 /* 设置侧边栏打开时的容器样式 */
@@ -117,7 +118,7 @@
 }
 
 .content.withSidebar {
-  width: calc(100% - var(--sidebar-width));
+  width: calc(100% - var(--kether-list-sidebar-width));
   box-sizing: border-box;
 }
 
@@ -239,7 +240,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: var(--sidebar-width);
+  width: var(--kether-list-sidebar-width);
   height: 100vh;
   background-color: var(--kether-background);
   border-left: 1px solid var(--kether-border);
@@ -1777,7 +1778,7 @@
 }
 
 .footer.withSidebar {
-  width: calc(100% - var(--sidebar-width));
+  width: calc(100% - var(--kether-list-sidebar-width));
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -2035,7 +2036,6 @@
   --kether-hover: var(--ifm-color-emphasis-100);
   --kether-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   --kether-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  --sidebar-width: 800px;
 }
 
 /* 深色模式变量覆盖 */

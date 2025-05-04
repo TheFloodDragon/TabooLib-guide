@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import styles from './styles.module.css';
 import { IoSearch, IoFilter, IoGrid, IoList, IoApps, IoClose, IoChevronDown, IoChevronForward } from 'react-icons/io5';
 import { KetherAction, KetherActionModule, modules, getAllActions } from './actions';
@@ -31,6 +31,8 @@ export default function KetherList(): JSX.Element {
     provider: [],
     type: []
   });
+
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   // 检测屏幕尺寸
   useEffect(() => {
@@ -347,6 +349,31 @@ export default function KetherList(): JSX.Element {
     }
   };
 
+  // 处理点击事件，点击空白区域关闭侧边栏
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      
+      // 判断点击元素是否是卡片或卡片内部元素
+      const isCardClick = target.closest(`.${styles.actionCard}`) !== null;
+      
+      // 只有在侧边栏打开、点击不在侧边栏内部、且不是点击卡片时才关闭
+      if (selectedAction && sidebarRef.current && 
+          !sidebarRef.current.contains(target) && 
+          !isCardClick) {
+        setSelectedAction(null);
+      }
+    };
+
+    // 添加点击事件监听
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // 清除监听
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [selectedAction]);
+
   // 主渲染函数
   return (
     <div className={`${styles.ketherContainer} ${selectedAction && !isSmallScreen ? styles.withSidebar : ''}`}>
@@ -647,7 +674,10 @@ export default function KetherList(): JSX.Element {
 
       {/* 详情侧边栏 */}
       {selectedAction && (
-        <div className={`${styles.detailSidebar} ${isSmallScreen ? styles.fullscreen : ''}`}>
+        <div 
+          ref={sidebarRef}
+          className={`${styles.detailSidebar} ${isSmallScreen ? styles.fullscreen : ''}`}
+        >
           <div className={styles.detailHeader} style={{ borderBottom: `2px solid ${getModuleColor(selectedAction.provider)}` }}>
             <button 
               className={styles.closeDetailButton}

@@ -74,6 +74,7 @@
   width: 100%;
   overflow-x: visible;
   box-sizing: border-box;
+  --plugin-catalog-sidebar-width: 380px;
 }
 
 /* 设置侧边栏打开时的容器样式 */
@@ -181,11 +182,11 @@
 
 /* 当侧边栏打开时的内容区域样式 */
 .content.withSidebar {
-  width: calc(100% - var(--sidebar-width));
+  width: calc(100% - var(--plugin-catalog-sidebar-width, var(--sidebar-width)));
   box-sizing: border-box;
   transform: translateX(0);
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  margin-right: var(--sidebar-width);
+  margin-right: var(--plugin-catalog-sidebar-width, var(--sidebar-width));
   overflow-y: auto;
   pointer-events: auto;
 }
@@ -196,7 +197,7 @@
   top: 0;
   right: 0;
   height: 100vh;
-  width: var(--sidebar-width);
+  width: var(--plugin-catalog-sidebar-width, var(--sidebar-width)) !important;
   background-color: var(--kether-background);
   border-left: 1px solid var(--kether-border);
   box-shadow: var(--kether-sidebar-shadow);
@@ -1450,8 +1451,8 @@
 }
 
 .disclaimerContainer.withSidebar {
-  width: calc(100% - var(--sidebar-width));
-  margin-right: var(--sidebar-width);
+  width: calc(100% - var(--plugin-catalog-sidebar-width, var(--sidebar-width)));
+  margin-right: var(--plugin-catalog-sidebar-width, var(--sidebar-width));
   box-sizing: border-box;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1740,6 +1741,6 @@
 }
 
 .footer.withSidebar {
-  width: calc(100% - var(--sidebar-width));
+  width: calc(100% - var(--plugin-catalog-sidebar-width, var(--sidebar-width)));
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 } 
