@@ -38,7 +38,7 @@
   /* 布局尺寸 */
   --index-width: 180px;
   --detail-padding: 36px;
-  --sidebar-width: 450px;
+  --sidebar-width: 380px;
 }
 
 /* 响应式设计 - 只使用两种模式：
