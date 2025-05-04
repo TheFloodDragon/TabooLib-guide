@@ -62,7 +62,7 @@ export const plugins: Plugin[] = [
     description: '属性插件',
     category: 'attribute',
     letter: 'A',
-    detail: 'AttributePlus是一个全面的属性系统插件，允许服务器创建自定义属性系统。支持装备属性、玩家属性、属性条件等功能。可以与其他插件无缝集成，为RPG服务器提供强大的属性支持。',
+    detail: 'AttributePlus是一个全面的属性系统插件，允许服务器创建自定义属性系统。支持装备属性、玩家属性、属性条件等功能。可以与其他插件无缝集成，为RPG服务器提供强大的属性支持。插件拥有40+种属性，多种条件判断，每种属性都可以设置优先级、战斗力，部分属性还支持自定义公式。所有属性均支持小数点、负数、随机值，同时属性还可以作用到怪物上。支持1.8至1.20.4版本。',
     links: [
       {
         type: 'mcbbs',
@@ -187,7 +187,7 @@ export const plugins: Plugin[] = [
     description: '地牢插件',
     category: 'dungeon',
     letter: 'D',
-    detail: 'DungeonPlus是一个功能强大的地牢系统插件，支持自定义地牢、多样化的怪物生成、丰富的奖励机制和地牢挑战机制。适合想要为服务器添加PVE内容的服主使用，可以创建引人入胜的地牢冒险体验。',
+    detail: 'DungeonPlus是一个功能强大的地牢系统插件，支持自定义地牢、多样化的怪物生成、丰富的奖励机制和地牢挑战机制。适合想要为服务器添加PVE内容的服主使用，可以创建引人入胜的地牢冒险体验。地牢采用异步处理降低对服务器的耗能，支持1.9至1.20.2版本。最特别的是它支持"独立地牢"（副本）功能，即多个队伍同时挑战同一个地牢互不干扰、免排队。',
     links: [
       {
         type: 'mcbbs',
@@ -197,6 +197,21 @@ export const plugins: Plugin[] = [
       {
         type: 'docs',
         url: 'https://ersha.gitbook.io/dungeonplus',
+        label: '文档'
+      }
+    ]
+  },
+  {
+    id: 'itemextension',
+    name: 'Item Extension',
+    description: '装备扩展功能插件',
+    category: 'item',
+    letter: 'I',
+    detail: 'Item Extension是基于TabooLib开发的装备扩展功能插件，支持装备赋能、装备附魔、装备宝石等玩法。可以为装备扩展SkillAPI、MythicMobs、Planners技能，同时配有套装功能。支持自定义扩展道具的属性效果、技能效果和套装效果，兼容多种属性插件。支持1.8至1.19.3版本。',
+    links: [
+      {
+        type: 'docs',
+        url: 'https://ersha.gitbook.io/code-new/item-extension/item-extension',
         label: '文档'
       }
     ]
@@ -471,4 +486,4 @@ export function getLetters(): string[] {
 
 export function getPluginById(id: string): Plugin | undefined {
   return plugins.find(plugin => plugin.id === id);
-} 
+}
