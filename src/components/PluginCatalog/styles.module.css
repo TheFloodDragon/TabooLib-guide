@@ -37,14 +37,14 @@
   /* 布局尺寸 */
   --index-width: 180px;
   --detail-padding: 36px;
-  --sidebar-width: 400px;
+  --sidebar-width: 450px;
   --content-right-margin: 0;
 }
 
 /* 根据屏幕大小调整变量 */
 @media (max-width: 996px) {
   :root {
-    --sidebar-width: 80%;
+    --sidebar-width: 85%;
     --detail-padding: 28px;
   }
 }
@@ -593,14 +593,18 @@
   color: white;
 }
 
-/* 响应式布局 */
+/* 响应式布局优化 */
 @media (max-width: 1400px) {
   .grid .pluginsGrid {
     grid-template-columns: repeat(4, 1fr); /* 大屏显示4列 */
   }
   
   .content.withSidebar .grid .pluginsGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 大屏幕时减少到2列 */
+  }
+  
+  .content.withSidebar .compact .pluginsGrid {
+    grid-template-columns: repeat(1, 1fr); /* 改为单列 */
   }
 }
 
@@ -614,11 +618,13 @@
   }
   
   .content.withSidebar .grid .pluginsGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr); /* 中等屏幕改为单列 */
+    gap: 20px; /* 调整间距 */
   }
   
   .content.withSidebar .compact .pluginsGrid {
     grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
   }
 }
 
@@ -643,11 +649,18 @@
   .content.withSidebar {
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50px);
+    transform: translateX(-30px);
   }
   
   .detailSidebar {
     width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .grid .pluginsGrid, 
+  .compact .pluginsGrid {
+    grid-template-columns: 1fr; /* 超小屏幕设备上统一为1列 */
   }
 }
 
@@ -726,7 +739,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 24px 32px;
+  margin: 5px 24px 35px; /* 调整上下间距 */
   padding: 0;
   width: calc(100% - 48px);
   box-sizing: border-box;
@@ -788,75 +801,66 @@
 
 /* 侧边栏打开时的布局调整 */
 .content.withSidebar .grid .pluginsGrid {
-  grid-template-columns: repeat(3, 1fr); /* 侧边栏打开时改为3列 */
+  gap: 30px; /* 统一增加间距 */
+  padding: 0 5px; /* 增加左右内边距 */
 }
 
 .content.withSidebar .compact .pluginsGrid {
   grid-template-columns: repeat(2, 1fr); /* 侧边栏打开时改为2列 */
+  gap: 24px; /* 增加间距 */
 }
 
-/* 响应式布局 */
+/* 调整卡片内部间距，减轻拥挤感 */
+.content.withSidebar .pluginCard {
+  padding: 26px; /* 增加内边距 */
+  border-radius: var(--kether-radius-lg); /* 增大圆角 */
+  box-shadow: var(--kether-shadow); /* 增强阴影效果 */
+  border: 1px solid rgba(0, 0, 0, 0.08); /* 微调边框 */
+}
+
+.content.withSidebar .pluginCard:hover {
+  transform: translateY(-8px); /* 增强悬停效果 */
+  box-shadow: var(--kether-shadow-lg); /* 增强悬停时的阴影 */
+}
+
+.content.withSidebar .pluginIcon {
+  width: 50px; /* 增大图标尺寸 */
+  height: 50px; /* 增大图标尺寸 */
+  font-size: 22px; /* 增大字体 */
+  margin-bottom: 10px; /* 增加下方间距 */
+}
+
+.content.withSidebar .pluginName {
+  font-size: 20px; /* 增大字体 */
+  margin-bottom: 8px; /* 增加下方间距 */
+}
+
+.content.withSidebar .pluginDescription {
+  font-size: 15px; /* 增大字体 */
+  line-height: 1.6; /* 增加行高 */
+  margin-bottom: 6px; /* 增加下方间距 */
+}
+
+/* 响应式布局优化 */
 @media (max-width: 1400px) {
-  .grid .pluginsGrid {
-    grid-template-columns: repeat(4, 1fr); /* 大屏显示4列 */
+  .content.withSidebar .grid .pluginsGrid {
+    grid-template-columns: repeat(2, 1fr); /* 大屏幕时减少到2列 */
   }
   
-  .content.withSidebar .grid .pluginsGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .content.withSidebar .compact .pluginsGrid {
+    grid-template-columns: repeat(1, 1fr); /* 改为单列 */
   }
 }
 
 @media (max-width: 1200px) {
-  .grid .pluginsGrid {
-    grid-template-columns: repeat(3, 1fr); /* 中屏显示3列 */
-  }
-  
-  .compact .pluginsGrid {
-    grid-template-columns: repeat(2, 1fr); /* 中屏时compact改为2列 */
-  }
-  
   .content.withSidebar .grid .pluginsGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr); /* 中等屏幕改为单列 */
+    gap: 20px; /* 调整间距 */
   }
   
   .content.withSidebar .compact .pluginsGrid {
     grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-@media (max-width: 996px) {
-  .grid .pluginsGrid {
-    grid-template-columns: repeat(2, 1fr); /* 小屏显示2列 */
-  }
-  
-  .content.withSidebar {
-    width: calc(100% - var(--sidebar-width));
-    margin-right: 0;
-    transform: translateX(-20px);
-  }
-  
-  .detailSidebar {
-    width: 80%;
-  }
-}
-
-@media (max-width: 768px) {
-  /* 在移动设备上，侧边栏展开时完全隐藏内容区域 */
-  .content.withSidebar {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-50px);
-  }
-  
-  .detailSidebar {
-    width: 100%;
-  }
-}
-
-@media (max-width: 576px) {
-  .grid .pluginsGrid, 
-  .compact .pluginsGrid {
-    grid-template-columns: 1fr; /* 超小屏幕设备上统一为1列 */
+    gap: 20px;
   }
 }
 
@@ -1194,7 +1198,7 @@
 }
 
 .detailHeader {
-  padding: 24px 32px;
+  padding: 30px 32px; /* 增加上下内边距 */
   border-bottom: 1px solid var(--kether-border);
   position: relative;
   transition: all 0.3s ease 0.1s;
@@ -1205,10 +1209,10 @@
 }
 
 .detailBody {
-  padding: 24px 32px;
+  padding: 30px 32px 40px; /* 增加侧边栏内容区上下内边距 */
   overflow-y: auto;
   flex: 1;
-  max-height: calc(100vh - 80px); /* 减去头部高度 */
+  max-height: calc(100vh - 90px); /* 调整最大高度 */
   opacity: 0;
   transform: translateY(10px);
   transition: all 0.3s ease 0.2s;
@@ -1243,8 +1247,8 @@
 }
 
 .detailSection {
-  margin-bottom: 24px;
-  padding-bottom: 24px;
+  margin-bottom: 36px; /* 增加区块间距 */
+  padding-bottom: 36px; /* 增加区块间距 */
   border-bottom: 1px solid var(--kether-border);
 }
 
@@ -1256,20 +1260,20 @@
 
 .pluginInfoRow {
   display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 20px; /* 增加图标和信息间距 */
+  margin-bottom: 20px; /* 增加底部间距 */
 }
 
 .pluginIconLarge {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  width: 70px; /* 增大图标尺寸 */
+  height: 70px; /* 增大图标尺寸 */
+  border-radius: 14px; /* 调整圆角 */
   background-color: var(--kether-primary);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 32px; /* 增大字体 */
   font-weight: 600;
   flex-shrink: 0;
 }
@@ -1279,9 +1283,9 @@
 }
 
 .detailPluginName {
-  font-size: 20px;
+  font-size: 22px; /* 增大字体尺寸 */
   font-weight: 600;
-  margin: 0 0 4px 0;
+  margin: 0 0 8px 0; /* 增加下方间距 */
   color: var(--kether-text);
   word-break: break-word;
 }
@@ -1324,8 +1328,8 @@
 }
 
 .detailDescription {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 16px; /* 增大字体尺寸 */
+  line-height: 1.7; /* 增加行高 */
   color: var(--kether-text-light);
   margin: 0;
   word-break: break-word;
@@ -1335,30 +1339,30 @@
 .linksList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px; /* 增加间距 */
 }
 
 .linkGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px; /* 增加间距 */
 }
 
 .linkGroupTitle {
-  font-size: 14px;
+  font-size: 15px; /* 增大字体 */
   font-weight: 600;
   color: var(--kether-text-light);
   padding: 4px 0;
-  margin-bottom: 4px;
+  margin-bottom: 6px; /* 增加间距 */
   border-bottom: 1px solid var(--kether-border-light);
 }
 
 .detailLink {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  padding: 10px 12px;
+  gap: 10px; /* 增加图标和文字间距 */
+  font-size: 15px; /* 增大字体 */
+  padding: 12px 16px; /* 增加内边距，扩大点击区域 */
   border-radius: var(--kether-radius);
   background-color: rgba(0, 0, 0, 0.03);
   color: var(--kether-text);
@@ -1371,29 +1375,31 @@
 .detailLink:hover {
   background-color: rgba(37, 99, 235, 0.05);
   color: var(--kether-primary);
-  transform: translateY(-1px);
+  transform: translateY(-2px); /* 增强悬停效果 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* 增加阴影效果 */
 }
 
 .detailDownloadButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 16px;
-  padding: 12px 16px;
+  gap: 10px; /* 增加图标和文字间距 */
+  font-size: 17px; /* 增大字体 */
+  padding: 16px 20px; /* 增加内边距，扩大点击区域 */
   border-radius: var(--kether-radius);
   background-color: var(--kether-primary);
   color: white;
   text-decoration: none;
   transition: var(--kether-transition);
-  margin-top: 8px;
+  margin-top: 12px; /* 增加间距 */
+  margin-bottom: 8px; /* 增加底部间距 */
   font-weight: 500;
 }
 
 .detailDownloadButton:hover {
   background-color: var(--kether-primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transform: translateY(-3px); /* 增强悬停效果 */
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); /* 增强阴影效果 */
 }
 
 /* 移动端优化 */
@@ -1695,4 +1701,9 @@
     opacity: 0; 
     box-shadow: none;
   }
+}
+
+/* 优化侧边栏打开时统计信息的样式 */
+.content.withSidebar .resultsHeader {
+  margin: 5px 24px 35px; /* 调整上下间距 */
 } 
