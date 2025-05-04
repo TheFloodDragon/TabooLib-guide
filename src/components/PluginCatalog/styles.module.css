@@ -1445,11 +1445,25 @@
 .disclaimerContainer {
   margin-top: 32px;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .disclaimerContainer.withSidebar {
   width: calc(100% - var(--sidebar-width));
+  margin-right: var(--sidebar-width);
+  box-sizing: border-box;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 确保免责声明区域在侧边栏打开时正确定位 */
+.content .disclaimerContainer {
+  width: 100%;
+}
+
+.content.withSidebar .disclaimerContainer {
+  width: 100%;
+  margin-right: 0;
 }
 
 .disclaimer {
@@ -1459,12 +1473,16 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  flex-direction: row; /* 强制水平排列 */
+  flex-wrap: nowrap; /* 防止换行 */
+  max-width: 100%;
 }
 
 .disclaimerIcon {
   font-size: 20px;
   color: var(--kether-text-lighter);
   margin-top: 2px;
+  flex-shrink: 0; /* 防止图标被压缩 */
 }
 
 .disclaimerText {
@@ -1472,6 +1490,8 @@
   font-size: 13px;
   color: var(--kether-text-light);
   line-height: 1.6;
+  flex: 1; /* 占据剩余空间 */
+  min-width: 0; /* 允许文本在必要时压缩 */
 }
 
 .disclaimerText a {
@@ -1481,6 +1501,28 @@
 
 .disclaimerText a:hover {
   text-decoration: underline;
+}
+
+/* 响应式调整 - 小屏幕下免责声明仍然保持水平 */
+@media (max-width: 767px) {
+  .disclaimerContainer.withSidebar {
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .disclaimer {
+    flex-direction: row; /* 保持水平方向 */
+    padding: 12px;
+  }
+  
+  .disclaimerIcon {
+    font-size: 18px;
+  }
+  
+  .disclaimerText {
+    font-size: 12px;
+  }
 }
 
 /* 动画定义 */
