@@ -10,7 +10,7 @@ const config = {
     },
     title: 'TabooLib',
     url: 'https://taboo.8aka.org',
-    baseUrl: '/',
+    baseUrl: process.env.BASE_URL ?? '/',
     onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',

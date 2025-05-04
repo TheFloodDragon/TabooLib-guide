@@ -35,6 +35,8 @@ jobs:
       run: npm run build
       env:
         NODE_OPTIONS: --max-old-space-size=8192
+        BASE_URL: /
+        NODE_ENV: production
 
     # 塞进gh-pages分支(即部署到GitPage)
     - name: Deploy
