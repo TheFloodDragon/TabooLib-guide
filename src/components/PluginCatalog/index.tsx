@@ -205,11 +205,13 @@ export default function PluginCatalog(): JSX.Element {
       setSidebarState('entering');
       setSelectedPlugin(plugin);
       
-      // 添加类名以触发动画
+      // 添加类名以控制滚动行为
       document.body.classList.add('sidebar-open');
       
-      // 防止滚动穿透
-      document.body.style.overflow = 'hidden';
+      // 移除移动设备下的滚动锁定
+      if (window.innerWidth <= 767) {
+        document.body.style.overflow = 'hidden';
+      }
     }
   };
 
@@ -222,11 +224,13 @@ export default function PluginCatalog(): JSX.Element {
       setSelectedPlugin(null);
       setSidebarState('hidden');
       
-      // 移除类名以恢复动画
+      // 移除类名以恢复滚动
       document.body.classList.remove('sidebar-open');
       
       // 恢复滚动
-      document.body.style.overflow = '';
+      if (window.innerWidth <= 767) {
+        document.body.style.overflow = '';
+      }
     }, 350); // 动画持续时间
   };
 
@@ -614,7 +618,7 @@ export default function PluginCatalog(): JSX.Element {
         <div className={styles.filtersPanel}>
           <div className={styles.filterSection}>
             <h3 className={styles.filterSectionTitle}>排序方式</h3>
-            <div className={styles.sortButtons}>
+            <div className={styles.sortButtonGroup}>
               {renderSortButton('name', '名称', <IoTextOutline />)}
               {renderSortButton('letter', '字母', <IoCodeOutline />)}
               {renderSortButton('category', '分类', <IoFolderOutline />)}
@@ -718,164 +722,164 @@ export default function PluginCatalog(): JSX.Element {
       {/* 主内容区域 */}
       <div className={styles.contentWrapper}>
         <div className={`${styles.content} ${sidebarState !== 'hidden' ? styles.withSidebar : ''} ${styles[layoutType]}`}>
-          {/* 结果统计 */}
-          <div className={styles.resultsHeader}>
-            <div className={styles.resultStats}>
-              <span className={styles.resultCount}>{filteredPlugins.length}</span>
-              <span className={styles.resultLabel}>个插件</span>
-            </div>
-            <div className={styles.currentSort}>
-              <IoSwapVertical />
-              当前排序: 
-              <span className={styles.currentSortType}>
-                {sortType === 'name' && '名称'}
-                {sortType === 'letter' && '字母'}
-                {sortType === 'category' && '分类'}
-                <IoChevronDown className={sortAscending ? styles.ascending : styles.descending} />
-              </span>
-            </div>
+        {/* 结果统计 */}
+        <div className={styles.resultsHeader}>
+          <div className={styles.resultStats}>
+            <span className={styles.resultCount}>{filteredPlugins.length}</span>
+            <span className={styles.resultLabel}>个插件</span>
           </div>
-
-          {/* 插件区域 - 直接使用filteredPlugins确保排序正确生效 */}
-          <div className={styles.pluginsGrid}>
-            {filteredPlugins.map(plugin => renderPluginCard(plugin))}
-          </div>
-          
-          {/* 底部提示信息 */}
-          <div className={styles.disclaimerContainer}>
-            <div className={styles.disclaimer}>
-              <IoTimeOutline className={styles.disclaimerIcon} />
-              <p className={styles.disclaimerText}>
-                本插件目录中的内容均由社区成员人工收录和整理，可能不包含所有TabooLib插件。
-                如果您发现有缺失或需要更新的插件，欢迎在<a href="https://github.com/8aka-Team/TabooLib-guide" target="_blank" rel="noopener noreferrer">GitHub仓库</a>中提交贡献。
-              </p>
-            </div>
+          <div className={styles.currentSort}>
+            <IoSwapVertical />
+            当前排序: 
+            <span className={styles.currentSortType}>
+              {sortType === 'name' && '名称'}
+              {sortType === 'letter' && '字母'}
+              {sortType === 'category' && '分类'}
+              <IoChevronDown className={sortAscending ? styles.ascending : styles.descending} />
+            </span>
           </div>
         </div>
 
-        {/* 侧边栏 作者的牢骚：你母亲的，为什么在本地显示效果和部署后的显示效果不一样，气死我了 */}
-        {(sidebarState !== 'hidden' || selectedPlugin) && (
-          <div 
-            className={`${styles.detailSidebar} ${styles[sidebarState]}`} 
-            ref={sidebarRef}
-          >
-            <div className={styles.detailHeader}>
-              <button 
-                className={styles.backButton}
-                onClick={closePluginDetail}
-                aria-label="返回"
-              >
-                <IoArrowBack size={22} />
-              </button>
-              <h2 className={styles.detailTitle}>{sidebarPlugin?.name || selectedPlugin?.name}</h2>
+        {/* 插件区域 - 直接使用filteredPlugins确保排序正确生效 */}
+        <div className={styles.pluginsGrid}>
+          {filteredPlugins.map(plugin => renderPluginCard(plugin))}
+        </div>
+        
+        {/* 底部提示信息 */}
+        <div className={`${styles.disclaimerContainer} ${sidebarState !== 'hidden' ? styles.withSidebar : ''}`}>
+          <div className={styles.disclaimer}>
+            <IoTimeOutline className={styles.disclaimerIcon} />
+            <p className={styles.disclaimerText}>
+              本插件目录中的内容均由社区成员人工收录和整理，可能不包含所有TabooLib插件。
+              如果您发现有缺失或需要更新的插件，欢迎在<a href="https://github.com/8aka-Team/TabooLib-guide" target="_blank" rel="noopener noreferrer">GitHub仓库</a>中提交贡献。
+            </p>
+          </div>
+        </div>
+      </div>
+
+        {/* 侧边栏 */}
+      {(sidebarState !== 'hidden' || selectedPlugin) && (
+        <div 
+          className={`${styles.detailSidebar} ${styles[sidebarState]}`} 
+          ref={sidebarRef}
+        >
+          <div className={styles.detailHeader}>
+            <button 
+              className={styles.backButton}
+              onClick={closePluginDetail}
+              aria-label="返回"
+            >
+                <IoArrowBack size={20} />
+            </button>
+            <h2 className={styles.detailTitle}>{sidebarPlugin?.name || selectedPlugin?.name}</h2>
+          </div>
+          
+          <div className={styles.detailBody}>
+            {/* 插件基本信息 */}
+            <div className={styles.detailSection}>
+              <div className={styles.pluginInfoRow}>
+                <div className={styles.pluginIconLarge}>
+                  {sidebarPlugin?.letter || selectedPlugin?.letter}
+                </div>
+                <div className={styles.pluginInfoDetails}>
+                  <h3 className={styles.detailPluginName}>{sidebarPlugin?.name || selectedPlugin?.name}</h3>
+                  
+                  <div className={styles.metaRow}>
+                    <div className={styles.metaItem}>
+                      <IoFolderOutline />
+                      <span>分类: {getCategoryDisplayName(sidebarPlugin?.category || selectedPlugin?.category || '')}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.detailTags}>
+                <div className={styles.detailTag}>
+                  {getCategoryDisplayName(sidebarPlugin?.category || selectedPlugin?.category || '')}
+                </div>
+                <div className={styles.detailTag}>
+                  {sidebarPlugin?.letter || selectedPlugin?.letter}
+                </div>
+              </div>
             </div>
             
-            <div className={styles.detailBody}>
-              {/* 插件基本信息 */}
-              <div className={styles.detailSection}>
-                <div className={styles.pluginInfoRow}>
-                  <div className={styles.pluginIconLarge}>
-                    {sidebarPlugin?.letter || selectedPlugin?.letter}
-                  </div>
-                  <div className={styles.pluginInfoDetails}>
-                    <h3 className={styles.detailPluginName}>{sidebarPlugin?.name || selectedPlugin?.name}</h3>
+            {/* 插件描述 */}
+            <div className={styles.detailSection}>
+              <h3 className={styles.detailSectionTitle}>插件描述</h3>
+              <p className={styles.detailDescription}>
+                {sidebarPlugin?.detail || selectedPlugin?.detail || sidebarPlugin?.description || selectedPlugin?.description}
+              </p>
+            </div>
+            
+            {/* 链接列表 */}
+            <div className={styles.detailSection}>
+              <h3 className={styles.detailSectionTitle}>相关链接</h3>
+              
+              {/* 链接分组显示 */}
+              {(() => {
+                // 获取所有链接
+                const links = sidebarPlugin?.links || selectedPlugin?.links || [];
+                
+                // 按类型分组
+                const groupedLinks: Record<string, typeof links> = {};
+                links.forEach(link => {
+                  if (!groupedLinks[link.type]) {
+                    groupedLinks[link.type] = [];
+                  }
+                  groupedLinks[link.type].push(link);
+                });
+                
+                return (
+                  <div className={styles.linksList}>
+                    {/* 优先显示下载链接 */}
+                    {groupedLinks['download']?.map((link, index) => (
+                      <a 
+                        key={`download-${index}`}
+                        href={link.url}
+                        className={styles.detailDownloadButton}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`下载 ${sidebarPlugin?.name || selectedPlugin?.name}`}
+                      >
+                        <IoDownloadOutline /> 下载插件
+                      </a>
+                    ))}
                     
-                    <div className={styles.metaRow}>
-                      <div className={styles.metaItem}>
-                        <IoFolderOutline />
-                        <span>分类: {getCategoryDisplayName(sidebarPlugin?.category || selectedPlugin?.category || '')}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className={styles.detailTags}>
-                  <div className={styles.detailTag}>
-                    {getCategoryDisplayName(sidebarPlugin?.category || selectedPlugin?.category || '')}
-                  </div>
-                  <div className={styles.detailTag}>
-                    {sidebarPlugin?.letter || selectedPlugin?.letter}
-                  </div>
-                </div>
-              </div>
-              
-              {/* 插件描述 */}
-              <div className={styles.detailSection}>
-                <h3 className={styles.detailSectionTitle}>插件描述</h3>
-                <p className={styles.detailDescription}>
-                  {sidebarPlugin?.detail || selectedPlugin?.detail || sidebarPlugin?.description || selectedPlugin?.description}
-                </p>
-              </div>
-              
-              {/* 链接列表 */}
-              <div className={styles.detailSection}>
-                <h3 className={styles.detailSectionTitle}>相关链接</h3>
-                
-                {/* 链接分组显示 */}
-                {(() => {
-                  // 获取所有链接
-                  const links = sidebarPlugin?.links || selectedPlugin?.links || [];
-                  
-                  // 按类型分组
-                  const groupedLinks: Record<string, typeof links> = {};
-                  links.forEach(link => {
-                    if (!groupedLinks[link.type]) {
-                      groupedLinks[link.type] = [];
-                    }
-                    groupedLinks[link.type].push(link);
-                  });
-                  
-                  return (
-                    <div className={styles.linksList}>
-                      {/* 优先显示下载链接 */}
-                      {groupedLinks['download']?.map((link, index) => (
-                        <a 
-                          key={`download-${index}`}
-                          href={link.url}
-                          className={styles.detailDownloadButton}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`下载 ${sidebarPlugin?.name || selectedPlugin?.name}`}
-                        >
-                          <IoDownloadOutline /> 下载插件
-                        </a>
+                    {/* 显示其他类型的链接，并在有多个相同类型链接时显示序号 */}
+                    {Object.entries(groupedLinks)
+                      .filter(([type]) => type !== 'download')
+                      .map(([type, typeLinks]) => (
+                        <div key={type} className={styles.linkGroup}>
+                          {typeLinks.length > 1 && (
+                            <div className={styles.linkGroupTitle}>
+                              {getLinkTypeName(type)}
+                            </div>
+                          )}
+                          
+                          {typeLinks.map((link, index) => (
+                            <a 
+                              key={`${type}-${index}`}
+                              href={link.url}
+                              className={styles.detailLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${link.label || getLinkTypeName(type)} 链接`}
+                            >
+                              {getLinkIcon(type)} 
+                              {typeLinks.length > 1 
+                                ? `${link.label || getLinkTypeName(type)} ${index + 1}` 
+                                : link.label || getLinkTypeName(type)}
+                            </a>
+                          ))}
+                        </div>
                       ))}
-                      
-                      {/* 显示其他类型的链接，并在有多个相同类型链接时显示序号 */}
-                      {Object.entries(groupedLinks)
-                        .filter(([type]) => type !== 'download')
-                        .map(([type, typeLinks]) => (
-                          <div key={type} className={styles.linkGroup}>
-                            {typeLinks.length > 1 && (
-                              <div className={styles.linkGroupTitle}>
-                                {getLinkTypeName(type)}
-                              </div>
-                            )}
-                            
-                            {typeLinks.map((link, index) => (
-                              <a 
-                                key={`${type}-${index}`}
-                                href={link.url}
-                                className={styles.detailLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${link.label || getLinkTypeName(type)} 链接`}
-                              >
-                                {getLinkIcon(type)} 
-                                {typeLinks.length > 1 
-                                  ? `${link.label || getLinkTypeName(type)} ${index + 1}` 
-                                  : link.label || getLinkTypeName(type)}
-                              </a>
-                            ))}
-                          </div>
-                        ))}
-                    </div>
-                  );
-                })()}
-              </div>
+                  </div>
+                );
+              })()}
             </div>
           </div>
-        )}
+        </div>
+      )}
       </div>
     </div>
   );
