@@ -10,6 +10,62 @@
   overflow: hidden !important;
 }
 
+/* 版本徽章 */
+.versionBadge {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 5;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+  text-decoration: none;
+}
+
+.versionLink {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #2563eb;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 100px;
+  text-decoration: none;
+  box-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+[data-theme='dark'] .versionLink {
+  background-color: rgba(20, 30, 60, 0.8);
+  color: #85b4ff;
+  border: 1px solid rgba(66, 153, 255, 0.25);
+  box-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.arrowRight {
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.versionBadge:hover .versionLink {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.03),
+    0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.versionBadge:hover .arrowRight {
+  transform: translateX(3px);
+}
+
 /* Banner主体 - 高级现代像素风格 */
 .heroBanner {
   position: absolute;
@@ -156,59 +212,6 @@
   100% {
     transform: translateY(0px) rotate(15deg);
   }
-}
-
-/* 版本徽章 */
-.versionBadge {
-  display: inline-block;
-  margin-bottom: 2.5rem;
-  position: relative;
-  z-index: 5;
-  transform: translateY(20px);
-  opacity: 0;
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.versionBadge a {
-  display: flex;
-  align-items: center;
-  padding: 0.6rem 1.4rem;
-  background-color: white;
-  color: var(--ifm-color-primary);
-  font-size: 0.95rem;
-  font-weight: 500;
-  border-radius: 100px;
-  text-decoration: none;
-  box-shadow: 
-    0 1px 1px rgba(0, 0, 0, 0.04),
-    0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-[data-theme='dark'] .versionBadge a {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #85b4ff;
-  box-shadow: 
-    0 1px 1px rgba(0, 0, 0, 0.2),
-    0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.arrowRight {
-  margin-left: 0.5rem;
-  font-size: 1.1rem;
-  line-height: 1;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.versionBadge:hover a {
-  transform: translateY(-3px);
-  box-shadow: 
-    0 1px 1px rgba(0, 0, 0, 0.03),
-    0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.versionBadge:hover .arrowRight {
-  transform: translateX(3px);
 }
 
 /* 主要内容区域 */
@@ -427,21 +430,27 @@
 
 @media screen and (max-width: 768px) {
   .bannerContainer {
-    width: 95%;
-    padding: 2rem 0;
+    padding: 2rem 1rem;
+    justify-content: center;
+    max-width: 100%;
   }
   
   .versionBadge {
     margin-bottom: 2rem;
   }
   
+  .versionLink {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+  
   .pixelTitle {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
   
   .mainTitle {
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    margin-top: 1rem;
   }
   
   .subtitle {
@@ -449,28 +458,55 @@
   }
   
   .subtitleWrapper {
-    margin-bottom: 2rem;
+    width: 100%;
+  }
+  
+  /* 提示按钮在移动设备上的样式 */
+  .catalogNotice {
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-bottom: 16px;
+    width: 90%;
+    justify-content: center;
+  }
+  
+  .catalogNoticeText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 230px;
   }
 }
 
 @media screen and (max-width: 576px) {
   .pixelTitle {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   
   .mainTitle {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   
   .ctaButtons {
     flex-direction: column;
-    width: 100%;
-    gap: 0.8rem;
+    align-items: center;
+    gap: 12px;
   }
   
   .primaryCta, .secondaryCta {
     width: 100%;
-    text-align: center;
+    max-width: 240px;
+  }
+  
+  /* 超小屏幕上的提示按钮 */
+  .catalogNotice {
+    padding: 6px 10px;
+    font-size: 11px;
+    width: 100%;
+  }
+  
+  .catalogNoticeText {
+    max-width: 180px;
   }
 }
 

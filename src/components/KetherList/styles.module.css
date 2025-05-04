@@ -1,7 +1,6 @@
-:root {
-  --kether-primary: #2563EB;
-  --kether-primary-dark: #1d4ed8;
-  --kether-primary-darker: #1e40af;
+/* 将全局CSS变量改为仅限于KetherList组件的局部变量 */
+.ketherContainer {
+  -kether-primary-darker: #1e40af;
   --kether-primary-light: #3b82f6;
   --kether-primary-lighter: #60a5fa;
   --kether-primary-lightest: #93c5fd;
@@ -35,12 +34,30 @@
   /* 布局尺寸 */
   --index-width: 180px;
   --detail-padding: 36px;
+  
+  /* 侧边栏宽度，移到组件内部 */
+  --kether-list-sidebar-width: 800px;
+  
+  /* 布局属性 */
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  background-color: var(--kether-background);
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
-[data-theme='dark'] {
+/* 暗色模式下的变量也移到组件内部 */
+:global([data-theme='dark']) .ketherContainer {
   --kether-hover: rgba(255, 255, 255, 0.05);
   --kether-border: rgba(255, 255, 255, 0.1);
   --kether-sidebar-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+  --kether-background-light: rgba(255, 255, 255, 0.02);
+  --kether-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* 全站布局优化 */
@@ -55,7 +72,6 @@
   width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
-  --kether-list-sidebar-width: 800px;
 }
 
 /* 设置侧边栏打开时的容器样式 */
@@ -248,7 +264,7 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  animation: slideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: ketherSlideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   overflow-y: hidden;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   backdrop-filter: blur(5px);
@@ -257,7 +273,7 @@
 }
 
 /* 动画优化 */
-@keyframes slideInRight {
+@keyframes ketherSlideInRight {
   from { 
     transform: translateX(100%); 
     opacity: 0; 
@@ -359,7 +375,8 @@
 
 /* 保留现有的小屏幕优化，但移除重复内容 */
 @media (max-width: 768px) {
-  :root {
+  .ketherContainer {
+    /* 移动设备上的变量 */
     --detail-padding: 20px;
     --mobile-padding: 12px;
     --mobile-gap: 10px;
@@ -702,7 +719,7 @@
 }
 
 .filtersPanel.hide {
-  animation: slideUp 0.3s ease forwards;
+  animation: ketherSlideUp 0.3s ease forwards;
 }
 
 .filterSection {
@@ -907,7 +924,7 @@
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s ease;
-  animation: fadeIn 0.3s ease;
+  animation: ketherFadeIn 0.3s ease;
 }
 
 .activeTag:hover {
@@ -987,17 +1004,17 @@
   justify-content: center;
   padding: 60px 0;
   text-align: center;
-  animation: fadeInUp 0.5s ease;
+  animation: ketherFadeIn 0.5s ease;
 }
 
-@keyframes fadeInUp {
+@keyframes ketherFadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
   }
 }
 
@@ -1130,7 +1147,7 @@
   overflow: hidden;
   box-shadow: var(--kether-shadow);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  animation: fadeInUp 0.5s ease;
+  animation: ketherFadeIn 0.5s ease;
   margin: 0 24px;
   transform: translateY(0);
 }
@@ -1198,7 +1215,7 @@
   display: grid;
   gap: 16px;
   margin-top: 12px;
-  animation: fadeIn 0.3s ease-out;
+  animation: ketherFadeIn 0.3s ease-out;
 }
 
 /* 布局变种 */
@@ -1254,16 +1271,16 @@
   background-color: var(--ifm-background-surface-color);
   cursor: pointer;
   overflow: hidden;
-  animation: cardFadeIn 0.3s ease-out;
+  animation: ketherFadeIn 0.3s ease-out;
   box-shadow: var(--kether-shadow-sm);
   position: relative;
   padding: 18px 20px;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
-@keyframes cardFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes ketherFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .actionCard:hover {
@@ -1402,15 +1419,15 @@
   width: 100% !important;
   height: 100% !important;
   z-index: 1100;
-  animation: fadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: ketherFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes fadeIn {
+@keyframes ketherFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes slideInRight {
+@keyframes ketherSlideInRight {
   from { transform: translateX(100%); opacity: 0.5; }
   to { transform: translateX(0); opacity: 1; }
 }
@@ -1742,32 +1759,6 @@
   border-radius: 3px;
 }
 
-/* 添加暗色主题支持 */
-[data-theme='dark'] .detailSidebar {
-  background-color: var(--kether-background);
-  box-shadow: var(--kether-sidebar-shadow);
-  border-left: 1px solid var(--kether-border);
-  backdrop-filter: blur(8px);
-}
-
-/* 网格视图调整 */
-.grid .actionsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 固定4列布局 */
-  gap: 24px;
-  padding: 20px 24px;
-  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* 紧凑视图调整 */
-.compact .actionsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 固定3列布局 */
-  gap: 20px;
-  padding: 20px 24px;
-  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 /* 底部统计区域美化 */
 .footer {
   padding: 20px 24px;
@@ -1829,10 +1820,6 @@
   .statLabel {
     font-size: 12px;
   }
-}
-
-[data-theme='dark'] .ketherContainer {
-  background-color: var(--kether-background);
 }
 
 [data-theme='dark'] .footer {
@@ -2020,32 +2007,35 @@
   border-bottom-color: var(--kether-primary);
   transform: translateY(-1px);
   }
-  
-/* CSS变量 */
-:root {
-  --kether-radius: 8px;
-  --kether-radius-sm: 4px;
-  --kether-primary: rgb(37, 99, 235);
-  --kether-primary-lightest: rgba(37, 99, 235, 0.1);
-  --kether-background: var(--ifm-background-surface-color);
-  --kether-background-light: rgba(0, 0, 0, 0.01);
-  --kether-border: var(--ifm-color-emphasis-200);
-  --kether-border-light: var(--ifm-color-emphasis-100);
-  --kether-text: var(--ifm-font-color-base);
-  --kether-text-light: var(--ifm-color-emphasis-600);
-  --kether-hover: var(--ifm-color-emphasis-100);
-  --kether-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  --kether-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+/* 添加暗色主题支持 */
+:global([data-theme='dark']) .detailSidebar {
+  background-color: var(--kether-background);
+  box-shadow: var(--kether-sidebar-shadow);
+  border-left: 1px solid var(--kether-border);
+  backdrop-filter: blur(8px);
 }
 
-/* 深色模式变量覆盖 */
-[data-theme='dark'] {
-  --kether-background-light: rgba(255, 255, 255, 0.02);
-  --kether-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+/* 网格视图调整 */
+.grid .actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 固定4列布局 */
+  gap: 24px;
+  padding: 20px 24px;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 动画定义 */
-@keyframes slideDown {
+/* 紧凑视图调整 */
+.compact .actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 固定3列布局 */
+  gap: 20px;
+  padding: 20px 24px;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 动画定义 - 使用作用域命名避免冲突 */
+@keyframes ketherSlideDown {
   from {
     opacity: 0;
     transform: scaleY(0.95);
@@ -2056,7 +2046,7 @@
   }
 }
 
-@keyframes slideUp {
+@keyframes ketherSlideUp {
   from {
     opacity: 1;
     transform: scaleY(1);
@@ -2067,23 +2057,23 @@
   }
 }
 
-@keyframes fadeIn {
+@keyframes ketherFadeIn {
   from {
     opacity: 0;
     transform: scale(0.9);
-}
+  }
   to {
     opacity: 1;
     transform: scale(1);
-}
+  }
 }
 
-@keyframes slideInRight {
+@keyframes ketherSlideInRight {
   from { 
     transform: translateX(100%); 
     opacity: 0; 
     box-shadow: none;
-}
+  }
   to { 
     transform: translateX(0); 
     opacity: 1; 

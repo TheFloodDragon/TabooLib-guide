@@ -18,6 +18,14 @@ function HomepageHeader() {
       <div className={styles.bannerContainer}>
         
         <div className={styles.heroContent}>
+          {/* 插件目录提示按钮 */}
+          <Link to="/plugin-catalog" className={styles.versionBadge}>
+            <div className={styles.versionLink}>
+              <span>插件目录已上线</span>
+              <span className={styles.arrowRight}>→</span>
+            </div>
+          </Link>
+
           <div className={styles.pixelTitleWrapper}>
           <h2 className={styles.pixelTitle}>TabooLib</h2>
           </div>
