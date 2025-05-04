@@ -1,3 +1,4 @@
+// 再也不想写前端了，哼哼啊啊啊啊啊啊啊啊啊
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import styles from './styles.module.css';
 import { IoSearch, IoGrid, IoList, IoApps, IoClose, IoChevronDown, IoChevronForward, IoHomeOutline, 
@@ -52,7 +53,7 @@ export default function PluginCatalog(): JSX.Element {
   // 处理点击外部关闭侧边栏
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // 确保点击的是空白区域，而不是另一个插件卡片
+      // 当且仅当为空白区域关闭
       const target = event.target as HTMLElement;
       const isPluginCard = target.closest(`.${styles.pluginCard}`);
       
@@ -752,7 +753,7 @@ export default function PluginCatalog(): JSX.Element {
           </div>
         </div>
 
-        {/* 插件详情 - 始终渲染但通过状态控制可见性 */}
+        {/* 侧边栏 作者的牢骚：你母亲的，为什么在本地显示效果和部署后的显示效果不一样，气死我了 */}
         {(sidebarState !== 'hidden' || selectedPlugin) && (
           <div 
             className={`${styles.detailSidebar} ${styles[sidebarState]}`} 

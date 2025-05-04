@@ -1,3 +1,4 @@
+// 嗨嗨嗨，恭喜你发现我了，这里是在插件汇总添加插件的地方
 export interface Plugin {
   id: string;
   name: string;

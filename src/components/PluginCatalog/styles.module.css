@@ -64,14 +64,14 @@
   --kether-sidebar-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
 }
 
-/* 添加容器来处理内容区域和侧边栏的布局关系 */
+/* 修改contentWrapper样式，改为flex布局 */
 .contentWrapper {
   position: relative;
   display: flex;
   flex: 1;
   width: 100%;
-  overflow: auto;
-  height: calc(100vh - 150px); /* 减去头部高度 */
+  overflow: hidden;
+  height: calc(100vh - 150px);
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -94,28 +94,22 @@
   padding-right: 0;
 }
 
-/* 内容区域 */
+/* 修改content样式，添加转换动画 */
 .content {
   flex: 1;
   padding: 24px 32px;
   width: 100%;
   box-sizing: border-box;
-  overflow-y: visible;
-  overflow-x: visible;
+  overflow-y: auto;
   transform: translateX(0);
-  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1), 
-              transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              margin-right 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, width, margin-right, opacity;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, width, margin-right;
 }
 
-/* 添加侧边栏打开时的内容区域位移效果 */
+/* 当侧边栏打开时，内容区域向左移动 */
 .content.withSidebar {
   width: calc(100% - var(--sidebar-width));
-  transform: translateX(-20px);
   margin-right: var(--sidebar-width);
-  opacity: 1;
 }
 
 @media (min-width: 1200px) {
@@ -136,17 +130,19 @@
   }
   
   .content.withSidebar {
-    width: calc(100% - 80%);
-    margin-right: 0;
-    transform: translateX(-15px);
-    opacity: 0.9;
+    width: 100%;
+    transform: translateX(-60px);
+    opacity: 0.8;
+  }
+  
+  .detailSidebar {
+    width: 85%;
   }
   
   :global(body.sidebar-open) .content {
-    width: calc(100% - 80%);
-    transform: translateX(-15px);
-    margin-right: 0;
-    opacity: 0.9;
+    width: 100%;
+    transform: translateX(-60px);
+    opacity: 0.8;
   }
 }
 
@@ -155,12 +151,14 @@
     height: calc(100vh - 120px);
   }
   
-  /* 在移动设备上，侧边栏展开时完全隐藏内容区域，但使用淡出动画 */
   .content.withSidebar {
     opacity: 0;
     pointer-events: none;
     transform: translateX(-30px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  
+  .detailSidebar {
+    width: 100%;
   }
   
   :global(body.sidebar-open) .content {
@@ -649,7 +647,7 @@
   .content.withSidebar {
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-30px);
+    transform: translateX(-50px);
   }
   
   .detailSidebar {
@@ -1223,7 +1221,7 @@
   transform: translateY(-1px);
 }
 
-/* 详情页样式 */
+/* 修改detailSidebar样式，使用固定定位但保持侧边栏显示时不覆盖内容 */
 .detailSidebar {
   position: fixed;
   top: 0;
@@ -1237,7 +1235,6 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  flex-shrink: 0;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   transform: translateX(0);
   backdrop-filter: blur(5px);
@@ -1245,14 +1242,15 @@
 }
 
 .detailSidebar.entering {
-  animation: slideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: slideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .detailSidebar.leaving {
-  animation: slideOutRight 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  transform: translateX(100%);
-  opacity: 0;
-  box-shadow: none;
+  animation: slideOutRight 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.detailSidebar.hidden {
+  display: none;
 }
 
 .detailSidebar.visible .detailHeader,
@@ -1770,4 +1768,31 @@
 /* 优化侧边栏打开时统计信息的样式 */
 .content.withSidebar .resultsHeader {
   margin: 5px 24px 35px; /* 调整上下间距 */
+}
+
+/* 动画定义 */
+@keyframes slideInRight {
+  from { 
+    transform: translateX(100%); 
+    opacity: 0; 
+    box-shadow: none;
+  }
+  to { 
+    transform: translateX(0); 
+    opacity: 1; 
+    box-shadow: var(--kether-sidebar-shadow);
+  }
+}
+
+@keyframes slideOutRight {
+  from { 
+    transform: translateX(0); 
+    opacity: 1; 
+    box-shadow: var(--kether-sidebar-shadow);
+  }
+  to { 
+    transform: translateX(100%); 
+    opacity: 0; 
+    box-shadow: none;
+  }
 } 
