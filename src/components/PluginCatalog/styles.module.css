@@ -779,20 +779,22 @@
   font-weight: 500;
 }
 
-/* 插件网格 */
+/* 插件网格 - 优化布局响应式 */
 .pluginsGrid {
   display: grid;
-  gap: 20px;
+  gap: 24px;
   margin-bottom: 30px;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
-/* 布局变种 - 修改为指定的列数 */
+/* 布局变种 - 改进响应式设计 */
 .grid .pluginsGrid {
-  grid-template-columns: repeat(5, 1fr); /* 修改为5列 */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 .compact .pluginsGrid {
-  grid-template-columns: repeat(3, 1fr); /* 保持3列 */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
 .list .pluginsGrid {
@@ -801,70 +803,17 @@
 
 /* 侧边栏打开时的布局调整 */
 .content.withSidebar .grid .pluginsGrid {
-  gap: 30px; /* 统一增加间距 */
-  padding: 0 5px; /* 增加左右内边距 */
+  gap: 30px;
+  padding: 0 5px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 .content.withSidebar .compact .pluginsGrid {
-  grid-template-columns: repeat(2, 1fr); /* 侧边栏打开时改为2列 */
-  gap: 24px; /* 增加间距 */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
 }
 
-/* 调整卡片内部间距，减轻拥挤感 */
-.content.withSidebar .pluginCard {
-  padding: 26px; /* 增加内边距 */
-  border-radius: var(--kether-radius-lg); /* 增大圆角 */
-  box-shadow: var(--kether-shadow); /* 增强阴影效果 */
-  border: 1px solid rgba(0, 0, 0, 0.08); /* 微调边框 */
-}
-
-.content.withSidebar .pluginCard:hover {
-  transform: translateY(-8px); /* 增强悬停效果 */
-  box-shadow: var(--kether-shadow-lg); /* 增强悬停时的阴影 */
-}
-
-.content.withSidebar .pluginIcon {
-  width: 50px; /* 增大图标尺寸 */
-  height: 50px; /* 增大图标尺寸 */
-  font-size: 22px; /* 增大字体 */
-  margin-bottom: 10px; /* 增加下方间距 */
-}
-
-.content.withSidebar .pluginName {
-  font-size: 20px; /* 增大字体 */
-  margin-bottom: 8px; /* 增加下方间距 */
-}
-
-.content.withSidebar .pluginDescription {
-  font-size: 15px; /* 增大字体 */
-  line-height: 1.6; /* 增加行高 */
-  margin-bottom: 6px; /* 增加下方间距 */
-}
-
-/* 响应式布局优化 */
-@media (max-width: 1400px) {
-  .content.withSidebar .grid .pluginsGrid {
-    grid-template-columns: repeat(2, 1fr); /* 大屏幕时减少到2列 */
-  }
-  
-  .content.withSidebar .compact .pluginsGrid {
-    grid-template-columns: repeat(1, 1fr); /* 改为单列 */
-  }
-}
-
-@media (max-width: 1200px) {
-  .content.withSidebar .grid .pluginsGrid {
-    grid-template-columns: repeat(1, 1fr); /* 中等屏幕改为单列 */
-    gap: 20px; /* 调整间距 */
-  }
-  
-  .content.withSidebar .compact .pluginsGrid {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 20px;
-  }
-}
-
-/* 插件卡片 */
+/* 插件卡片 - 改进卡片布局和响应式设计 */
 .pluginCard {
   border: 1px solid var(--kether-border);
   border-radius: var(--kether-radius);
@@ -878,6 +827,8 @@
   flex-direction: column;
   gap: 12px;
   box-shadow: var(--kether-shadow-sm);
+  height: 100%;
+  min-height: 180px;
 }
 
 .pluginCard:hover {
@@ -886,23 +837,25 @@
   border-color: var(--kether-primary-lightest);
 }
 
+/* 提高卡片内容灵活性 */
+.pluginCardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+}
+
 /* 列表视图布局调整 */
 .list .pluginCard {
   flex-direction: row;
   align-items: center;
   gap: 16px;
   padding: 16px 20px;
+  min-height: auto;
 }
 
 .list .pluginCard:hover {
   transform: translateY(-2px);
-}
-
-.list .pluginCardContent {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 6px;
 }
 
 .list .pluginIconAndInfo {
@@ -924,11 +877,15 @@
   height: 36px;
   font-size: 16px;
   flex-shrink: 0;
+  aspect-ratio: 1 / 1; /* 保持宽高比 */
 }
 
 .list .pluginName {
   font-size: 16px;
   margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .list .pluginDescription {
@@ -938,39 +895,25 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   margin-bottom: 4px;
 }
 
-.list .pluginTags {
-  margin-top: 4px;
-}
-
-.list .pluginTag {
-  font-size: 10px;
-  padding: 2px 6px;
-}
-
-.list .pluginLinks {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 0;
-  flex-shrink: 0;
-}
-
 .pluginIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   background-color: var(--kether-primary);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 4px;
+  flex-shrink: 0; /* 防止图标在flex布局中被压缩 */
+  transition: all 0.3s ease;
+  aspect-ratio: 1 / 1; /* 保持宽高比 */
 }
 
 .pluginName {
@@ -978,6 +921,11 @@
   font-weight: 600;
   margin: 0;
   color: var(--kether-text);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pluginDescription {
@@ -986,6 +934,10 @@
   color: var(--kether-text-light);
   margin: 0;
   flex-grow: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .pluginTags {
@@ -1001,23 +953,15 @@
   border-radius: 12px;
   background-color: rgba(0, 0, 0, 0.05);
   color: var(--kether-text);
-}
-
-.categoryTag {
-  background-color: rgba(37, 99, 235, 0.1);
-  color: var(--kether-primary);
-}
-
-.letterTag {
-  background-color: rgba(79, 70, 229, 0.1);
-  color: rgb(79, 70, 229);
+  white-space: nowrap;
 }
 
 .pluginLinks {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: auto;
+  padding-top: 8px;
 }
 
 .pluginLink {
@@ -1031,6 +975,7 @@
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.03);
   transition: var(--kether-transition);
+  white-space: nowrap;
 }
 
 .pluginLink:hover {
@@ -1051,6 +996,7 @@
   border-radius: 4px;
   font-weight: 500;
   transition: var(--kether-transition);
+  white-space: nowrap;
 }
 
 .downloadButton:hover {
@@ -1060,20 +1006,120 @@
 }
 
 /* 响应式调整 */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .grid .pluginsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  
+  .content.withSidebar .grid .pluginsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 996px) {
+  .grid .pluginsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .compact .pluginsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  .content.withSidebar .grid .pluginsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .content.withSidebar .compact .pluginsGrid {
+    grid-template-columns: 1fr;
+  }
+  
   .list .pluginCard {
     flex-direction: column;
     align-items: flex-start;
+    padding: 16px;
   }
   
   .list .pluginLinks {
     justify-content: flex-start;
-    margin-top: 8px;
+    margin-top: 12px;
     width: 100%;
   }
   
   .list .pluginIconAndInfo {
     width: 100%;
+  }
+  
+  .pluginCard {
+    min-height: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid .pluginsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  
+  .compact .pluginsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pluginCard {
+    padding: 16px;
+    min-height: 150px;
+  }
+  
+  .pluginIcon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px; /* 防止图标被压缩 */
+    font-size: 18px;
+    aspect-ratio: 1 / 1; /* 保持宽高比 */
+  }
+  
+  .pluginName {
+    font-size: 16px;
+  }
+  
+  .pluginDescription {
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+  }
+  
+  .pluginTag {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid .pluginsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .pluginCard {
+    padding: 14px;
+    min-height: auto;
+  }
+  
+  .pluginIcon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px; /* 防止图标被压缩 */
+    font-size: 16px;
+  }
+  
+  .pluginLinks {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .pluginLink, .downloadButton {
+    font-size: 11px;
+    padding: 3px 8px;
   }
 }
 
