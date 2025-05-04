@@ -23,7 +23,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '19'
         cache: 'npm'
     
     # 安装依赖
@@ -34,7 +34,7 @@ jobs:
     - name: Build
       run: npm run build
       env:
-        NODE_OPTIONS: --max-old-space-size=4096
+        NODE_OPTIONS: --max-old-space-size=8192
 
     # 塞进gh-pages分支(即部署到GitPage)
     - name: Deploy
