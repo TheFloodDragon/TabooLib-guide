@@ -235,13 +235,9 @@ export default function KetherList(): JSX.Element {
         activeFilters.provider.length === 0 || 
         activeFilters.provider.includes(action.provider);
       
-      const matchesType = 
-        activeFilters.type.length === 0 || 
-        activeFilters.type.includes(action.type);
-      
       const matchesTab = activeTab === 'all' || action.type === activeTab;
       
-      return matchesSearch && matchesCategory && matchesProvider && matchesType && matchesTab;
+      return matchesSearch && matchesCategory && matchesProvider && matchesTab;
     });
   }, [actions, searchTerm, activeFilters, activeTab]);
 
@@ -338,7 +334,6 @@ export default function KetherList(): JSX.Element {
     setSearchTerm('');
     setSelectedCategory('all'); // 保留这个状态更新以确保向后兼容
     setSelectedProvider('all'); // 保留这个状态更新以确保向后兼容
-    setSelectedType('all'); // 保留这个状态更新以确保向后兼容
     setActiveTab('all');
     setActiveFilters({
       category: [],
@@ -487,27 +482,6 @@ export default function KetherList(): JSX.Element {
         {/* 筛选面板 */}
         <div className={`${styles.filtersWrapper} ${showFilters ? styles.show : ''}`}>
           <div className={styles.filtersPanel}>
-            {/* 类型筛选 */}
-            <div className={styles.filterSection}>
-              <h3 className={styles.filterSectionTitle}>动作类型</h3>
-              <div className={styles.filterChips}>
-                <button 
-                className={`${styles.filterChip} ${activeFilters.type.includes('public') ? styles.active : ''}`}
-                onClick={() => toggleFilter('type', 'public')}
-                >
-                  公共动作
-                {activeFilters.type.includes('public') && <IoClose className={styles.chipCloseIcon} />}
-                </button>
-                <button 
-                className={`${styles.filterChip} ${activeFilters.type.includes('private') ? styles.active : ''}`}
-                onClick={() => toggleFilter('type', 'private')}
-                >
-                  私有动作
-                {activeFilters.type.includes('private') && <IoClose className={styles.chipCloseIcon} />}
-                </button>
-              </div>
-            </div>
-            
             {/* 类别筛选 */}
             <div className={styles.filterSection}>
               <h3 className={styles.filterSectionTitle}>类别</h3>
@@ -546,7 +520,7 @@ export default function KetherList(): JSX.Element {
         </div>
         
         {/* 活跃标签 */}
-        {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
+        {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeTab !== 'all') && (
           <div className={styles.activeTagsContainer}>
             <div className={styles.activeTags}>
               {searchTerm && (
@@ -561,12 +535,6 @@ export default function KetherList(): JSX.Element {
                   <IoClose />
                 </div>
               )}
-              {activeFilters.type.map(type => (
-                <div key={type} className={styles.activeTag} onClick={() => toggleFilter('type', type)}>
-                  <span>类型: {type === 'public' ? '公共' : '私有'}</span>
-                  <IoClose />
-                </div>
-              ))}
               {activeFilters.category.map(category => (
                 <div key={category} className={styles.activeTag} onClick={() => toggleFilter('category', category)}>
                   <span>类别: {category}</span>
@@ -585,7 +553,7 @@ export default function KetherList(): JSX.Element {
                 </div>
               ))}
               
-              {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
+              {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeTab !== 'all') && (
                 <div className={styles.activeTagsClearButton} onClick={clearFilters}>
                   <span>清除全部</span>
                 </div>
