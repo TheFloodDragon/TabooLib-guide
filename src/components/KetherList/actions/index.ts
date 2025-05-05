@@ -19,12 +19,12 @@ export interface KetherAction {
 
 // 导入各个模块
 import adyeshach from './adyeshach';
+import arim from './arim';
 import chemdah from './chemdah';
 import dungeonPlus from './dungeonPlus';
 import invero from './invero';
 import kether from './kether';
 import tabooLib from './taboolib';
-import arim from './arim';
 import trmenu from './trmenu';
 import vulpecula from './vulpecula';
 import zaphkiel from './zaphkiel';
@@ -32,12 +32,12 @@ import zaphkiel from './zaphkiel';
 // 导出所有模块
 export const modules: KetherActionModule[] = [
   adyeshach,
+  arim,
   chemdah,
   dungeonPlus,
   invero,
   kether,
   tabooLib,
-  arim,
   trmenu,
   vulpecula,
   zaphkiel

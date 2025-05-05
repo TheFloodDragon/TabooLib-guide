@@ -10,7 +10,7 @@ const dungeonPlus: KetherActionModule = {
       description: "运行 DungeonPlus 脚本\\n详情访问: https://ersha.gitbook.io/dungeonplus/di-lao/untitled/kether",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统", "脚本操作"],
+      categories: ["游戏系统", "脚本控制"],
       syntax: "dungeon \{action\} \{action\} params \{token\} \[area \{token\}\]",
       example: "\{dungeon\} message self \{params\} \"type=text;text=Example:<self:player-name>\""
     },
@@ -20,7 +20,7 @@ const dungeonPlus: KetherActionModule = {
       description: "获取地牢区域内的玩家玩家数量",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统", "实体操作"],
+      categories: ["游戏系统", "实体控制"],
       syntax: "dungeon-data area \[players|size\] \{token\}",
       example: "\{dungeon-data area\} players dungeon_1"
     },
@@ -30,7 +30,7 @@ const dungeonPlus: KetherActionModule = {
       description: "获取地牢内的所有玩家",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统", "实体操作"],
+      categories: ["游戏系统", "实体控制"],
       syntax: "dungeon-data players",
       example: "\{dungeon-data players\}"
     },
@@ -40,7 +40,7 @@ const dungeonPlus: KetherActionModule = {
       description: "获取某个地牢数据值",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统", "变量操作"],
+      categories: ["游戏系统", "数据处理"],
       syntax: "dungeon-data data \{token\}",
       example: "\{dungeon-data data\} data_name"
     },
@@ -50,7 +50,7 @@ const dungeonPlus: KetherActionModule = {
       description: "获取某个怪物的击杀数量或判断是否击杀该怪物",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统", "实体操作"],
+      categories: ["游戏系统", "实体控制"],
       syntax: "dungeon-data mob \[amount|contain\] \{token\}",
       example: "\{dungeon-data mob\} amount mob_1\n\{dungeon-data mob\} contain mob_2"
     },
@@ -60,7 +60,7 @@ const dungeonPlus: KetherActionModule = {
       description: "获取地牢的世界名称",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统", "世界操作"],
+      categories: ["游戏系统", "世界与坐标"],
       syntax: "dungeon-data world",
       example: "\{dungeon-data world\}"
     },
@@ -70,7 +70,7 @@ const dungeonPlus: KetherActionModule = {
       description: "获取地牢名称",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统"],
+      categories: ["游戏系统"],
       syntax: "dungeon-data dongeon name",
       example: "\{dungeon-data dongeon name\}"
     },
@@ -80,7 +80,7 @@ const dungeonPlus: KetherActionModule = {
       description: "获取地牢启动参数",
       provider: "DungeonPlus",
       type: "private",
-      categories: ["地牢系统", "变量操作"],
+      categories: ["游戏系统", "数据处理"],
       syntax: "dungeon-data options \{token\}",
       example: "\{dungeon-data dongeon options\} 1"
     },

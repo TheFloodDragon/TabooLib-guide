@@ -1,4 +1,4 @@
-/* 基础变量定义 */
+﻿/* 鍩虹鍙橀噺瀹氫箟 */
 :root {
   --kether-primary: #2563EB;
   --kether-primary-dark: #1d4ed8;
@@ -30,21 +30,19 @@
   --kether-transition-fast: all 0.15s ease;
   --kether-transition-slow: all 0.3s ease;
   
-  /* 移动优化 */
+  /* 绉诲姩浼樺寲 */
   --mobile-padding: 16px;
   --mobile-gap: 12px;
   --mobile-radius: 8px;
   
-  /* 布局尺寸 */
+  /* 甯冨眬灏哄 */
   --index-width: 180px;
   --detail-padding: 36px;
   --sidebar-width: 380px;
 }
 
-/* 响应式设计 - 只使用两种模式：
-   1. 大屏(>767px)：正常显示，侧边栏推动内容
-   2. 小屏(≤767px)：侧边栏全屏显示，内容隐藏
-
+/* 鍝嶅簲寮忚璁?- 鍙娇鐢ㄤ袱绉嶆ā寮忥細
+   1. 澶у睆(>767px)锛氭甯告樉绀猴紝渚ц竟鏍忔帹鍔ㄥ唴瀹?   2. 灏忓睆(鈮?67px)锛氫晶杈规爮鍏ㄥ睆鏄剧ず锛屽唴瀹归殣钘?
 */
 @media (max-width: 767px) {
   :root {
@@ -53,7 +51,7 @@
 }
 }
 
-/* 暗色主题 */
+/* 鏆楄壊涓婚 */
 [data-theme='dark'] {
   --kether-hover: rgba(255, 255, 255, 0.05);
   --kether-border: rgba(255, 255, 255, 0.1);
@@ -62,7 +60,7 @@
   --kether-sidebar-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
 }
 
-/* 主容器样式 */
+/* 涓诲鍣ㄦ牱寮?*/
 .ketherContainer {
   display: flex;
   flex-direction: column;
@@ -77,25 +75,26 @@
   --plugin-catalog-sidebar-width: 380px;
 }
 
-/* 设置侧边栏打开时的容器样式 */
+/* 璁剧疆渚ц竟鏍忔墦寮€鏃剁殑瀹瑰櫒鏍峰紡 */
 .ketherContainer.withSidebar {
   width: 100%;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: visible;
 }
 
-/* 小屏模式下主容器隐藏溢出 */
+/* 灏忓睆妯″紡涓嬩富瀹瑰櫒闅愯棌婧㈠嚭 */
 @media (max-width: 767px) {
   .ketherContainer {
     overflow-x: hidden;
   }
 }
 
-/* 头部导航区域优化 */
+/* 澶撮儴瀵艰埅鍖哄煙浼樺寲 */
 .header {
   background-color: var(--kether-background);
   border-bottom: 1px solid var(--kether-border);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 50;
   transition: var(--kether-transition);
   width: 100%;
@@ -111,7 +110,7 @@
   gap: 20px;
 }
 
-/* Logo区域优化 */
+/* Logo鍖哄煙浼樺寲 */
 .logoSection {
   display: flex;
   align-items: center;
@@ -150,7 +149,7 @@
   color: var(--kether-primary);
 }
 
-/* 内容区域包装器 */
+/* 鍐呭鍖哄煙鍖呰鍣?*/
 .contentWrapper {
   display: flex;
   flex: 1;
@@ -161,14 +160,14 @@
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 小屏模式下内容包装器不显示溢出内容 */
+/* 灏忓睆妯″紡涓嬪唴瀹瑰寘瑁呭櫒涓嶆樉绀烘孩鍑哄唴瀹?*/
 @media (max-width: 767px) {
   .contentWrapper {
     overflow: hidden;
   }
 }
 
-/* 主内容区域 */
+/* 涓诲唴瀹瑰尯鍩?*/
 .content {
   flex: 1;
   padding: 24px 32px;
@@ -179,7 +178,7 @@
   margin-left: 0;
 }
 
-/* 当侧边栏打开时的内容区域样式 */
+/* 褰撲晶杈规爮鎵撳紑鏃剁殑鍐呭鍖哄煙鏍峰紡 */
 .content.withSidebar {
   width: calc(100% - var(--plugin-catalog-sidebar-width, var(--sidebar-width)));
   box-sizing: border-box;
@@ -190,7 +189,7 @@
   pointer-events: auto;
 }
 
-/* 侧边栏 */
+/* 渚ц竟鏍?*/
 .detailSidebar {
   position: fixed;
   top: 0;
@@ -210,7 +209,7 @@
   will-change: transform, box-shadow;
 }
 
-/* 侧边栏动画改进 */
+/* 渚ц竟鏍忓姩鐢绘敼杩?*/
 @keyframes slideInRight {
   from { 
     transform: translateX(100%); 
@@ -237,7 +236,7 @@
   }
 }
 
-/* 侧边栏状态 */
+/* 渚ц竟鏍忕姸鎬?*/
 .entering {
   animation: slideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -257,9 +256,9 @@
   display: none;
 }
 
-/* 响应式适配 - 只在小屏幕下触发，大屏幕保持原样 */
+/* 鍝嶅簲寮忛€傞厤 - 鍙湪灏忓睆骞曚笅瑙﹀彂锛屽ぇ灞忓箷淇濇寔鍘熸牱 */
 @media (max-width: 767px) {
-  /* 左侧内容区域在侧边栏打开时的样式 */
+  /* 宸︿晶鍐呭鍖哄煙鍦ㄤ晶杈规爮鎵撳紑鏃剁殑鏍峰紡 */
   .content.withSidebar {
     width: 100%;
     opacity: 0;
@@ -279,12 +278,12 @@
     display: none;
   }
   
-  /* 侧边栏样式 */
+  /* 渚ц竟鏍忔牱寮?*/
   .detailSidebar {
-    width: 100% !important; /* 强制全宽 */
-    max-width: 100vw !important; /* 确保不会超出视口 */
-    right: 0; /* 保持从右侧定位 */
-    border-left: none; /* 移除左边框 */
+    width: 100% !important; /* 寮哄埗鍏ㄥ */
+    max-width: 100vw !important; /* 纭繚涓嶄細瓒呭嚭瑙嗗彛 */
+    right: 0; /* 淇濇寔浠庡彸渚у畾浣?*/
+    border-left: none; /* 绉婚櫎宸﹁竟妗?*/
   }
   
   .detailHeader {
@@ -308,13 +307,13 @@
     padding: 16px 24px;
   }
   
-  /* 布局网格样式 */
+  /* 甯冨眬缃戞牸鏍峰紡 */
   .grid .pluginsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: 1fr !important;
   }
   
   .compact .pluginsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: 1fr !important;
   }
   
   .downloadButton, .pluginLink {
@@ -327,73 +326,16 @@
   }
   
   .searchSection {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    gap: 10px !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    flex-wrap: wrap;
+    width: 100%;
   }
   
-  .searchContainer, 
-  .filterToggle {
-    width: 100% !important;
-    height: 42px !important;
-    max-width: 100% !important;
-    margin: 0 0 8px 0 !important;
-    box-sizing: border-box !important;
-    border: 1px solid var(--kether-border) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  .searchContainer {
+    width: 100%;
+    max-width: 100%;
   }
   
-  .searchInput {
-    width: 100% !important;
-    height: 42px !important;
-    box-sizing: border-box !important;
-    border-radius: 8px !important;
-    padding: 8px 12px 8px 38px !important;
-    font-size: 14px !important;
-  }
-  
-  .filterToggle {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: 0 16px !important;
-    font-size: 14px !important;
-    gap: 6px !important;
-    background-color: var(--kether-background) !important;
-  }
-  
-  .filterToggle svg {
-    font-size: 16px !important;
-    margin-right: 4px !important;
-  }
-  
-  .searchIcon {
-    left: 12px !important;
-    font-size: 16px !important;
-  }
-  
-  .layoutControls {
-    width: 100% !important;
-    justify-content: center !important;
-    margin-top: 10px !important;
-  }
-  
-  .logoSection {
-    width: 100% !important;
-    margin-bottom: 14px !important;
-  }
-  
-  /* 隐藏所有可能导致宽度差异的元素 */
-  .searchSection > * {
-    flex-shrink: 0 !important;
-    flex-grow: 0 !important;
-  }
-  
-  /* 保持原有的其他媒体查询样式 */
+  /* 澶撮儴鍐呭鏍峰紡 */
   .headerContent {
     flex-direction: column;
     align-items: flex-start;
@@ -409,7 +351,7 @@
     padding: 12px 16px;
   }
   
-  /* 列表样式 */
+  /* 鍒楄〃鏍峰紡 */
   .list .pluginCard {
     flex-direction: column;
     padding: 16px;
@@ -427,7 +369,7 @@
     width: 100%;
   }
   
-  /* 卡片样式 */
+  /* 鍗＄墖鏍峰紡 */
   .pluginCard {
     padding: 16px;
   }
@@ -452,7 +394,7 @@
     font-size: 11px;
   }
   
-  /* 超小屏幕适配 */
+  /* 瓒呭皬灞忓箷閫傞厤 */
   .pluginIconLarge {
     width: 48px;
     height: 48px;
@@ -460,7 +402,7 @@
   }
 }
 
-/* 滚动条美化 */
+/* 婊氬姩鏉＄編鍖?*/
 .detailBody::-webkit-scrollbar {
   width: 6px;
 }
@@ -492,7 +434,7 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* 侧边栏标题部分 */
+/* 渚ц竟鏍忔爣棰橀儴鍒?*/
 .detailHeader {
   padding: 24px 32px;
   border-bottom: 1px solid var(--kether-border);
@@ -540,7 +482,7 @@
   flex: 1;
 }
 
-/* 侧边栏内容区域 */
+/* 渚ц竟鏍忓唴瀹瑰尯鍩?*/
 .detailBody {
   padding: 24px 32px;
   overflow-y: auto;
@@ -548,7 +490,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* 详情部分 */
+/* 璇︽儏閮ㄥ垎 */
 .detailSection {
   margin-bottom: 32px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -591,19 +533,19 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 全局样式 */
+/* 鍏ㄥ眬鏍峰紡 */
 :global(body.sidebar-open) {
   padding-right: 15px;
 }
 
-/* 小屏模式下禁用滚动 */
+/* 灏忓睆妯″紡涓嬬鐢ㄦ粴鍔?*/
 @media (max-width: 767px) {
   :global(body.sidebar-open) {
     overflow: hidden;
   }
 }
 
-/* 优化搜索部分布局 */
+/* 浼樺寲鎼滅储閮ㄥ垎甯冨眬 */
 .searchSection {
   display: flex;
   align-items: center;
@@ -629,8 +571,6 @@
   color: var(--kether-text-light);
   font-size: 18px;
   transition: color 0.2s ease;
-  z-index: 2;
-  pointer-events: none;
 }
 
 .searchInput {
@@ -651,8 +591,7 @@
   transform: translateY(-1px);
 }
 
-/* 确保搜索图标在搜索框获得焦点时正确着色 */
-.searchContainer:focus-within .searchIcon {
+.searchInput:focus + .searchIcon {
   color: var(--kether-primary);
 }
 
@@ -679,7 +618,7 @@
   transform: translateY(-50%) scale(1.1);
 }
 
-/* 筛选器按钮 */
+/* 绛涢€夊櫒鎸夐挳 */
 .filterToggle {
   display: flex;
   align-items: center;
@@ -693,7 +632,6 @@
   cursor: pointer;
   transition: var(--kether-transition);
   position: relative;
-  white-space: nowrap;
 }
 
 .filterToggle:hover {
@@ -732,7 +670,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 新的筛选器布局 */
+/* 鏂扮殑绛涢€夊櫒甯冨眬 */
 .filtersWrapper {
   border-top: 1px solid var(--kether-border);
   background-color: var(--kether-background);
@@ -748,7 +686,7 @@
 }
 
 .filtersWrapper.show {
-  max-height: 800px; /* 大于实际高度的值 */
+  max-height: 800px; /* 澶т簬瀹為檯楂樺害鐨勫€?*/
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
@@ -791,7 +729,7 @@
   color: var(--kether-text-light);
 }
 
-/* 筛选选项 */
+/* 绛涢€夐€夐」 */
 .filterChips {
   display: flex;
   flex-wrap: wrap;
@@ -828,7 +766,7 @@
   font-size: 11px;
 }
 
-/* 活跃标签容器和样式 */
+/* 娲昏穬鏍囩瀹瑰櫒鍜屾牱寮?*/
 .activeTagsContainer {
   border-top: 1px solid var(--kether-border);
   background-color: var(--kether-background-light);
@@ -884,7 +822,7 @@
   transform: translateY(-1px);
 }
 
-/* 布局控制 */
+/* 甯冨眬鎺у埗 */
 .layoutControls {
   display: flex;
   background-color: var(--kether-background);
@@ -921,7 +859,7 @@
   transform: translateY(-1px);
 }
 
-/* 结果统计区域 */
+/* 缁撴灉缁熻鍖哄煙 */
 .resultsHeader {
   display: flex;
   justify-content: space-between;
@@ -949,7 +887,7 @@
   color: var(--kether-text-light);
 }
 
-/* 当前排序样式 */
+/* 褰撳墠鎺掑簭鏍峰紡 */
 .currentSort {
   display: flex;
   align-items: center;
@@ -974,7 +912,7 @@
   transform: rotate(0deg);
 }
 
-/* 排序按钮组 */
+/* 鎺掑簭鎸夐挳缁?*/
 .sortButtonGroup {
   display: flex;
   background-color: var(--kether-background);
@@ -1012,7 +950,7 @@
   color: white;
 }
 
-/* 插件网格 */
+/* 鎻掍欢缃戞牸 */
 .pluginsGrid {
   display: grid;
   gap: 16px;
@@ -1020,7 +958,7 @@
   width: 100%;
 }
 
-/* 布局变体 */
+/* 甯冨眬鍙樹綋 */
   .grid .pluginsGrid {
   grid-template-columns: repeat(5, 1fr);
   }
@@ -1033,7 +971,7 @@
   grid-template-columns: 1fr;
 }
 
-/* 插件卡片 */
+/* 鎻掍欢鍗＄墖 */
 .pluginCard {
   background-color: var(--kether-background);
   border: 1px solid var(--kether-border);
@@ -1075,7 +1013,7 @@
   opacity: 1;
 }
 
-/* 插件图标 */
+/* 鎻掍欢鍥炬爣 */
 .pluginIcon {
   width: 42px;
   height: 42px;
@@ -1098,7 +1036,7 @@
   box-shadow: 0 6px 12px rgba(37, 99, 235, 0.2);
 }
 
-/* 插件基本信息 */
+/* 鎻掍欢鍩烘湰淇℃伅 */
 .pluginName {
   font-size: 16px;
   font-weight: 600;
@@ -1131,7 +1069,7 @@
   word-break: break-word;
 }
 
-/* 插件标签 */
+/* 鎻掍欢鏍囩 */
 .pluginTags {
   display: flex;
   flex-wrap: wrap;
@@ -1171,7 +1109,7 @@
   background-color: rgba(0, 0, 0, 0.03);
 }
 
-/* 列表视图特殊布局 */
+/* 鍒楄〃瑙嗗浘鐗规畩甯冨眬 */
 .list .pluginCard {
   flex-direction: row;
   padding: 16px 20px;
@@ -1184,7 +1122,7 @@
   gap: 12px;
   flex: 1;
   align-items: flex-start;
-  min-width: 0; /* 确保flex项可以缩小 */
+  min-width: 0; /* 纭繚flex椤瑰彲浠ョ缉灏?*/
 }
 
 .pluginDetails {
@@ -1192,7 +1130,7 @@
   flex-direction: column;
   gap: 6px;
   flex: 1;
-  min-width: 0; /* 确保flex项可以缩小 */
+  min-width: 0; /* 纭繚flex椤瑰彲浠ョ缉灏?*/
 }
 
 .list .pluginName {
@@ -1210,7 +1148,7 @@
   margin-top: 6px;
 }
 
-/* 插件链接 */
+/* 鎻掍欢閾炬帴 */
 .pluginLinks {
   display: flex;
   gap: 8px;
@@ -1275,7 +1213,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* 详情内容 */
+/* 璇︽儏鍐呭 */
 .detailSection {
   margin-bottom: 36px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -1364,7 +1302,7 @@
   overflow-wrap: break-word;
 }
 
-/* 侧边栏下载按钮 */
+/* 渚ц竟鏍忎笅杞芥寜閽?*/
 .detailDownloadButton {
   display: flex;
   align-items: center;
@@ -1387,7 +1325,7 @@
   box-shadow: 0 6px 12px rgba(37, 99, 235, 0.2);
 }
 
-/* 侧边栏链接样式 */
+/* 渚ц竟鏍忛摼鎺ユ牱寮?*/
 .linksList {
   display: flex;
     flex-direction: column;
@@ -1427,7 +1365,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* 加载和空状态 */
+/* 鍔犺浇鍜岀┖鐘舵€?*/
 .loaderContainer {
   display: flex;
   flex-direction: column;
@@ -1500,7 +1438,7 @@
   transform: translateY(-2px);
 }
 
-/* 免责声明 */
+/* 鍏嶈矗澹版槑 */
 .disclaimerContainer {
   margin-top: 32px;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1515,7 +1453,7 @@
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 确保免责声明区域在侧边栏打开时正确定位 */
+/* 纭繚鍏嶈矗澹版槑鍖哄煙鍦ㄤ晶杈规爮鎵撳紑鏃舵纭畾浣?*/
 .content .disclaimerContainer {
   width: 100%;
 }
@@ -1532,8 +1470,8 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  flex-direction: row; /* 强制水平排列 */
-  flex-wrap: nowrap; /* 防止换行 */
+  flex-direction: row; /* 寮哄埗姘村钩鎺掑垪 */
+  flex-wrap: nowrap; /* 闃叉鎹㈣ */
   max-width: 100%;
 }
 
@@ -1541,7 +1479,7 @@
   font-size: 20px;
   color: var(--kether-text-lighter);
   margin-top: 2px;
-  flex-shrink: 0; /* 防止图标被压缩 */
+  flex-shrink: 0; /* 闃叉鍥炬爣琚帇缂?*/
 }
 
 .disclaimerText {
@@ -1549,8 +1487,8 @@
   font-size: 13px;
   color: var(--kether-text-light);
   line-height: 1.6;
-  flex: 1; /* 占据剩余空间 */
-  min-width: 0; /* 允许文本在必要时压缩 */
+  flex: 1; /* 鍗犳嵁鍓╀綑绌洪棿 */
+  min-width: 0; /* 鍏佽鏂囨湰鍦ㄥ繀瑕佹椂鍘嬬缉 */
 }
 
 .disclaimerText a {
@@ -1562,7 +1500,7 @@
   text-decoration: underline;
 }
 
-/* 响应式调整 - 小屏幕下免责声明仍然保持水平 */
+/* 鍝嶅簲寮忚皟鏁?- 灏忓睆骞曚笅鍏嶈矗澹版槑浠嶇劧淇濇寔姘村钩 */
 @media (max-width: 767px) {
   .disclaimerContainer.withSidebar {
     width: 100%;
@@ -1571,7 +1509,7 @@
 }
 
   .disclaimer {
-    flex-direction: row; /* 保持水平方向 */
+    flex-direction: row; /* 淇濇寔姘村钩鏂瑰悜 */
     padding: 12px;
   }
   
@@ -1584,7 +1522,7 @@
   }
 }
 
-/* 动画定义 */
+/* 鍔ㄧ敾瀹氫箟 */
 @keyframes slideInRight {
   from { 
     transform: translateX(100%); 
@@ -1639,7 +1577,7 @@
 }
 }
 
-/* 侧边栏中的插件图标 */
+/* 渚ц竟鏍忎腑鐨勬彃浠跺浘鏍?*/
 .pluginIconLarge {
   width: 54px;
   height: 54px;
@@ -1655,7 +1593,7 @@
   flex-shrink: 0;
 }
 
-/* 插件信息行 */
+/* 鎻掍欢淇℃伅琛?*/
 .pluginInfoRow {
   display: flex;
   gap: 16px;
@@ -1678,7 +1616,7 @@
   line-height: 1.3;
 }
 
-/* 元数据行 */
+/* 鍏冩暟鎹 */
 .metaRow {
   display: flex;
   flex-wrap: wrap;
@@ -1699,7 +1637,7 @@
   font-size: 15px;
 }
 
-/* 详情标签 */
+/* 璇︽儏鏍囩 */
 .detailTags {
   display: flex;
   flex-wrap: wrap;
@@ -1717,7 +1655,7 @@
   transition: var(--kether-transition);
 }
 
-/* 详情描述 */
+/* 璇︽儏鎻忚堪 */
 .detailDescription {
   font-size: 14px;
   line-height: 1.6;
@@ -1727,7 +1665,7 @@
   overflow-wrap: break-word;
 }
 
-/* 链接列表 */
+/* 閾炬帴鍒楄〃 */
 .linksList {
   display: flex;
   flex-direction: column;
@@ -1789,7 +1727,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* 底部导航适配侧边栏 */
+/* 搴曢儴瀵艰埅閫傞厤渚ц竟鏍?*/
 .footer {
   padding: 20px 24px;
   border-top: 1px solid var(--kether-border);
@@ -1817,4 +1755,4 @@
   .compact .pluginsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
-} @media (max-width: 767px) { .layoutControls { display: none !important; } .grid .pluginsGrid, .compact .pluginsGrid { grid-template-columns: 1fr !important; } }
+} 

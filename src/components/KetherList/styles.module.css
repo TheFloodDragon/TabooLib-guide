@@ -1,4 +1,4 @@
-/* 将全局CSS变量改为仅限于KetherList组件的局部变量 */
+/* 将全局CSS变量改为仅限于KetherList组件的局部变量*/
 .ketherContainer {
   -kether-primary-darker: #1e40af;
   --kether-primary-light: #3b82f6;
@@ -35,10 +35,10 @@
   --index-width: 180px;
   --detail-padding: 36px;
   
-  /* 侧边栏宽度，移到组件内部 */
-  --kether-list-sidebar-width: 800px;
+  /* 侧边栏宽度，减小宽度以避免主内容区域过于紧凑 */
+  --kether-list-sidebar-width: 450px;
   
-  /* 布局属性 */
+  /* 布局属性*/
   display: flex;
   flex-direction: column;
   min-height: 90vh;
@@ -51,7 +51,7 @@
   box-sizing: border-box;
 }
 
-/* 暗色模式下的变量也移到组件内部 */
+/* 暗色模式下的变量也移到组件内*/
 :global([data-theme='dark']) .ketherContainer {
   --kether-hover: rgba(255, 255, 255, 0.05);
   --kether-border: rgba(255, 255, 255, 0.1);
@@ -136,6 +136,7 @@
 .content.withSidebar {
   width: calc(100% - var(--kether-list-sidebar-width));
   box-sizing: border-box;
+  padding-right: 16px; /* 减少右侧内边距，给内容更多空间 */
 }
 
 /* 类别索引区域样式优化 */
@@ -251,25 +252,22 @@
   margin-bottom: 0;
 }
 
-/* 正确定位侧边栏，使用fixed定位让其固定在屏幕右侧 */
+/* 正确定位侧边栏，使用fixed定位让其固定在屏幕右*/
 .detailSidebar {
   position: fixed;
   top: 0;
   right: 0;
+  height: 100%;
   width: var(--kether-list-sidebar-width);
-  height: 100vh;
   background-color: var(--kether-background);
-  border-left: 1px solid var(--kether-border);
   box-shadow: var(--kether-sidebar-shadow);
-  z-index: 1000;
+  border-left: 1px solid var(--kether-border);
+  z-index: 9999; /* 提高z-index值，确保侧边栏在最上层，高于Docusaurus导航栏 */
+  overflow-y: auto;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: ketherSlideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
-  animation: ketherSlideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  overflow-y: hidden;
-  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  backdrop-filter: blur(5px);
-  transform: translateZ(0);
-  will-change: transform, box-shadow;
 }
 
 /* 动画优化 */
@@ -295,9 +293,9 @@
   display: flex !important;
   }
   
-/* 响应式布局优化 - 三级响应式 */
+/* 响应式布局优化 - 三级响应*/
 
-/* 大屏到中屏过渡 - 保持左侧导航布局 */
+/* 大屏到中屏过- 保持左侧导航布局 */
 @media (max-width: 1209px) and (min-width: 901px) {
   /* 保持侧边栏水平布局 */
   .sidebarLayout, .sidebarLayout_AAQx {
@@ -305,7 +303,7 @@
     height: calc(100vh - 80px) !important;
   }
   
-  /* 分类导航调整宽度但仍在左侧 */
+  /* 分类导航调整宽度但仍在左*/
   .categoryIndex, .categoryIndex_mbeb {
     width: 220px !important; /* 稍微增加宽度以适应中屏 */
     border-right: 1px solid var(--kether-border) !important;
@@ -327,21 +325,21 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.03) !important;
   }
   
-  /* 详情内容区调整 */
+  /* 详情内容区调*/
   .detailBody, .detailBody_hIEr {
     width: calc(100% - 220px) !important;
     padding: 24px !important;
   }
 }
 
-/* 中小屏 - 完全隐藏导航 */
+/* 中小- 完全隐藏导航 */
 @media (max-width: 900px) {
-  /* 在小屏幕上隐藏分类导航 */
+  /* 在小屏幕上隐藏分类导*/
   .categoryIndex, .categoryIndex_mbeb {
     display: none !important;
   }
   
-  /* 使详情区域占据整个宽度 */
+  /* 使详情区域占据整个宽*/
   .detailBody, .detailBody_hIEr {
     width: 100% !important;
     padding: 16px !important;
@@ -353,7 +351,7 @@
     height: auto !important;
   }
   
-  /* 调整详情侧边栏 */
+  /* 调整详情侧边*/
   .detailSidebar {
     width: 100%;
     left: 0;
@@ -384,7 +382,7 @@
     --index-width: 140px;
   }
   
-  /* 小屏幕详情区域优化 */
+  /* 小屏幕详情区域优*/
   .detailBody, .detailBody_hIEr {
     padding: 12px !important;
   }
@@ -408,7 +406,7 @@
     max-height: 180px !important;
   }
   
-  /* 分类导航移动端优化 */
+  /* 分类导航移动端优*/
   .indexActionItem, .indexActionItem_AGYC {
     padding: 8px 12px 8px 16px !important;
     font-size: 12px !important;
@@ -424,35 +422,36 @@
   }
 }
 
-/* 当页面宽度特别窄时 */
+/* 当页面宽度特别窄*/
 @media (max-width: 360px) {
   .headerContent {
     padding: 8px var(--mobile-padding);
   }
   
   .searchSection {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
     margin-top: 8px;
     gap: 6px;
   }
   
   .searchContainer {
     width: 100%;
+    max-width: 100%;
     margin-bottom: 6px;
   }
   
-  .layoutControls, .filterToggle {
-    height: 34px;
-  }
-  
-  .layoutButton {
-    width: 30px;
-    height: 34px;
-  }
-  
   .filterToggle {
-    width: 34px;
-    height: 34px;
+    width: 100%;
+    height: 38px;
+    justify-content: center;
+  }
+  
+  .layoutControls {
+    width: 100%;
+    margin-top: 6px;
+    justify-content: center;
   }
   
   /* 标签适配 */
@@ -499,6 +498,105 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+/* 定义媒体查询，针对手机端优化搜索布局 */
+@media (max-width: 767px) {
+  /* 固定搜索区域的宽度 */
+  .searchSection {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 搜索容器和筛选按钮共同样式 */
+  .searchContainer, 
+  .filterToggle {
+    width: 100% !important;
+    height: 42px !important;
+    max-width: 100% !important;
+    margin: 0 0 8px 0 !important;
+    box-sizing: border-box !important;
+    border: 1px solid var(--kether-border) !important;
+    border-radius: 8px !important;
+  }
+  
+  /* 搜索输入框 */
+  .searchInput {
+    width: 100% !important;
+    height: 42px !important;
+    box-sizing: border-box !important;
+    border-radius: 8px !important;
+    padding: 8px 12px 8px 38px !important;
+    font-size: 14px !important;
+  }
+  
+  /* 筛选按钮样式 */
+  .filterToggle {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 16px !important;
+    font-size: 14px !important;
+    gap: 6px !important;
+    background-color: var(--kether-background) !important;
+  }
+  
+  .filterToggle svg {
+    font-size: 16px !important;
+    margin-right: 4px !important;
+  }
+  
+  .searchIcon {
+    left: 12px !important;
+    font-size: 16px !important;
+  }
+  
+  .layoutControls {
+    width: 100% !important;
+    justify-content: center !important;
+    margin-top: 10px !important;
+  }
+  
+  .logoSection {
+    width: 100% !important;
+    margin-bottom: 14px !important;
+  }
+  
+  /* 隐藏所有可能导致宽度差异的元素 */
+  .searchSection > * {
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+  }
+}
+
+/* 优化移动端筛选器按钮的内部布局 */
+@media (max-width: 767px) {
+  .filterToggle svg {
+    font-size: 16px;
+    margin-right: 6px;
+  }
+  
+  .searchIcon {
+    left: 14px;
+    font-size: 16px;
+  }
+  
+  /* 确保筛选器按钮文字居中 */
+  .filterToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  /* 保持搜索容器和筛选按钮相同的外观 */
+  .searchContainer, .filterToggle {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
 }
 
 [data-theme='dark'] .header {
@@ -552,6 +650,8 @@
   color: var(--kether-text-light);
   font-size: 18px;
   transition: color 0.2s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .searchInput {
@@ -563,6 +663,7 @@
   color: var(--kether-text);
   font-size: 14px;
   transition: var(--kether-transition);
+  box-sizing: border-box;
 }
 
 .searchInput:focus {
@@ -572,7 +673,8 @@
   transform: translateY(-1px);
 }
 
-.searchInput:focus + .searchIcon {
+/* 确保搜索图标在搜索框获得焦点时正确着色 */
+.searchContainer:focus-within .searchIcon {
   color: var(--kether-primary);
 }
 
@@ -613,6 +715,8 @@
   cursor: pointer;
   transition: var(--kether-transition);
   position: relative;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .filterToggle:hover {
@@ -651,7 +755,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* PluginCatalog 风格的筛选面板 */
+/* PluginCatalog 风格的筛选面*/
 .filterPanel {
   background-color: var(--kether-background);
   border-top: 1px solid var(--kether-border);
@@ -700,7 +804,7 @@
 }
 
 .filtersWrapper.show {
-  max-height: 800px; /* 大于实际高度的值 */
+  max-height: 800px; /* 大于实际高度的*/
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
@@ -774,7 +878,7 @@
   font-size: 14px;
 }
 
-/* 类别筛选网格 */
+/* 类别筛选网*/
 .filterGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -820,7 +924,7 @@
   color: var(--kether-text-light);
 }
 
-/* 提供者筛选网格 */
+/* 提供者筛选网*/
 .providerFilterGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -897,7 +1001,7 @@
   box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
 }
 
-/* 活跃标签容器和样式 */
+/* 活跃标签容器和样*/
 .activeTagsContainer {
   border-top: 1px solid var(--kether-border);
   background-color: var(--kether-background-light);
@@ -953,7 +1057,7 @@
   transform: translateY(-1px);
 }
 
-/* 加载状态 */
+/* 加载状*/
 .loaderContainer {
   display: flex;
   flex-direction: column;
@@ -996,7 +1100,7 @@
   }
 }
 
-/* 空状态 */
+/* 空状*/
 .emptyState {
   display: flex;
   flex-direction: column;
@@ -1245,19 +1349,41 @@
 
 /* 侧边栏打开时的布局调整 */
 .content.withSidebar .grid .actionsGrid {
-  grid-template-columns: repeat(2, 1fr); /* 侧边栏打开时改为2列 */
+  grid-template-columns: repeat(3, 1fr); /* 侧边栏打开时使用3列，避免太紧凑 */
+  gap: 16px; /* 减小间隔，优化空间利用 */
+  padding: 16px; /* 减小内边距，更好利用空间 */
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .content.withSidebar .compact .actionsGrid {
-  grid-template-columns: repeat(2, 1fr); /* 侧边栏打开时改为2列 */
+  grid-template-columns: repeat(2, 1fr); /* 紧凑视图侧边栏打开时使用2列 */
+  gap: 16px;
+  padding: 16px;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (max-width: 1400px) {
+  .content.withSidebar .grid .actionsGrid {
+    grid-template-columns: repeat(2, 1fr); /* 1400px以下减少到2列 */
+    gap: 16px;
+  }
+  
+  .content.withSidebar .compact .actionsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1100px) {
   .content.withSidebar .grid .actionsGrid,
   .content.withSidebar .compact .actionsGrid {
-    grid-template-columns: 1fr; /* 在较小的屏幕上改为1列 */
+    grid-template-columns: repeat(1, 1fr); /* 1100px以下减少到1列 */
+    gap: 12px;
+  }
+  
+  /* 在中等屏幕上进一步减小侧边栏宽度 */
+  .ketherContainer {
+    --kether-list-sidebar-width: 400px;
   }
 }
 
@@ -1418,7 +1544,7 @@
   left: 0;
   width: 100% !important;
   height: 100% !important;
-  z-index: 1100;
+  z-index: 9999; /* 同样提高全屏模式的z-index，保持一致性 */
   animation: ketherFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -1504,17 +1630,17 @@
   overflow: hidden;
 }
 
-/* 索引操作列表 - 让所有分类都使用相同的扩展样式 */
+/* 索引操作列表 - 让所有分类都使用相同的扩展样*/
 .indexActionsList {
   flex: 1;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--kether-border) transparent;
   max-height: none; /* 不再限制高度 */
-  min-height: 50px; /* 设置最小高度 */
+  min-height: 50px; /* 设置最小高*/
 }
 
-/* 最后一个类别占据剩余空间 */
+/* 最后一个类别占据剩余空*/
 .indexCategory:last-child {
   flex: 1;
   display: flex;
@@ -1694,7 +1820,7 @@
   color: var(--kether-text);
 }
 
-/* 代码块样式优化 */
+/* 代码块样式优*/
 .detailSection pre {
   margin: 14px 0;
   border-radius: var(--kether-radius);
@@ -1707,7 +1833,7 @@
   transform: translateY(-2px);
 }
 
-/* 改进类别索引滚动条 */
+/* 改进类别索引滚动*/
 .categoryIndex {
   scrollbar-width: thin;
   scrollbar-color: var(--kether-border) transparent;
@@ -1726,7 +1852,7 @@
   border-radius: 2px;
 }
 
-/* 改进动作列表滚动条 */
+/* 改进动作列表滚动*/
 .indexActionsList {
   scrollbar-width: thin;
   scrollbar-color: var(--kether-border) transparent;
@@ -1745,7 +1871,7 @@
   border-radius: 2px;
 }
 
-/* 内容区域webkit滚动条样式 */
+/* 内容区域webkit滚动条样*/
 .content::-webkit-scrollbar {
   width: 6px;
 }
@@ -1888,42 +2014,22 @@
     width: 100%;
   }
   
-  /* 侧边栏打开时隐藏内容 */
+  /* 侧边栏打开时隐藏内容区域 */
   .content.withSidebar {
     width: 100%;
     opacity: 0;
     pointer-events: none;
     position: absolute;
   }
-  
-  /* 移动设备上减小筛选器面板的间距 */
-  .filtersPanel {
-    padding: 16px 12px;
-  }
-  
-  /* 移动设备上减小筛选分类网格的间距 */
-  .filterGrid {
-    gap: 8px;
-  }
-  
-  /* 移动设备上减小提供者筛选网格的间距 */
-  .providerFilterGrid {
-    gap: 8px;
-  }
-  
-  /* 减小分类部分在移动设备上的左右间距 */
-  .categorySection {
-    margin: 0;
-  }
 }
 
 @media (max-width: 576px) {
   .grid .actionsGrid,
   .compact .actionsGrid {
-    grid-template-columns: 1fr; /* 小屏幕设备上统一为1列 */
+    grid-template-columns: 1fr; /* 小屏幕设备上统一*/
   }
   
-  /* 进一步减小小屏设备上筛选器面板的间距 */
+  /* 进一步减小小屏设备上筛选器面板的间*/
   .filtersPanel {
     padding: 12px 8px;
   }
@@ -1972,7 +2078,7 @@
   transform: translateY(-1px);
   }
   
-/* 选项卡 */
+/* 选项*/
 .tabsContainer {
   border-top: 1px solid var(--kether-border);
   background-color: var(--kether-background);
@@ -2034,7 +2140,133 @@
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 动画定义 - 使用作用域命名避免冲突 */
+/* 优化响应式布局 - 增加更多断点使其更好地适应不同窗口大小 */
+@media (max-width: 1400px) {
+  .grid .actionsGrid {
+    grid-template-columns: repeat(3, 1fr); /* 1400px以下减少到3列 */
+  }
+  
+  .compact .actionsGrid {
+    grid-template-columns: repeat(2, 1fr); /* 紧凑视图减少到2列 */
+  }
+}
+
+@media (max-width: 1100px) {
+  .grid .actionsGrid {
+    grid-template-columns: repeat(2, 1fr); /* 1100px以下减少到2列 */
+  }
+  
+  .compact .actionsGrid {
+    grid-template-columns: repeat(2, 1fr); /* 保持2列 */
+  }
+}
+
+@media (max-width: 767px) {
+  .layoutControls {
+    display: none !important;
+  }
+  
+  .grid .actionsGrid,
+  .compact .actionsGrid {
+    grid-template-columns: 1fr !important; /* 移动设备上只有1列 */
+  }
+  
+  .categorySection {
+    margin: 0 0 20px 0;
+    width: 100%;
+    border-radius: var(--kether-radius-sm);
+  }
+  
+  .categoryHeader {
+    padding: 14px 16px;
+  }
+  
+  .categoryTitle {
+    font-size: 16px;
+  }
+  
+  .actionsGrid {
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .actionCard {
+    padding: 14px 16px;
+  }
+  
+  .actionName {
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  
+  .actionId {
+    font-size: 12px;
+    padding: 3px 6px;
+    margin-bottom: 8px;
+  }
+  
+  .actionDescription {
+    font-size: 13px;
+    line-height: 1.4;
+    -webkit-line-clamp: 2;
+  }
+  
+  .actionMeta {
+    gap: 4px;
+  }
+  
+  .actionTag {
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+  
+  /* 确保详情侧边栏在移动端全屏显示 */
+  .detailSidebar {
+    width: 100%;
+    left: 0;
+  }
+  
+  /* 优化排序和结果显示 */
+  .resultsHeader {
+    margin: 8px 0 16px 0;
+    padding: 0;
+    width: 100%;
+  }
+  
+  /* 优化底部统计 */
+  .footer {
+    padding: 16px;
+  }
+  
+  .statsSection {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .statItem {
+    min-width: 80px;
+  }
+  
+  /* 固定内容区域宽度 */
+  .content {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 16px;
+  }
+  
+  /* 确保内容不横向溢出 */
+  .ketherContainer, 
+  .content, 
+  .header, 
+  .activeTagsContainer, 
+  .categorySection, 
+  .actionsGrid {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* 动画定义 - 使用作用域命名避免冲*/
 @keyframes ketherSlideDown {
   from {
     opacity: 0;
@@ -2078,5 +2310,99 @@
     transform: translateX(0); 
     opacity: 1; 
     box-shadow: var(--kether-sidebar-shadow);
+  }
+}
+
+/* 添加移动端的headerContent布局 */
+@media (max-width: 767px) {
+  .headerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .logoSection {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  
+  .searchSection {
+    width: 100%;
+  }
+  
+  .ketherContainer {
+    overflow-x: hidden; /* 防止水平溢出 */
+    max-width: 100vw; /* 限制最大宽度 */
+  }
+  
+  .content {
+    overflow-x: hidden;
+    padding: 16px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  /* 确保菜单标签正确换行 */
+  .tabList {
+    flex-wrap: wrap;
+  }
+  
+  .tabButton {
+    flex: 1;
+    min-width: 80px;
+    white-space: nowrap;
+  }
+  
+  /* 确保活跃标签容器不超出 */
+  .activeTagsContainer {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .activeTags {
+    flex-wrap: wrap;
+    padding: 8px 16px;
+  }
+}
+
+/* 针对移动端优化筛选面板 */
+@media (max-width: 767px) {
+  .filtersWrapper {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .filtersPanel {
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .filterSection {
+    gap: 8px;
+  }
+  
+  .filterSectionTitle {
+    font-size: 13px;
+    padding-bottom: 6px;
+  }
+  
+  .filterChips {
+    gap: 4px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .filterChip {
+    padding: 5px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  
+  /* 确保主要容器不溢出 */
+  body {
+    overflow-x: hidden;
   }
 }

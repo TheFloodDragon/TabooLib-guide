@@ -20,7 +20,7 @@ const vulpecula: KetherActionModule = {
       description: "等待指定事件的发生并做自定义处理\r\\n\{具体写法详见：\}\r\\nhttps://www.yuque.com/lanscarlos/vulpecula-doc/action-event#x7y9W",
       provider: "Vulpecula",
       type: "public",
-      categories: ["事件处理", "线程控制"],
+      categories: ["事件处理", "脚本控制"],
       syntax: "event (wait|require) \{token\} \{action\}",
       example: "\{event wait\} entity-shoot\r\\n\{event wait\} entity-shoot -filter check &event\[entity.type\] == PLAYER"
     },
@@ -30,7 +30,7 @@ const vulpecula: KetherActionModule = {
       description: "对实体造成伤害",
       provider: "Vulpecula",
       type: "public",
-      categories: ["实体操作"],
+      categories: ["实体控制"],
       syntax: "entity damage \{entity\} \[by \{damager\}\]",
       example: "\{entity damage\} &entity 10\r\\n\{entity damage\} &entity 10 by &player"
     },
@@ -40,7 +40,7 @@ const vulpecula: KetherActionModule = {
       description: "给予/移除实体药水效果\r\\n\{具体写法详见：\}\r\\nhttps://www.yuque.com/lanscarlos/vulpecula-doc/action-entity#ZzVee",
       provider: "Vulpecula",
       type: "public",
-      categories: ["实体操作", "药水效果"],
+      categories: ["实体控制", "药水效果"],
       syntax: "entity potion \{entity\} add|set \{type\} \[ args... \]\r\\nentity potion \{entity\} remove|rm \{type\}",
       example: "\{entity potion\} &entity add SLOW -level 2 -time 600\r\\n\{entity potion\} &entity remove SLOW"
     },
@@ -50,7 +50,7 @@ const vulpecula: KetherActionModule = {
       description: "传送实体至指定位置",
       provider: "Vulpecula",
       type: "public",
-      categories: ["实体操作", "坐标操作"],
+      categories: ["实体控制", "世界与坐标"],
       syntax: "entity tp \{entity\} to \{location\}",
       example: "entity tp &entity to loc world 11 45 14"
     },

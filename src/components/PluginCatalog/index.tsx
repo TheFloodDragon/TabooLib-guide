@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import styles from './styles.module.css';
 import { IoSearch, IoGrid, IoList, IoApps, IoClose, IoChevronDown, IoChevronForward, IoHomeOutline, 
   IoLogoGithub, IoDocumentTextOutline, IoDownloadOutline, IoStorefront, IoGlobeOutline, 
-  IoFolderOutline, IoArrowBack, 
+  IoFolderOutline, IoArrowBack,
   IoFilter, IoSwapVertical, IoTimeOutline, IoTextOutline, IoCodeOutline } from 'react-icons/io5';
 import { FaGamepad } from 'react-icons/fa';
 import Link from '@docusaurus/Link';

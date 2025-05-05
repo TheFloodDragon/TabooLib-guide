@@ -10,7 +10,7 @@ const invero: KetherActionModule = {
       description: "向玩家发送一个支持 Invero 相关格式化的消息",
       provider: "Invero",
       type: "private",
-      categories: ["消息显示"],
+      categories: ["界面交互"],
       syntax: "msg <消息文本>",
       example: "msg \"<red>Hello {{player name}}\""
     },
@@ -40,7 +40,7 @@ const invero: KetherActionModule = {
       description: "跨服",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "connect <action>\nconnect <serverName> for <playerName>",
       example: 'context yizhan_server'
     },
@@ -50,7 +50,7 @@ const invero: KetherActionModule = {
       description: "检查服务器是否有指定依赖。返回: true/false",
       provider: "Invero",
       type: "private",
-      categories: ["系统"],
+      categories: ["系统配置"],
       syntax: "depend plugin <action>\ndepend papi <action>",
       example: 'depend plugin Vault\ndepend papi Math'
     },
@@ -60,7 +60,7 @@ const invero: KetherActionModule = {
       description: "context /ctx 在具有菜单语境（即开启菜单）的情况下，操作菜单语境中的变量数据",
       provider: "Invero",
       type: "private",
-      categories: ["数据"],
+      categories: ["数据处理"],
       syntax: "context get <key>\ncontext has <key>\ncontext (no|without) <key>\ncontext (rem|del|delete) <key>\ncontext (inc|increase) <key> by <value>\ncontext (dec|decrease) <key>\ncontext set <key> to <value>",
       example: '懒得写'
     },
@@ -70,7 +70,7 @@ const invero: KetherActionModule = {
       description: "独立于菜单语境操作持久数据",
       provider: "Invero",
       type: "private",
-      categories: ["数据"],
+      categories: ["数据处理"],
       syntax: "persist get <key> by global\npersist set <key> to <value> by global\n\npersist get <key> player \"PlayerName\"\npersist set <key> to <value> player \"PlayerName\"",
       example: '懒得写'
     },
@@ -80,7 +80,7 @@ const invero: KetherActionModule = {
       description: "菜单相关操作",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "menu title to <text>\nmenu title pause\nmenu title resume\nmenu title update\nmenu close\nmenu open <menuId> for [player]\nmenu open_ctx <menuId> for [player]",
       example: '看上面'
     },
@@ -90,7 +90,7 @@ const invero: KetherActionModule = {
       description: "图标操作：\nrelocate\nupdate\nrefresh\nindex | sub_index\npause_update\npause_relocate\npause_frames\nresume_update\nresume_relocate\nresume_frames\nrefresh = update（更新变量） + relocate（重定向子图标）",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "icon (by <id> | at <slot>) <operator>",
       example: 'icon by A update\n特别地，你可以使用 icons 来操作所有图标，例如：\nicons update'
     },
@@ -100,7 +100,7 @@ const invero: KetherActionModule = {
       description: "翻页面板操作（需要在可翻页面板的语境下）",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "page isFirst\npage isLast\npage get\npage max\npage next (by <value>)\npage previous (by <value>)\npage set <value>",
       example: 'page next'
     },
@@ -110,7 +110,7 @@ const invero: KetherActionModule = {
       description: "滚动面板操作（需要在可滚动面板的语境下）",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "scroll index\nscroll next\nscroll previous\nscroll reset",
       example: 'scroll next'
     },
@@ -120,7 +120,7 @@ const invero: KetherActionModule = {
       description: "元素生成器面板操作",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "regenerate\nregenerate filter <filter>\nregenerate filter <filter> sort <sortby_key>",
       example: '懒得写'
     },
@@ -130,7 +130,7 @@ const invero: KetherActionModule = {
       description: "元素生成器模板图标操作",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "element <key>",
       example: '看 Invero 案例'
     },
@@ -140,7 +140,7 @@ const invero: KetherActionModule = {
       description: "交互槽位操作（需要在可交互面板中使用）",
       provider: "Invero",
       type: "private",
-      categories: ["菜单"],
+      categories: ["界面交互"],
       syntax: "storage at <slot> exist\nstorage at <slot> empty\nstorage at <slot> delete\nstorage at <slot> get\nstorage at <slot> set to <value>\nstorage at <slot> isLocked\nstorage at <slot> free\nstorage at <slot> lock",
       example: '看 Invero 案例'
     },
@@ -150,7 +150,7 @@ const invero: KetherActionModule = {
       description: "节点",
       provider: "Invero",
       type: "private",
-      categories: ["物品"],
+      categories: ["物品管理"],
       syntax: "node <key>\nnode <key> with <invokeArgs>",
       example: '看 Invero 文档'
     },
@@ -160,7 +160,7 @@ const invero: KetherActionModule = {
       description: "构建物品",
       provider: "Invero",
       type: "private",
-      categories: ["物品"],
+      categories: ["物品管理"],
       syntax: "item <action>\nitem <action> by <source>\nitem <action> by <source> amount <amount>",
       example: '看 Invero 案例'
     }

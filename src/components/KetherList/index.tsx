@@ -38,6 +38,18 @@ export default function KetherList(): JSX.Element {
   useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 1200);
+      
+      // 根据窗口宽度自动调整布局类型
+      if (window.innerWidth <= 768) {
+        setLayoutType('list'); // 移动设备上使用列表视图
+      } else if (window.innerWidth <= 1100) {
+        setLayoutType('compact'); // 中等屏幕使用紧凑视图
+      } else {
+        // 保持用户的选择，如果之前没有选择过，则默认为网格视图
+        setLayoutType(prevLayout => 
+          prevLayout === 'list' || prevLayout === 'compact' ? prevLayout : 'grid'
+        );
+      }
     };
     
     checkScreenSize();
@@ -382,7 +394,7 @@ export default function KetherList(): JSX.Element {
         <div className={styles.headerContent}>
           <div className={styles.logoSection}>
             <div className={styles.logo}>K</div>
-            <h1 className={styles.title}>Kether Explorer</h1>
+            <h2 className={styles.title}>Kether Explorer</h2>
           </div>
           
           <div className={styles.searchSection}>
@@ -392,10 +404,10 @@ export default function KetherList(): JSX.Element {
               </div>
               <input
                 type="text"
-                placeholder="搜索动作..."
+                className={styles.searchInput}
+                placeholder="搜索 Kether 动作..."
                 value={searchTerm}
                 onChange={handleSearch}
-                className={styles.searchInput}
               />
               {searchTerm && (
                 <button className={styles.clearButton} onClick={() => setSearchTerm('')}>
@@ -407,26 +419,32 @@ export default function KetherList(): JSX.Element {
             <button 
               className={`${styles.filterToggle} ${showFilters ? styles.active : ''}`}
               onClick={toggleFilterPanel}
+              aria-label="筛选条件"
             >
               <IoFilter />
-              <span>筛选</span>
+              筛选
               {Object.values(activeFilters).flat().length > 0 && (
-                <span className={styles.filterBadge}>{Object.values(activeFilters).flat().length}</span>
+                <span className={styles.filterBadge}>
+                  {Object.values(activeFilters).flat().length}
+                </span>
               )}
             </button>
             
+            {/* 布局控制按钮 */}
             <div className={styles.layoutControls}>
               <button 
                 className={`${styles.layoutButton} ${layoutType === 'grid' ? styles.active : ''}`}
                 onClick={() => setLayoutType('grid')}
                 title="网格视图"
+                aria-label="网格视图"
               >
                 <IoGrid />
               </button>
               <button 
                 className={`${styles.layoutButton} ${layoutType === 'compact' ? styles.active : ''}`}
                 onClick={() => setLayoutType('compact')}
-                title="宽松视图"
+                title="紧凑视图"
+                aria-label="紧凑视图"
               >
                 <IoApps />
               </button>
@@ -434,6 +452,7 @@ export default function KetherList(): JSX.Element {
                 className={`${styles.layoutButton} ${layoutType === 'list' ? styles.active : ''}`}
                 onClick={() => setLayoutType('list')}
                 title="列表视图"
+                aria-label="列表视图"
               >
                 <IoList />
               </button>
@@ -465,67 +484,68 @@ export default function KetherList(): JSX.Element {
           </div>
         </div>
         
-        {/* 筛选面板 - 修改为与 PluginCatalog 相同的样式 */}
+        {/* 筛选面板 */}
         <div className={`${styles.filtersWrapper} ${showFilters ? styles.show : ''}`}>
-            <div className={styles.filtersPanel}>
-              {/* 类型筛选 */}
-              <div className={styles.filterSection}>
-                <h3 className={styles.filterSectionTitle}>动作类型</h3>
-                <div className={styles.filterChips}>
-                  <button 
-                  className={`${styles.filterChip} ${activeFilters.type.includes('public') ? styles.active : ''}`}
-                  onClick={() => toggleFilter('type', 'public')}
-                  >
-                    公共动作
-                  {activeFilters.type.includes('public') && <IoClose className={styles.chipCloseIcon} />}
-                  </button>
-                  <button 
-                  className={`${styles.filterChip} ${activeFilters.type.includes('private') ? styles.active : ''}`}
-                  onClick={() => toggleFilter('type', 'private')}
-                  >
-                    私有动作
-                  {activeFilters.type.includes('private') && <IoClose className={styles.chipCloseIcon} />}
-                  </button>
-                </div>
-              </div>
-              
-              {/* 类别筛选 */}
-              <div className={styles.filterSection}>
-                <h3 className={styles.filterSectionTitle}>类别</h3>
+          <div className={styles.filtersPanel}>
+            {/* 类型筛选 */}
+            <div className={styles.filterSection}>
+              <h3 className={styles.filterSectionTitle}>动作类型</h3>
               <div className={styles.filterChips}>
-                  {categories.map(category => (
-                  <div 
-                      key={category}
-                    className={`${styles.filterChip} ${activeFilters.category.includes(category) ? styles.active : ''}`}
-                    onClick={() => toggleFilter('category', category)}
-                    >
-                    {category}
-                    {activeFilters.category.includes(category) && <IoClose className={styles.chipCloseIcon} />}
-                      </div>
-                  ))}
-                </div>
+                <button 
+                className={`${styles.filterChip} ${activeFilters.type.includes('public') ? styles.active : ''}`}
+                onClick={() => toggleFilter('type', 'public')}
+                >
+                  公共动作
+                {activeFilters.type.includes('public') && <IoClose className={styles.chipCloseIcon} />}
+                </button>
+                <button 
+                className={`${styles.filterChip} ${activeFilters.type.includes('private') ? styles.active : ''}`}
+                onClick={() => toggleFilter('type', 'private')}
+                >
+                  私有动作
+                {activeFilters.type.includes('private') && <IoClose className={styles.chipCloseIcon} />}
+                </button>
               </div>
-              
-              {/* 提供者筛选 */}
-              <div className={styles.filterSection}>
-                <h3 className={styles.filterSectionTitle}>提供者</h3>
+            </div>
+            
+            {/* 类别筛选 */}
+            <div className={styles.filterSection}>
+              <h3 className={styles.filterSectionTitle}>类别</h3>
+              <div className={styles.filterChips}>
+                {categories.map(category => (
+                <div 
+                  key={category}
+                  className={`${styles.filterChip} ${activeFilters.category.includes(category) ? styles.active : ''}`}
+                  onClick={() => toggleFilter('category', category)}
+                  >
+                  {category}
+                  {activeFilters.category.includes(category) && <IoClose className={styles.chipCloseIcon} />}
+                </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* 提供者筛选 */}
+            <div className={styles.filterSection}>
+              <h3 className={styles.filterSectionTitle}>提供者</h3>
               <div className={styles.filterChips}>
                 {moduleList.map(module => (
-                  <div
-                    key={module.name}
-                    className={`${styles.filterChip} ${activeFilters.provider.includes(module.name) ? styles.active : ''}`}
-                    onClick={() => toggleFilter('provider', module.name)}
-                    style={activeFilters.provider.includes(module.name) ? {} : { borderLeft: `3px solid ${getModuleColor(module.name)}` }}
-                    >
-                    {module.name}
-                    {activeFilters.provider.includes(module.name) && <IoClose className={styles.chipCloseIcon} />}
-                      </div>
-                  ))}
+                <div
+                  key={module.name}
+                  className={`${styles.filterChip} ${activeFilters.provider.includes(module.name) ? styles.active : ''}`}
+                  onClick={() => toggleFilter('provider', module.name)}
+                  style={activeFilters.provider.includes(module.name) ? {} : { borderLeft: `3px solid ${getModuleColor(module.name)}` }}
+                  >
+                  {module.name}
+                  {activeFilters.provider.includes(module.name) && <IoClose className={styles.chipCloseIcon} />}
                 </div>
+                ))}
               </div>
             </div>
           </div>
+        </div>
         
+        {/* 活跃标签 */}
         {(searchTerm || activeFilters.category.length > 0 || activeFilters.provider.length > 0 || activeFilters.type.length > 0 || activeTab !== 'all') && (
           <div className={styles.activeTagsContainer}>
             <div className={styles.activeTags}>
@@ -638,7 +658,7 @@ export default function KetherList(): JSX.Element {
                             <div className={styles.actionHeader}>
                               <h3 className={styles.actionName}>{action.name}</h3>
                               <div className={styles.actionMeta}>
-                                <span className={`${styles.actionTag} ${styles[action.type]}Type`}>
+                                <span className={`${styles.actionTag} ${action.type === 'public' ? styles.publicType : styles.privateType}`}>
                                   {action.type === 'public' ? '公共' : '私有'}
                                 </span>
                                 <span 
@@ -744,7 +764,7 @@ export default function KetherList(): JSX.Element {
             {/* 详情内容区域 */}
             <div className={styles.detailBody}>
               <div className={styles.detailTags}>
-                <span className={`${styles.detailTag} ${styles[selectedAction.type]}Tag`}>
+                <span className={`${styles.detailTag} ${selectedAction.type === 'public' ? styles.publicTag : styles.privateTag}`}>
                   {selectedAction.type === 'public' ? '公共' : '私有'}
                 </span>
                 <span 
