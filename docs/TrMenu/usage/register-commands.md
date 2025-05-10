@@ -2,7 +2,7 @@
 
 ## 配置
 
-{% code title="settings.yml" %}
+`{% code title="settings.yml" %}`
 ```yaml
 RegisterCommands: 
   # 主命令名称 
@@ -20,4 +20,4 @@ RegisterCommands:
     # 动作 
       example: 'open: example'
 ```
-{% endcode %}
+`{% endcode %}`

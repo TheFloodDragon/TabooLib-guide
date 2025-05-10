@@ -20,9 +20,9 @@ lore:
 
 ## 条件
 
-{% hint style="info" %}
+`{% hint style="info" %}`
 此功能将在每次更新 Lore 时进行计算条件，可能影响插件性能表现
-{% endhint %}
+`{% endhint %}`
 
 ```yaml
 lore:

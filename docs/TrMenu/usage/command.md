@@ -19,7 +19,7 @@ description: '[] 为必填参数，<> 为选填参数'
 
 * 权限: `trmenu.command.list` 
 * 参数
-  * &lt;Filter&gt; 过滤菜单名称
+  * ``<Filter>`` 过滤菜单名称
 
 ## Open
 
@@ -29,9 +29,9 @@ description: '[] 为必填参数，<> 为选填参数'
 
 * 权限: ~~`trmenu.command.open`~~
 * 参数
-  * \[ID\]:&lt;Page&gt; 菜单名称和指定页码
-  * &lt;Player&gt; 指定玩家，不填则默认自己
-  * &lt;菜单参数&gt; 传入的菜单参数，作为变量使用
+  * \[ID\]:``<Page>`` 菜单名称和指定页码
+  * ``<Player>`` 指定玩家，不填则默认自己
+  * ``<菜单参数>`` 传入的菜单参数，作为变量使用
 * 示例
   * `trmenu open Example BlackSKY` 为 BlackSKY 玩家打开 Example 菜单
   * `trmenu open Shop:3` 为自己打开 Shop 菜单，页码 3
@@ -48,7 +48,7 @@ description: '[] 为必填参数，<> 为选填参数'
 
 * 权限: `trmenu.command.template` 
 * 参数
-  * &lt;Rows&gt; 菜单的行数大小（1~6）
+  * ``<Rows>`` 菜单的行数大小（1~6）
 
 ## Action
 
@@ -74,7 +74,7 @@ description: '[] 为必填参数，<> 为选填参数'
     * save 保存物品到物品仓库
     * get 取得物品从物品仓库
     * delete 删除物品自物品仓库
-  * &lt;Value&gt; 值
+  * ``<Value>`` 值
 
 ## Sounds
 
@@ -82,7 +82,7 @@ description: '[] 为必填参数，<> 为选填参数'
 
 * 权限: `trmenu.command.sounds` 
 * 参数
-  * &lt;Filter&gt; 过滤音效名称
+  * ``<Filter>`` 过滤音效名称
 
 ## Debug
 

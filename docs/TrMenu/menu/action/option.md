@@ -6,7 +6,7 @@ description: 单条动作支持的参数
 
 ## 延时
 
-> {delay=\[TICKS\]}
+> ``{delay=[TICKS]}``
 
 ```yaml
 # 延时 1sec 发送消息
@@ -15,27 +15,31 @@ description: 单条动作支持的参数
 
 ## 概率
 
-> {chance=\[rate\]}
+> ``{chance=[rate]}``
 
 ```yaml
+# 使用概率为0.8（80%）的钻石物品
 - 'give-item: material:DIAMOND {chance=0.8}'
 ```
 
 ## 条件
 
-> {condition=&lt;Expression&gt;}
+> ``{condition=`<Expression>`}``
 
 ```yaml
+# 发送VIP用户消息，当条件满足时
 - 'tell: VIP User Message {condition=perm *user.vip}'
 ```
 
 ## 遍历
 
-> {players=&lt;Expression&gt;}
+> ``{players=`<Expression>`}``
 
 ```yaml
+# 向所有玩家广播消息
 - 'tell: A Broadcast Message {players}'
 
+# 向所有管理员广播消息
 - 'tell: An admin broadcast message {players: perm *admin}'
 ```
 

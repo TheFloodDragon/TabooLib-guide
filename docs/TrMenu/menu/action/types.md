@@ -65,25 +65,25 @@
 
 > 向玩家发送一条原版 Json 消息，或利用 TrMenu 轻松构建一条
 
-{% tabs %}
-{% tab title="原版 JSON" %}
+`{% tabs %}`
+`{% tab title="原版 JSON" %}`
 ```yaml
 - 'json: {"text":"Hello World!"}'
 ```
-{% endtab %}
+`{% endtab %}`
 
-{% tab title="构建消息 1" %}
+`{% tab title="构建消息 1" %}`
 ```yaml
-- 'json: Hello World! <ClickMe@command=spawn@hover=to spawn> <--- Click That'
+- 'json: Hello World! ``<ClickMe@command=spawn@hover=to spawn>`` ``<--- Click That'
 ```
-{% endtab %}
+`{% endtab %}`
 
-{% tab title="构建消息 2" %}
+`{% tab title="构建消息 2" %}`
 ```
-- 'json: &3Hello, &b%player_name%&3, Buy Ranks on our <&2&nstore@url=https://store.example.net> &3site.'
+- 'json: &3Hello, &b%player_name%&3, Buy Ranks on our <&2&nstore@url=https://store.example.net>`` &3site.'
 ```
-{% endtab %}
-{% endtabs %}
+`{% endtab %}`
+`{% endtabs %}`
 
 ## 执行命令
 
@@ -114,11 +114,11 @@
 - 'op: kick {meta:input} ; broadcast I just kicked {meta:input}'
 ```
 
-{% hint style="danger" %}
+`{% hint style="danger" %}`
 实现以 Op 执行命令的方法是 **授予 OP，执行操作，撤销 OP**
 
 在可以用 **CONSOLE** 控制台执行命令实现需求的情况下，**不推荐**使用此动作
-{% endhint %}
+`{% endhint %}`
 
 ### Console 控制台
 
@@ -174,7 +174,7 @@
 > 通过此形式开启菜单，将不会执行 Events.Open 的动作组
 
 ```yaml
-- 'force-open: <Menu>:[Page]'
+- 'force-open: ``<Menu>``:[Page]'
 ```
 
 ### 切换页码
@@ -214,7 +214,7 @@
 - 'refresh: A;B;C'
 ```
 
-* 这里的 “刷新” 是重新计算筛选子图标，而非更新动画
+* 这里的 "刷新" 是重新计算筛选子图标，而非更新动画
 
 ### 更新图标
 
@@ -262,9 +262,9 @@
 
 这个action非常复杂，能不能学会就看你自己了
 
-表达式`edit-item: <operation> <item> <op_type> <操作参数>`
+表达式`edit-item: operation item opType 操作参数`
 
-其中，目前支持的`op_type`有
+其中，目前支持的`opType`有
 
 * `material` 材质
 * `name` 名称
@@ -323,12 +323,12 @@
 
 #### 变量
 
-> {meta: input} 最后一次输入的内容
+> `{meta: input}` 最后一次输入的内容
 
 #### 配置
 
-{% tabs %}
-{% tab title="聊天框" %}
+`{% tabs %}`
+`{% tab title="聊天框" %}`
 ```yaml
 - catcher:
     amount:
@@ -339,9 +339,9 @@
        - 'set-args: {0} {1} {2} `${js: Math.min(Math.max(varInt("{meta:input}"), 1), 64)}`'
        - 'menu: Shop-Handler-Purchase'
 ```
-{% endtab %}
+`{% endtab %}`
 
-{% tab title="铁砧" %}
+`{% tab title="铁砧" %}`
 ```yaml
 - catcher:
     amount:
@@ -354,9 +354,9 @@
           actions: 'tell: &aPlayer {meta:input} is online'
           deny: 'tell: &cPlayer {meta:input} is offline'
 ```
-{% endtab %}
+`{% endtab %}`
 
-{% endtabs %}
+`{% endtabs %}`
 
 ## 逻辑
 

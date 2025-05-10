@@ -4,7 +4,7 @@
 
 ![](https://kether.tabooproject.org/static/images/ketherx.png)
 
-{% embed url="https://kether.tabooproject.org" caption="KetherX 中文文档" %}
+[KetherX 中文文档](https://kether.tabooproject.org)
 
 ## 注意
 

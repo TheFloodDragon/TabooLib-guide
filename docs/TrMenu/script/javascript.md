@@ -92,7 +92,7 @@ TrMenu 的 JavaScript 引擎目前提供以下函数
 
 ## utils
 
-{% embed url="https://github.com/TrPlugins/TrMenu/blob/stable/v3/plugin/src/main/kotlin/trplugins/menu/module/internal/script/js/Assist.kt" caption="TrMenu/Assist.kt" %}
+[TrMenu/Assist.kt](https://github.com/TrPlugins/TrMenu/blob/stable/v3/plugin/src/main/kotlin/trplugins/menu/module/internal/script/js/Assist.kt)
 
 ## TrMenu GraalJS
 

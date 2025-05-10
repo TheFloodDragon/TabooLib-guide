@@ -6,13 +6,13 @@
 
 ## 传递参数
 
-> %trmenu\_args\_&lt;Index&gt;%
+> %trmenu\_args\_````<Index>````%
 
 ## Metadata 数据
 
-> %trmenu\_meta\_&lt;key&gt;%
+> %trmenu\_meta\_``<key>``%
 >
-> %trmenu\_data\_&lt;key&gt;%
+> %trmenu\_data\_``<key>``%
 
 ## Menu 菜单数据
 
@@ -28,21 +28,21 @@
 
 ## JavaScript 运算
 
-> %trmenu\_js\_&lt;Context&gt;%
+> %trmenu\_js\_``<Context>``%
 
-{% hint style="danger" %}
+`{% hint style="danger" %}`
 **警告**: 该变量可能会被恶意利用, 请在确保玩家无法主动访问 PlaceholderAPI 变量的情况使用.
 
 若要启用该功能, 请前往 **settings.yml** 将节点 **Options.Placeholders.JavaScript-Parse** 启用
-{% endhint %}
+`{% endhint %}`
 
 ## Jexl 运算
 
-> %trmenu\_jexl\_&lt;Context&gt;%
+> %trmenu\_jexl\_``<Context>``%
 
-{% hint style="danger" %}
+`{% hint style="danger" %}`
 **警告**: 该变量可能会被恶意利用, 请在确保玩家无法主动访问 PlaceholderAPI 变量的情况使用.
 
 若要启用该功能, 请前往 **settings.yml** 将节点 **Options.Placeholders.Jexl-Parse** 启用
-{% endhint %}
+`{% endhint %}`
 

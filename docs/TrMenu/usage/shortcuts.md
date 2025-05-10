@@ -2,7 +2,7 @@
 
 ## 配置
 
-{% code title="settings.yml" %}
+`{% code title="settings.yml" %}`
 ```yaml
 Shortcuts:
   Offhand: []
@@ -16,7 +16,7 @@ Shortcuts:
   PlayerInventory-Border-Right: [ ]
   PlayerInventory-Border-Middle: [ ]
 ```
-{% endcode %}
+`{% endcode %}`
 
 ## 类型
 

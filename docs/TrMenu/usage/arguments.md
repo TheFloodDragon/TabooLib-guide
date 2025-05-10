@@ -10,7 +10,7 @@ description: TrMenu 的菜单支持将触发命令后缀的参数作为变量使
 
 若遇到命令不兼容情况，可以通过选项关闭
 
-{% page-ref page="../menu/configuration/option.md" %}
+`{% page-ref page="../menu/configuration/option.md" %}`
 
 ## 传递方式
 
@@ -22,7 +22,7 @@ description: TrMenu 的菜单支持将触发命令后缀的参数作为变量使
 
 例如玩家当前的参数为 apple, juice, orange，即大小为 3 的一个数组
 
-在菜单几乎所有地方都可以当作变量使用，{0} 将返回 apple, {1} 返回 juice, 依此类推
+在菜单几乎所有地方都可以当作变量使用，`{0}` 将返回 apple, `{1}` 返回 juice, 依此类推
 
 ## 注意
 

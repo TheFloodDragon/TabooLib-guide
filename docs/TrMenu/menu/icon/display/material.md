@@ -73,7 +73,7 @@ material: 'head:44f452d998eabac4642c6b0fe5a8f4e2e673edcae2a6dfd9e6a2e86e786edac0
 ## 物品源
 
 * TrMenu 对挂钩插件物品支持的实现
-* 统一格式为 `source:<ID>:<INPUT>`
+* 统一格式为 `source:ID:INPUT`
 
 ### HeadDatabase
 

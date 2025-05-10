@@ -4,9 +4,9 @@ description: 内置 JavaScript 函数是菜单配置 Functions 节点下的自�
 
 # 内置函数
 
-{% hint style="info" %}
+`{% hint style="info" %}`
 使用本功能，需要有一些 JavaScript 语法基础
-{% endhint %}
+`{% endhint %}`
 
 ## 示例
 
@@ -25,7 +25,7 @@ Functions:
 
 ## 注意
 
-* 调用格式为 `${[funcName]_[Arg1]_[Arg2]}` 例如 ${flash\_&gt;}
+* 调用格式为 `$```\{[funcName]_[Arg1]_[Arg2]\}```` 例如 $```\{flash\_>\}```
 * 默认函数上方将自动添加行 `var args = new Array()` 并写入参数，因此在内置函数中传入的参数可以直接通过 args 数组的形式使用
 
 

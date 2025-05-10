@@ -89,7 +89,7 @@ description: 图标交互反应
 
 ## 反应
 
-{% page-ref page="../action/reactions.md" %}
+`{% page-ref page="../action/reactions.md" %}`
 
 
 
