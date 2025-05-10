@@ -55,6 +55,26 @@ const invero: KetherActionModule = {
       example: 'depend plugin Vault\ndepend papi Math'
     },
     {
+      id: "max",
+      name: "Max",
+      description: "取 两值/多值 之最大",
+      provider: "Invero",
+      type: "private",
+      categories: ["逻辑与数学"],
+      syntax: "max {aciton} {action}\nmax [ {action} {action} {action} ]",
+      example: 'max 1 10\nmax [ 1 7 9 ]'
+    },
+    {
+      id: "min",
+      name: "Min",
+      description: "取 两值/多值 之最小",
+      provider: "Invero",
+      type: "private",
+      categories: ["逻辑与数学"],
+      syntax: "min {aciton} {action}\nmin [ {action} {action} {action} ]",
+      example: 'min 1 10\nmin [ 1 7 9 ]'
+    },
+    {
       id: "context",
       name: "Context",
       description: "context /ctx 在具有菜单语境（即开启菜单）的情况下，操作菜单语境中的变量数据",
