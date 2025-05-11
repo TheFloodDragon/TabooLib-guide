@@ -1,3 +1,10 @@
+---
+title: PAPI 变量
+sidebar_position: 1
+---
+
+import { Admonition } from '@site/src/components/GitBook';
+
 # PAPI 变量
 
 ## 菜单总量
@@ -30,19 +37,19 @@
 
 > %trmenu\_js\_``<Context>``%
 
-`{% hint style="danger" %}`
+<Admonition type="danger">
 **警告**: 该变量可能会被恶意利用, 请在确保玩家无法主动访问 PlaceholderAPI 变量的情况使用.
 
 若要启用该功能, 请前往 **settings.yml** 将节点 **Options.Placeholders.JavaScript-Parse** 启用
-`{% endhint %}`
+</Admonition>
 
 ## Jexl 运算
 
 > %trmenu\_jexl\_``<Context>``%
 
-`{% hint style="danger" %}`
+<Admonition type="danger">
 **警告**: 该变量可能会被恶意利用, 请在确保玩家无法主动访问 PlaceholderAPI 变量的情况使用.
 
 若要启用该功能, 请前往 **settings.yml** 将节点 **Options.Placeholders.Jexl-Parse** 启用
-`{% endhint %}`
+</Admonition>
 

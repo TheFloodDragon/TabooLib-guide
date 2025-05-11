@@ -1,8 +1,13 @@
 ---
-description: 图标交互反应
+title: 交互
+sidebar_position: 3
 ---
 
+import { PageRef } from '@site/src/components/GitBook';
+
 # 交互
+
+图标交互反应
 
 ## 示例
 
@@ -89,7 +94,7 @@ description: 图标交互反应
 
 ## 反应
 
-`{% page-ref page="../action/reactions.md" %}`
+<PageRef to="../action/reactions.md" />
 
 
 

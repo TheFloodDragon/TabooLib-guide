@@ -1,3 +1,8 @@
+---
+title: 属性
+sidebar_position: 4
+---
+
 # 属性
 
 ## 数量

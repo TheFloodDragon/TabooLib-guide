@@ -1,8 +1,15 @@
+---
+title: 命令注册
+sidebar_position: 6
+---
+
+import { CodeBlock } from '@site/src/components/GitBook';
+
 # 命令注册
 
 ## 配置
 
-`{% code title="settings.yml" %}`
+<CodeBlock title="settings.yml">
 ```yaml
 RegisterCommands: 
   # 主命令名称 
@@ -20,4 +27,4 @@ RegisterCommands:
     # 动作 
       example: 'open: example'
 ```
-`{% endcode %}`
+</CodeBlock>

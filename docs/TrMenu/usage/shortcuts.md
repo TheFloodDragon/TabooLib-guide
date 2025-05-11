@@ -1,8 +1,15 @@
+---
+title: 快捷绑定
+sidebar_position: 5
+---
+
+import { CodeBlock } from '@site/src/components/GitBook';
+
 # 快捷绑定
 
 ## 配置
 
-`{% code title="settings.yml" %}`
+<CodeBlock title="settings.yml">
 ```yaml
 Shortcuts:
   Offhand: []
@@ -16,7 +23,7 @@ Shortcuts:
   PlayerInventory-Border-Right: [ ]
   PlayerInventory-Border-Middle: [ ]
 ```
-`{% endcode %}`
+</CodeBlock>
 
 ## 类型
 

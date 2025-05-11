@@ -14,4 +14,4 @@
 3. 提交 Pull Request
 4. 等待审核和合并
 
-如有任何问题，欢迎在 GitHub Issues 或社区交流群中提问。 
+如有任何问题，欢迎在 GitHub Issues 或社区交流群中提问。

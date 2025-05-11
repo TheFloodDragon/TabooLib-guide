@@ -1,8 +1,11 @@
 ---
-description: 欢迎查阅 TrMenu 公开文档
+title: TrMenu
+sidebar_position: 5
 ---
 
 # 首页
+欢迎查阅 TrMenu 公开文档
+
 > 该 Wiki 是继原 [Wiki](https://trmenu.trixey.cc/) 补充部分新功能和要点.
 
 ## 简介

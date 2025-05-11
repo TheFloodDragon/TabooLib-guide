@@ -1,8 +1,11 @@
 ---
-description: TrMenu 菜单文件字符串颜色代码
+title: 多彩颜色
+sidebar_position: 8
 ---
 
 # 多彩颜色
+
+TrMenu 菜单文件字符串颜色代码
 
 ## 原生 16 色 (对于 **任意**)
 ```text

@@ -1,6 +1,6 @@
 ---
 title: 行内复合文本
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # 行内复合文本

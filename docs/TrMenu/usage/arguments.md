@@ -1,8 +1,13 @@
 ---
-description: TrMenu 的菜单支持将触发命令后缀的参数作为变量使用
+title: 菜单传参
+sidebar_position: 2
 ---
 
+import { PageRef } from '@site/src/components/GitBook';
+
 # 菜单传参
+
+TrMenu 的菜单支持将触发命令后缀的参数作为变量使用
 
 ## 功能启用
 
@@ -10,7 +15,7 @@ description: TrMenu 的菜单支持将触发命令后缀的参数作为变量使
 
 若遇到命令不兼容情况，可以通过选项关闭
 
-`{% page-ref page="../menu/configuration/option.md" %}`
+<PageRef to="../menu/configuration/option.md" />
 
 ## 传递方式
 
