@@ -1,3 +1,10 @@
+---
+title: 函数变量
+sidebar_position: 4
+---
+
+import { Admonition } from '@site/src/components/GitBook';
+
 # 图标变量
 ```text
 @iconid@
@@ -5,9 +12,9 @@
 
 # 函数变量
 
-`{% hint style="info" %}`
-函数变量内部 ``{}`` 若需要使用 `}` 右花括号，请转义使用 `\}` 
-`{% endhint %}`
+<Admonition type="info">
+函数变量内部 `{}` 若需要使用 `}` 右花括号，请转义使用 `\}` 
+</Admonition>
 
 ## 菜单参数 函数
 

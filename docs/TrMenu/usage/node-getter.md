@@ -1,8 +1,11 @@
 ---
-description: TrMenu 还支持以配置文件中的节点作为变量获取, 避免重复写同一内容.
+title: 节点变量
+sidebar_position: 7
 ---
 
 # 节点变量
+
+TrMenu 还支持以配置文件中的节点作为变量获取, 避免重复写同一内容.
 
 ## 用法
 ```text

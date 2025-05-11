@@ -1,3 +1,8 @@
+---
+title: 材质
+sidebar_position: 1
+---
+
 # 材质
 
 ## 普通材质

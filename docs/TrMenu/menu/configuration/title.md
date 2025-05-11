@@ -1,8 +1,12 @@
 ---
 description: 容器显示标题
+title: 标题
+sidebar_position: 1
 ---
 
 # 标题
+
+容器显示标题
 
 ## 示例
 

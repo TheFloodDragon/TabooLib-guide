@@ -1,0 +1,43 @@
+.admonition {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  border-left: 4px solid;
+}
+
+.admonitionHeading {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.admonitionIcon {
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+.admonitionContent {
+  margin: 0;
+}
+
+/* Types */
+.info {
+  background-color: rgba(56, 132, 255, 0.1);
+  border-left-color: #3884ff;
+}
+
+.warning {
+  background-color: rgba(255, 153, 0, 0.1);
+  border-left-color: #ff9900;
+}
+
+.danger {
+  background-color: rgba(255, 66, 56, 0.1);
+  border-left-color: #ff4238;
+}
+
+.success {
+  background-color: rgba(0, 204, 102, 0.1);
+  border-left-color: #00cc66;
+} 

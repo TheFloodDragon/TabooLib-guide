@@ -1,42 +1,47 @@
 ---
-description: 初次安装本插件后，会在插件目录下产生一些文件
+title: 配置
+sidebar_position: 4
 ---
 
+import { Tabs, Tab } from '@site/src/components/GitBook';
+import { CodeBlock } from '@site/src/components/GitBook';
+
 # 配置
+初次安装本插件后，会在插件目录下产生一些文件
 
 ## 文件
 
-`{% tabs %}`
-`{% tab title="lang/zh\_CN.yml" %}`
+<Tabs>
+  <Tab title="lang/zh_CN.yml">
 TLocale 语言文件, 你可以编辑本插件几乎所有的消息
-`{% endtab %}`
+  </Tab>
 
-`{% tab title="data/globalData.yml" %}`
+  <Tab title="data/globalData.yml">
 全局缓存数据变量存储的地方
 
 服务器开启状态下请勿编辑
-`{% endtab %}`
+  </Tab>
 
-`{% tab title="data/itemRepository.yml" %}`
+  <Tab title="data/itemRepository.yml">
 物品仓库数据存储的地方
 
 服务器开启状态下请勿编辑
-`{% endtab %}`
+  </Tab>
 
-`{% tab title="menus" %}`
+  <Tab title="menus">
 默认的菜单加载目录
 
 菜单文件（YAML）可放在该目录或其子目录下，将会被插件自动加载
-`{% endtab %}`
+  </Tab>
 
-`{% tab title="settings.yml" %}`
+  <Tab title="settings.yml">
 TrMenu 的主配置文件
-`{% endtab %}`
-`{% endtabs %}`
+  </Tab>
+</Tabs>
 
 ## 设置
 
-`{% code title="settings.yml \(v3.5.0\)" %}`
+<CodeBlock title="settings.yml (v3.5.0)">
 ```yaml
 #
 # 插件的选项
@@ -204,7 +209,7 @@ Scripts:
   Enable-GraalJS: false
   Binding-Map:
 ```
-`{% endcode %}`
+</CodeBlock>
 
 ## 语言
 

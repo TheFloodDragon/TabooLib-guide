@@ -1,8 +1,10 @@
 ---
-description: 本文章皆在带你快速了解 TrMenu 3.0 以及升级步骤
+title: 升级向导
+sidebar_position: 8
 ---
 
 # 升级向导
+本文章皆在带你快速了解 TrMenu 3.0 以及升级步骤
 
 ## 更新内容
 
@@ -71,7 +73,7 @@ source:ORAXEN:itemId
 
 #### 函数
 
-[函数说明](../usage/functions.md)
+[函数说明](usage/functions.md)
 
 #### 动作
 
@@ -96,7 +98,7 @@ source:ORAXEN:itemId
 * 菜单列表格式化
 * 调试功能重写 Mirror & Dump 功能集成到 Debug 下
 
-[命令说明](../usage/command.md)
+[命令说明](usage/command.md)
 
 #### API
 

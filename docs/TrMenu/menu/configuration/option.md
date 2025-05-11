@@ -1,5 +1,7 @@
 ---
 description: 配置菜单的一些选项属性
+title: 选项
+sidebar_position: 3
 ---
 
 # 选项

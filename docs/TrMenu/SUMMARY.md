@@ -1,4 +1,9 @@
-# Table of contents
+---
+title: 摘要
+sidebar_position: 0
+---
+
+# 摘要
 
 * [首页](README.md)
 * [开始](start/README.md)
@@ -68,5 +73,5 @@
 
 ## appendix
 
-* [升级向导](appendix/v3-guide.md)
+* [升级向导](v3-guide.md)
 

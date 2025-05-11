@@ -1,8 +1,11 @@
 ---
-description: 本节需要有一定的 Java / JavaScript 或类似编程基础方便理解
+title: JavaScript
+sidebar_position: 1
 ---
 
 # JavaScript
+
+本节需要有一定的 Java / JavaScript 或类似编程基础方便理解
 
 ## 对象
 
@@ -83,7 +86,7 @@ TrMenu 的 JavaScript 引擎目前提供以下函数
 ## 注意
 
 * TrMenu 的 JavaScript 均会预编译缓存，一切变量使用都需要通过函数处理
-* 表示 “或” 的符号为 `||` , 表示 “与” 的符号为 `&&`
+* 表示 "或" 的符号为 `||` , 表示 "与" 的符号为 `&&`
 
 ## 实例
 
