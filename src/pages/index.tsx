@@ -1,59 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
+import { IoRocketOutline, IoDocumentTextOutline, IoCodeSlashOutline } from 'react-icons/io5';
 
 // @ts-ignore - 忽略类型错误
 // 现代像素风格Banner
 function HomepageHeader() {
+  const [isVisible, setIsVisible] = useState(false);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    // 设置可见性延迟，用于初始动画
+    setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+  }, []);
+
   return (
-    <header className={styles.heroBanner}>
+    <header ref={headerRef} className={`${styles.heroBanner} ${isVisible ? styles.visible : ''}`}>
       {/* 背景元素 */}
-      <div className={styles.heroBackgroundGlow}></div>
-      <div className={styles.heroBackgroundGrid}></div>
-      <div className={styles.heroBackgroundDots}></div>
-      <div className={styles.particlesContainer} id="particles-js"></div>
+      <div className={styles.heroBackground}>
+        <div className={styles.backgroundGradient}></div>
+        <div className={styles.backgroundGrid}></div>
+        <div className={styles.particlesContainer} id="particles-js"></div>
+      </div>
       
       {/* 内容区域 */}
       <div className={styles.bannerContainer}>
-        
+        {/* 标题区域 */}
         <div className={styles.heroContent}>
-          {/* 插件目录提示按钮 */}
-          <Link to="/plugin-catalog" className={styles.versionBadge}>
-            <div className={styles.versionLink}>
-              <span>插件目录已上线</span>
-              <span className={styles.arrowRight}>→</span>
-            </div>
-          </Link>
-
           <div className={styles.pixelTitleWrapper}>
-          <h2 className={styles.pixelTitle}>TabooLib</h2>
+            <h2 className={styles.pixelTitle}>TabooLib</h2>
           </div>
+          
           <h1 className={styles.mainTitle}>跨平台服务端插件开发框架</h1>
-        
+          
           <div className={styles.subtitleWrapper}>
             <p className={styles.subtitle}>
-            这里是 TabooLib 开发框架的非官方用户文档
-            <br />
-            这里集合收录社区中的常用资源
-          </p>
-        </div>
-        
+              强大、易用、高效的Minecraft插件开发框架
+              <br />
+              集成跨平台支持，简化开发流程，让您专注于创造力
+            </p>
+          </div>
+          
+          {/* 操作按钮区 */}
           <div className={styles.ctaButtons}>
             <Link className={styles.primaryCta} to="/intro">
-            快速开始
-          </Link>
+              <IoRocketOutline className={styles.ctaIcon} />
+              <span>快速开始</span>
+            </Link>
             <Link className={styles.secondaryCta} to="https://tabooproject.org/">
-            官方文档
-          </Link>
+              <IoDocumentTextOutline className={styles.ctaIcon} />
+              <span>官方文档</span>
+            </Link>
             <Link className={styles.secondaryCta} to="/kether-list">
-            Kether 语句
-          </Link>
+              <IoCodeSlashOutline className={styles.ctaIcon} />
+              <span>Kether 语句</span>
+            </Link>
           </div>
-
-          {/* 添加装饰元素 */}
-          <div className={styles.decorationPixel1}></div>
-          <div className={styles.decorationPixel2}></div>
         </div>
       </div>
     </header>
@@ -63,36 +68,35 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   
-  // 添加粒子效果脚本和隐藏导航元素
-  React.useEffect(() => {
-    // 隐藏导航栏和页脚以及所有其他不需要的元素
+  // 加载粒子效果和移除默认导航
+  useEffect(() => {
+    // 添加自定义样式以隐藏导航和页脚
     const style = document.createElement('style');
     style.innerHTML = `
-      nav, footer, .navbar, .navbar-sidebar, .theme-doc-sidebar-container, .theme-doc-footer {
+      nav.navbar, footer.footer, .navbar-sidebar, .theme-doc-sidebar-container, .theme-doc-footer {
         display: none !important;
       }
       body {
         margin: 0 !important;
         padding: 0 !important;
-        overflow: hidden !important;
+        overflow-x: hidden !important;
       }
       #__docusaurus {
         margin: 0 !important;
         padding: 0 !important;
-        height: 100vh !important;
       }
       .main-wrapper {
         margin: 0 !important;
         padding: 0 !important;
-        height: 100vh !important;
       }
     `;
     document.head.appendChild(style);
     
     // 移除DOM中的导航元素
-    document.querySelector('nav')?.remove();
-    document.querySelector('footer')?.remove();
+    document.querySelector('nav.navbar')?.remove();
+    document.querySelector('footer.footer')?.remove();
     
+    // 加载粒子效果
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
     script.async = true;
@@ -129,7 +133,7 @@ export default function Home(): JSX.Element {
   }, []);
   
   return (
-    <div className={styles.fullscreenBanner} style={{ height: '100vh', margin: 0, padding: 0 }}>
+    <div className={styles.homepageWrapper}>
       <HomepageHeader />
     </div>
   );
