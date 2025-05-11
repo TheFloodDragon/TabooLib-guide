@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
-import { IoRocketOutline, IoDocumentTextOutline, IoCodeSlashOutline } from 'react-icons/io5';
+import { IoRocketOutline, IoDocumentTextOutline, IoCodeSlashOutline, IoAppsOutline } from 'react-icons/io5';
 
 // @ts-ignore - 忽略类型错误
 // 现代像素风格Banner
@@ -38,9 +38,9 @@ function HomepageHeader() {
           
           <div className={styles.subtitleWrapper}>
             <p className={styles.subtitle}>
-              强大、易用、高效的Minecraft插件开发框架
+            这里是 TabooLib 开发框架的非官方用户文档
               <br />
-              集成跨平台支持，简化开发流程，让您专注于创造力
+              这里集合收录社区中的常用资源
             </p>
           </div>
           
@@ -57,6 +57,10 @@ function HomepageHeader() {
             <Link className={styles.secondaryCta} to="/kether-list">
               <IoCodeSlashOutline className={styles.ctaIcon} />
               <span>Kether 语句</span>
+            </Link>
+            <Link className={styles.secondaryCta} to="/plugin-catalog">
+              <IoAppsOutline className={styles.ctaIcon} />
+              <span>插件列表</span>
             </Link>
           </div>
         </div>
