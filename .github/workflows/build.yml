@@ -23,7 +23,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '19'
         cache: 'npm'
     
     # 安装依赖
@@ -34,14 +34,6 @@ jobs:
     - name: Build
       run: npm run build
       env:
-        NODE_OPTIONS: --max-old-space-size=4096
-
-    # 塞进gh-pages分支(即部署到GitPage)
-    - name: Deploy
-      if: github.event_name != 'pull_request'
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        token: ${{ secrets.ACCESS_TOKEN }}
-        branch: gh-pages
-        folder: build
-        clean: true
+        NODE_OPTIONS: --max-old-space-size=8192
+        BASE_URL: /TabooLib-guide/
+        NODE_ENV: production

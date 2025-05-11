@@ -5,17 +5,20 @@ const {themes} = require('prism-react-renderer');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+    future: {
+        experimental_faster: true,
+    },
     title: 'TabooLib',
-    url: 'https://tabooproject.org',
-    baseUrl: '/TabooLib-guide/',
-    onBrokenLinks: 'throw',
+    url: 'https://taboo.8aka.org',
+    baseUrl: process.env.BASE_URL ?? '/',
+    onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
-    organizationName: 'taboolib', // Usually your GitHub org/user name.
-    projectName: 'taboolib', // Usually your repo name.
+    organizationName: '8aka-Team', // Usually your GitHub org/user name.
+    projectName: 'TabooLib-Guide', // Usually your repo name.
 
     // Even if you don't use internalization, you can use this field to set useful
     // metadata like html lang. For example, if your site is Chinese, you may want
@@ -26,7 +29,9 @@ const config = {
         locales: ['zh-Hans'],
     },
 
-    plugins: [],
+    plugins: [
+        'docusaurus-plugin-image-zoom',
+    ],
 
     themes: [
         // ... Your other themes.
@@ -61,6 +66,13 @@ const config = {
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            zoom: {
+                selector: '.markdown :not(em) > img',
+                background: {
+                    light: 'rgb(255, 255, 255)',
+                    dark: 'rgb(36 36 36 / 80%)',
+                },
+            },
             navbar: {
                 hideOnScroll: false,
                 title: 'TabooLib',
@@ -77,18 +89,48 @@ const config = {
                     },
                     {
                         href: '/kether-list',
-                        label: 'Kehter 语句',
+                        label: 'Kether 语句',
                         position: 'left',
                     },
                     {
-                        href: 'https://github.com/taboolib/taboolib',
+                        href: '/plugin-catalog',
+                        label: '插件汇总',
+                        position: 'left',
+                    },
+                    {
+                        href: 'https://github.com/8aka-Team/TabooLib-guide',
                         label: 'GitHub',
                         position: 'right',
                     },
                 ]
             },
             footer: {
-                copyright: `Copyright © 2015 ~ ${new Date().getFullYear()} <b>TABOO-PROJECT</b> All Rights Reserved.`,
+                copyright: `Copyright © ${new Date().getFullYear()} <b>8aka-Team</b> All Rights Reserved.`,
+                style: 'dark',
+                links: [
+                    {
+                        title: '文档',
+                        items: [
+                            {
+                                label: '驿站主页',
+                                to: 'https://8aka.org',
+                            },
+                            {
+                                label: 'GitHub',
+                                href: 'https://github.com/8aka-Team/NitWikit',
+                            },
+                        ],
+                    },
+                    {
+                        title: '交流',
+                        items: [
+                            {
+                                label: 'QQ 群',
+                                href: 'https://qm.qq.com/q/dENGavSflK',
+                            },
+                        ],
+                    },
+                ],
             },
             prism: {
                 theme: themes.github,

@@ -74,7 +74,7 @@ export default function NavbarContent() {
                     )}
                     <div className="actions">
                         <NavbarColorModeToggle className={styles.colorModeToggle}/>
-                        <a href="https://github.com/taboolib/taboolib" className="navbar__action__item flex" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/8aka-team/TabooLib-guide/" className="navbar__action__item flex" target="_blank" rel="noopener noreferrer">
                             <Github/>
                         </a>
                         {!mobileSidebar.disabled && <NavbarMobileSidebarToggle/>}

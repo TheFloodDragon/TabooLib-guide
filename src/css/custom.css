@@ -55,6 +55,14 @@ body {
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  
+  /* 滚动条变量 */
+  --scrollbar-width: 8px;
+  --scrollbar-track-bg: rgba(0, 0, 0, 0.03);
+  --scrollbar-thumb-bg: rgba(0, 0, 0, 0.15);
+  --scrollbar-thumb-hover-bg: rgba(0, 0, 0, 0.25);
+  --scrollbar-thumb-active-bg: rgba(0, 0, 0, 0.35);
+  --scrollbar-border-radius: 4px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -72,6 +80,86 @@ body {
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  
+  /* 暗色模式滚动条变量 */
+  --scrollbar-track-bg: rgba(255, 255, 255, 0.03);
+  --scrollbar-thumb-bg: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb-hover-bg: rgba(255, 255, 255, 0.25);
+  --scrollbar-thumb-active-bg: rgba(255, 255, 255, 0.35);
+}
+
+/* 全局滚动条样式 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-track-bg);
+}
+
+/* 哼哼啊啊啊啊啊啊啊啊啊啊 */
+[class*="logo_"] {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  background-color: var(--ifm-color-primary) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  transition: box-shadow 0.2s ease-in-out !important;
+}
+
+[class*="logo_"]:hover {
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4) !important;
+}
+
+/* Chrome/Edge/Safari 滚动条样式 */
+*::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-bg);
+  border-radius: var(--scrollbar-border-radius);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-bg);
+  border-radius: var(--scrollbar-border-radius);
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover-bg);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-thumb-active-bg);
+}
+
+*::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+/* 针对Kether Explorer组件的滚动条优化 */
+.ketherContainer *::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.ketherContainer *::-webkit-scrollbar-thumb {
+  background-color: var(--kether-border);
+  border-radius: 3px;
+}
+
+.ketherContainer *::-webkit-scrollbar-thumb:hover {
+  background-color: var(--kether-primary);
 }
 
 .theme-doc-sidebar-menu {

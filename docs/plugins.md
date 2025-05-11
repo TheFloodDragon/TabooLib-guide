@@ -7,6 +7,10 @@ sidebar_position: 4
 
 此处收录 TabooLib 框架的插件。包括开源插件，闭源插件，免费插件，付费插件。
 
+:::tip 插件商店
+我们现在提供了更直观的[插件商店](/plugin-catalog)页面，您可以在那里浏览、搜索和下载TabooLib插件。
+:::
+
 ## A
 
 ### aiyatsbus
@@ -50,6 +54,22 @@ npc 插件
 :::
 
 [![](https://bstats.org/signatures/bukkit/AttributePlus.svg)](https://bstats.org/plugin/bukkit/AttributePlus/5571)
+
+### AkariLevel
+
+自定义玩家等级
+
+:::info
+
+`MCBBS` https://www.mcbbs.co/thread-213-1-1.html
+
+`Github` https://github.com/CPJiNan/AkariLevel
+
+`文档` https://cpjinan.github.io/Wiki/AkariLevel/
+
+:::
+
+[![](https://bstats.org/signatures/bukkit/CPJiNan.svg)](https://bstats.org/signatures/bukkit/CPJiNan.svg)
 
 ## B
 
@@ -345,6 +365,18 @@ TrMenu 入门学习文档
 :::
 
 [![](https://bstats.org/signatures/bukkit/Vulpecula.svg)](https://bstats.org/plugin/bukkit/Vulpecula/17183)
+
+### VitaSell
+
+物品出售插件
+
+:::info
+
+`文档` https://cpjinan.github.io/Wiki/VitaSell/
+
+:::
+
+[![](https://bstats.org/signatures/bukkit/CPJiNan.svg)](https://bstats.org/signatures/bukkit/CPJiNan.svg)
 
 ## W
 
