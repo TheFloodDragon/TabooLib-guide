@@ -115,6 +115,9 @@ declare const styles: {
   readonly activeTagsContainer: string;
   readonly activeTagsClearButton: string;
   readonly hide: string;
+  readonly resizeHandle: string;
+  readonly resizeHandleIndicator: string;
+  readonly resizingBody: string;
 };
 
 export default styles; 

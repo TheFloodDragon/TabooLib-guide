@@ -270,6 +270,125 @@
   flex-direction: column;
 }
 
+/* 新增: 拖动调整大小的句柄样式 */
+.resizeHandle {
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  background-color: transparent;
+  cursor: col-resize;
+  z-index: 10000;
+  transition: background-color 0.2s ease;
+}
+
+.resizeHandle:hover, 
+.resizeHandle:active {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.resizeHandleIndicator {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 80px;
+  background-color: rgba(59, 130, 246, 0.5);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.resizeHandle:hover .resizeHandleIndicator,
+.resizeHandle:active .resizeHandleIndicator {
+  background-color: var(--kether-primary-light);
+}
+
+/* 添加拖拽指示器上下的点 */
+.resizeHandleIndicator::before,
+.resizeHandleIndicator::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 8px;
+  background-color: rgba(59, 130, 246, 0.5);
+  border-radius: 2px;
+}
+
+.resizeHandleIndicator::before {
+  top: -30px;
+}
+
+.resizeHandleIndicator::after {
+  bottom: -30px;
+}
+
+.resizeHandle:hover .resizeHandleIndicator::before,
+.resizeHandle:hover .resizeHandleIndicator::after,
+.resizeHandle:active .resizeHandleIndicator::before,
+.resizeHandle:active .resizeHandleIndicator::after {
+  background-color: var(--kether-primary-light);
+}
+
+/* 拖拽过程中的全局样式 */
+.resizingBody {
+  cursor: col-resize !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* 拖拽时内容区域的过渡效果 */
+.content {
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detailSidebar {
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 拖拽时移除过渡效果 */
+.resizingBody .content,
+.resizingBody .detailSidebar {
+  transition: none !important;
+}
+
+/* 暗色模式下的拖拽样式 */
+:global([data-theme='dark']) .resizeHandleIndicator,
+:global([data-theme='dark']) .resizeHandleIndicator::before,
+:global([data-theme='dark']) .resizeHandleIndicator::after {
+  background-color: rgba(96, 165, 250, 0.5);
+}
+
+:global([data-theme='dark']) .resizeHandle:hover .resizeHandleIndicator,
+:global([data-theme='dark']) .resizeHandle:active .resizeHandleIndicator,
+:global([data-theme='dark']) .resizeHandle:hover .resizeHandleIndicator::before,
+:global([data-theme='dark']) .resizeHandle:hover .resizeHandleIndicator::after,
+:global([data-theme='dark']) .resizeHandle:active .resizeHandleIndicator::before,
+:global([data-theme='dark']) .resizeHandle:active .resizeHandleIndicator::after {
+  background-color: var(--kether-primary-lighter);
+}
+
+/* 在拖动过程中添加全屏覆盖层，防止文本选择 */
+.resizeOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9998;
+  cursor: col-resize;
+  user-select: none;
+  pointer-events: none;
+  background-color: transparent;
+}
+
+body.isResizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
 /* 动画优化 */
 @keyframes ketherSlideInRight {
   from { 

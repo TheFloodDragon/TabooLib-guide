@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 import { IoSearch, IoFilter, IoGrid, IoList, IoApps, IoClose, IoChevronDown, IoChevronForward } from 'react-icons/io5';
 import { KetherAction, KetherActionModule, modules, getAllActions } from './actions';
@@ -24,7 +24,11 @@ export default function KetherList(): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'public' | 'private'>('all');
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
-
+  
+  // 侧边栏宽度管理
+  const [sidebarWidth, setSidebarWidth] = useState<number>(450);
+  const [isResizing, setIsResizing] = useState<boolean>(false);
+  
   // 筛选器状态
   const [activeFilters, setActiveFilters] = useState<Record<string, string[]>>({
     category: [],
@@ -33,6 +37,7 @@ export default function KetherList(): JSX.Element {
   });
 
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const resizeHandleRef = useRef<HTMLDivElement>(null);
 
   // 检测屏幕尺寸
   useEffect(() => {
@@ -381,6 +386,312 @@ export default function KetherList(): JSX.Element {
     };
   }, [selectedAction]);
 
+  // 优化cookie操作辅助函数，增加调试信息
+  const setCookie = (name: string, value: string, days: number = 365) => {
+    try {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = `expires=${date.toUTCString()}`;
+      // 设置cookie的path为根路径，确保整个网站可用
+      document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`;
+      console.log(`设置Cookie: ${name}=${value}`);
+      
+      // 同时保存到localStorage作为备份方案
+      localStorage.setItem(name, value);
+    } catch (e) {
+      console.error('设置Cookie失败:', e);
+      // 当cookie设置失败时，尝试使用localStorage
+      try {
+        localStorage.setItem(name, value);
+        console.log(`Cookie设置失败，使用localStorage: ${name}=${value}`);
+      } catch (localStorageError) {
+        console.error('localStorage保存也失败:', localStorageError);
+      }
+    }
+  };
+  
+  const getCookie = (name: string): string | null => {
+    try {
+      const nameEQ = `${name}=`;
+      const ca = document.cookie.split(';');
+      
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+          const value = c.substring(nameEQ.length, c.length);
+          console.log(`从Cookie读取: ${name}=${value}`);
+          return value;
+        }
+      }
+      
+      // 如果cookie不存在，尝试从localStorage读取
+      const localValue = localStorage.getItem(name);
+      if (localValue) {
+        console.log(`从localStorage读取: ${name}=${localValue}`);
+        return localValue;
+      }
+      
+      console.log(`未找到${name}的存储值`);
+      return null;
+    } catch (e) {
+      console.error('获取Cookie失败:', e);
+      
+      // 尝试从localStorage读取
+      try {
+        const localValue = localStorage.getItem(name);
+        if (localValue) {
+          console.log(`Cookie获取失败，从localStorage读取: ${name}=${localValue}`);
+          return localValue;
+        }
+      } catch (localStorageError) {
+        console.error('localStorage读取也失败:', localStorageError);
+      }
+      
+      return null;
+    }
+  };
+  
+  // 改进初始加载宽度的逻辑，确保始终能找到并应用保存的宽度
+  useEffect(() => {
+    const loadSavedWidth = () => {
+      const DEFAULT_WIDTH = 450;
+      const MIN_WIDTH = 300;
+      const MAX_WIDTH = window.innerWidth * 0.8;
+      
+      try {
+        console.log('尝试读取保存的侧边栏宽度...');
+        
+        // 尝试从cookie或localStorage读取
+        const savedWidth = getCookie('ketherListSidebarWidth');
+        
+        if (savedWidth) {
+          const width = parseInt(savedWidth, 10);
+          if (!isNaN(width) && width >= MIN_WIDTH && width <= MAX_WIDTH) {
+            console.log(`应用保存的宽度: ${width}px`);
+            
+            // 更新状态
+            setSidebarWidth(width);
+            
+            // 直接设置CSS变量供样式使用
+            document.documentElement.style.setProperty('--kether-list-sidebar-width', `${width}px`);
+            
+            return width;
+          } else {
+            console.log(`保存的宽度${width}px无效，使用默认宽度`);
+          }
+        }
+        
+        // 使用默认宽度
+        console.log(`使用默认宽度: ${DEFAULT_WIDTH}px`);
+        document.documentElement.style.setProperty('--kether-list-sidebar-width', `${DEFAULT_WIDTH}px`);
+        return DEFAULT_WIDTH;
+      } catch (e) {
+        console.error('读取保存的宽度时出错:', e);
+        
+        // 使用默认值
+        document.documentElement.style.setProperty('--kether-list-sidebar-width', `${DEFAULT_WIDTH}px`);
+        return DEFAULT_WIDTH;
+      }
+    };
+    
+    // 执行加载
+    const width = loadSavedWidth();
+    setSidebarWidth(width);
+  }, []); // 仅在组件挂载时执行一次
+  
+  // 当侧边栏显示时应用宽度
+  useEffect(() => {
+    if (!isSmallScreen && selectedAction && sidebarRef.current) {
+      console.log(`侧边栏已显示，应用宽度: ${sidebarWidth}px`);
+      
+      // 应用宽度到DOM和CSS变量
+      sidebarRef.current.style.width = `${sidebarWidth}px`;
+      document.documentElement.style.setProperty('--kether-list-sidebar-width', `${sidebarWidth}px`);
+      
+      // 更新内容区域宽度
+      const contentElements = document.querySelectorAll(`.${styles.content}`);
+      contentElements.forEach((element: Element) => {
+        const htmlElement = element as HTMLElement;
+        if (htmlElement) {
+          htmlElement.style.width = `calc(100% - ${sidebarWidth}px)`;
+        }
+      });
+    }
+  }, [selectedAction, sidebarWidth, isSmallScreen]); // 添加sidebarWidth作为依赖项
+
+  // 重置侧边栏宽度
+  const handleResetSidebarWidth = () => {
+    const defaultWidth = 450;
+    
+    // 更新状态
+    setSidebarWidth(defaultWidth);
+    
+    // 直接应用到DOM和CSS变量
+    if (sidebarRef.current) {
+      sidebarRef.current.style.width = `${defaultWidth}px`;
+    }
+    document.documentElement.style.setProperty('--kether-list-sidebar-width', `${defaultWidth}px`);
+    
+    // 更新内容区域宽度
+    const contentElements = document.querySelectorAll(`.${styles.content}`);
+    contentElements.forEach((element: Element) => {
+      const htmlElement = element as HTMLElement;
+      if (htmlElement) {
+        htmlElement.style.width = `calc(100% - ${defaultWidth}px)`;
+      }
+    });
+    
+    // 保存到cookie和localStorage
+    setCookie('ketherListSidebarWidth', defaultWidth.toString());
+    console.log(`侧边栏宽度已重置为默认值: ${defaultWidth}px`);
+  };
+  
+  // 添加拖拽实现，优化拖拽体验
+  const handleResizeStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // 记录拖拽开始时的位置和宽度
+    const startX = e.clientX;
+    const startWidth = sidebarWidth;
+    
+    // 添加拖拽指示样式
+    document.body.classList.add(styles.resizingBody);
+    
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      if (isSmallScreen) return;
+      
+      // 计算新宽度：向左拖动宽度增加，向右拖动宽度减少
+      const deltaX = startX - moveEvent.clientX;
+      const newWidth = Math.min(
+        Math.max(startWidth + deltaX, 300), // 最小宽度300px
+        window.innerWidth * 0.8  // 最大宽度为窗口的80%
+      );
+      
+      // 设置拖动状态
+      setIsResizing(true);
+      
+      // 更新侧边栏宽度
+      setSidebarWidth(newWidth);
+      
+      // 应用样式到UI
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      
+      // 直接应用样式以避免重渲染延迟
+      if (sidebarRef.current) {
+        sidebarRef.current.style.width = `${newWidth}px`;
+        sidebarRef.current.style.transition = 'none';
+      }
+      
+      // 更新CSS变量，确保全局一致性
+      document.documentElement.style.setProperty('--kether-list-sidebar-width', `${newWidth}px`);
+      
+      // 更新内容区域宽度
+      const contentElements = document.querySelectorAll(`.${styles.content}`);
+      contentElements.forEach((element: Element) => {
+        const htmlElement = element as HTMLElement;
+        if (htmlElement) {
+          htmlElement.style.width = `calc(100% - ${newWidth}px)`;
+          htmlElement.style.transition = 'none';
+        }
+      });
+      
+      // 计算新的网格列数以适应内容区域
+      calculateGridColumns();
+    };
+    
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      
+      // 获取当前实际宽度，而不是依赖状态值
+      let finalWidth = sidebarWidth;
+      if (sidebarRef.current) {
+        const computedWidth = window.getComputedStyle(sidebarRef.current).width;
+        const numericWidth = parseInt(computedWidth, 10);
+        if (!isNaN(numericWidth)) {
+          finalWidth = numericWidth;
+          // 确保状态也同步更新
+          setSidebarWidth(numericWidth);
+        }
+      }
+      
+      // 取消拖动状态
+      setIsResizing(false);
+      document.body.classList.remove(styles.resizingBody);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+      
+      // 恢复过渡动画
+      if (sidebarRef.current) {
+        sidebarRef.current.style.transition = 'width 0.3s cubic-bezier(0.22, 1, 0.36, 1)';
+      }
+      
+      const contentElements = document.querySelectorAll(`.${styles.content}`);
+      contentElements.forEach((element: Element) => {
+        const htmlElement = element as HTMLElement;
+        if (htmlElement) {
+          htmlElement.style.transition = 'width 0.3s cubic-bezier(0.22, 1, 0.36, 1)';
+        }
+      });
+      
+      // 在拖拽结束后更新CSS变量，确保全局一致性
+      document.documentElement.style.setProperty('--kether-list-sidebar-width', `${finalWidth}px`);
+      
+      // 确保使用最新的宽度值保存到cookie和localStorage
+      setCookie('ketherListSidebarWidth', finalWidth.toString());
+      console.log(`拖拽结束，保存宽度: ${finalWidth}px`);
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  // 添加计算网格列数的逻辑，优化内容布局
+  const calculateGridColumns = useCallback(() => {
+    if (isSmallScreen || !selectedAction) {
+      return undefined;
+    }
+    
+    // 计算剩余的内容区域宽度（窗口宽度减去侧边栏宽度）
+    const contentWidth = window.innerWidth - sidebarWidth;
+    
+    // 根据内容区域宽度和当前布局类型计算合适的列数
+    if (layoutType === 'grid') {
+      // 网格布局
+      if (contentWidth >= 1600) return 4; // 超宽屏
+      if (contentWidth >= 1200) return 3; // 宽屏
+      if (contentWidth >= 800) return 2; // 普通宽度
+      return 1; // 较窄
+    } else if (layoutType === 'compact') {
+      // 紧凑布局
+      if (contentWidth >= 1400) return 3; // 超宽屏
+      if (contentWidth >= 1000) return 2; // 宽屏
+      return 1; // 普通或较窄
+    } else {
+      // 列表布局始终为1列
+      return 1;
+    }
+  }, [isSmallScreen, selectedAction, sidebarWidth, layoutType]);
+  
+  // 计算网格列数
+  const gridColumns = calculateGridColumns();
+  
+  // 监听窗口大小变化和侧边栏宽度变化，重新计算列数
+  useEffect(() => {
+    const handleResize = () => {
+      // 强制重新渲染以更新网格列数
+      // 这里只需要调用calculateGridColumns就会触发重新渲染
+      calculateGridColumns();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [calculateGridColumns]);
+
   // 主渲染函数
   return (
     <div className={`${styles.ketherContainer} ${selectedAction && !isSmallScreen ? styles.withSidebar : ''}`}>
@@ -564,7 +875,13 @@ export default function KetherList(): JSX.Element {
       </div>
 
       {/* 主要内容区域 */}
-      <div className={`${styles.content} ${selectedAction && !isSmallScreen ? styles.withSidebar : ''}`}>
+      <div 
+        className={styles.content}
+        style={{ 
+          width: selectedAction && !isSmallScreen ? `calc(100% - ${sidebarWidth}px)` : '100%',
+          transition: isResizing ? 'none' : 'width 0.35s cubic-bezier(0.22, 1, 0.36, 1)'
+        }}
+      >
         {isLoading ? (
           <div className={styles.loaderContainer}>
             <div className={styles.loader}></div>
@@ -614,7 +931,18 @@ export default function KetherList(): JSX.Element {
                   
                   {/* 如果只有一个分类或者分类被展开，则显示内容 */}
                   {(groupedActions.length === 1 || expandedCategories.has(category)) && (
-                    <div className={styles.actionsGrid}>
+                    <div 
+                      className={styles.actionsGrid}
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: gridColumns 
+                          ? `repeat(${gridColumns}, 1fr)` 
+                          : undefined,
+                        gap: selectedAction && !isSmallScreen ? '16px' : '24px',
+                        padding: selectedAction && !isSmallScreen ? '16px' : '20px 24px',
+                        transition: isResizing ? 'none' : 'all 0.35s cubic-bezier(0.22, 1, 0.36, 1)'
+                      }}
+                    >
                       {categoryActions.map(action => (
                         <div 
                           key={`${category}-${action.provider}-${action.id}`}
@@ -665,7 +993,23 @@ export default function KetherList(): JSX.Element {
         <div 
           ref={sidebarRef}
           className={`${styles.detailSidebar} ${isSmallScreen ? styles.fullscreen : ''}`}
+          style={{
+            width: !isSmallScreen ? `${sidebarWidth}px` : '100%',
+            transition: isResizing ? 'none' : 'width 0.35s cubic-bezier(0.22, 1, 0.36, 1)'
+          }}
         >
+          {/* 使用更宽的拖动手柄 */}
+          {!isSmallScreen && (
+            <div 
+              className={styles.resizeHandle}
+              ref={resizeHandleRef}
+              onMouseDown={handleResizeStart}
+              onDoubleClick={handleResetSidebarWidth}
+              title="拖动调整宽度 (双击重置)"
+            >
+              <div className={styles.resizeHandleIndicator} />
+            </div>
+          )}
           <div className={styles.detailHeader} style={{ borderBottom: `2px solid ${getModuleColor(selectedAction.provider)}` }}>
             <button 
               className={styles.closeDetailButton}
