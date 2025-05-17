@@ -427,31 +427,6 @@ export const plugins: Plugin[] = [
     ]
   },
   {
-    id: 'azureflow',
-    name: 'AzureFlow',
-    description: '物品库插件',
-    category: 'item',
-    letter: 'Z',
-    detail: 'AzureFlow是一个强大的物品库系统，允许服务器创建和管理自定义物品。支持复杂的物品属性、材质和模型、自定义效果和动作等。它提供了全面的API，可以与其他插件无缝集成，是RPG服务器的理想选择。',
-    links: [
-      {
-        type: 'minebbs',
-        url: 'https://www.minebbs.com/resources/.9673',
-        label: 'MineBBS'
-      },
-      {
-        type: 'github',
-        url: 'https://github.com/rokukoo/AzureFlow-issues',
-        label: 'GitHub'
-      },
-      {
-        type: 'docs',
-        url: 'https://cloudstack.gitbook.io/azureflow',
-        label: '文档(官方)'
-      }
-    ]
-  },
-  {
     id: 'zaphkiel',
     name: 'Zaphkiel',
     description: '物品库插件',
