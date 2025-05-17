@@ -7,9 +7,9 @@ sidebar_position: 2
 
 ## 学习
 
-![](https://kether.tabooproject.org/static/images/ketherx.png)
+![](https://gh-proxy.com/github.com/8aka-Team/TabooLib-guide/blob/main/static/img/icon.png)
 
-[KetherX 中文文档](https://kether.tabooproject.org)
+{% embed url="https://taboo.8aka.org/kether-list" caption="Kether 动作列表" %}
 
 ## 注意
 
