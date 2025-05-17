@@ -3,13 +3,13 @@
 <div align="center">
   <img src="static/img/logo.png" alt="TabooLib Guide Logo" width="220" />
   <p>致力于为 Taboolib 用户提供易懂的指南</p>
-  
+
   [![Built with Docusaurus](https://img.shields.io/badge/Built%20with-Docusaurus-blue)](https://docusaurus.io/)
   [![Last Commit](https://img.shields.io/github/last-commit/8aka-team/TabooLib-guide)](https://github.com/8aka-team/TabooLib-guide/commits)
   [![Stars](https://img.shields.io/github/stars/8aka-team/TabooLib-guide?style=social)](https://github.com/8aka-team/TabooLib-guide/stargazers)
-  
+
   <br/>
-  
+
   <a href="https://taboo.8aka.org"><img src="https://img.shields.io/badge/📚_浏览文档-2e8555?style=for-the-badge" alt="浏览文档" /></a>
   <a href="https://taboo.8aka.org/contribution"><img src="https://img.shields.io/badge/🤝_参与贡献-6c6c6c?style=for-the-badge" alt="参与贡献" /></a>
   <a href="https://8aka.org/qq"><img src="https://img.shields.io/badge/💬_加入社区-4a7dbe?style=for-the-badge" alt="加入社区" /></a>
@@ -17,7 +17,7 @@
 
 ## 📚 文档网站
 
-访问我们：[https://taboo.8aka.org](https://taboo.8aka.org)
+访问我们：https://taboo.8aka.org
 
 ## 🚀 本地开发
 
@@ -38,7 +38,7 @@ npm start
 - **📊 Kether Explorer** - [访问](https://taboo.8aka.org/kether-list)
   - 自研 Kether 动作浏览器，提供全面的 Kether 动作示例和文档
 
-- **🧩 Plugin Catalog** - [访问](https://taboo.8aka.org/plugin-catalog)  
+- **🧩 Plugin Catalog** - [访问](https://taboo.8aka.org/plugin-catalog)
   - 社区插件收录中心，查找你需要的插件
 
 ## 🤝 社区交流
