@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src="static/img/logo.png" alt="TabooLib Guide Logo" width="220" />
-  <p>致力于为 Taboolib 用户提供易懂的指南</p>
+  <p>致力于为 TabooLib 用户提供易懂的指南</p>
 
   [![Built with Docusaurus](https://img.shields.io/badge/Built%20with-Docusaurus-blue)](https://docusaurus.io/)
   [![Last Commit](https://img.shields.io/github/last-commit/8aka-team/TabooLib-guide)](https://github.com/8aka-team/TabooLib-guide/commits)
