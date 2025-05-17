@@ -14,7 +14,7 @@ import { Admonition } from '@site/src/components/GitBook';
 TrMenu 需要在联网条件下载安装
 </Admonition>
 
-| 服务端                      | 版本         |
+| 服务端                    | 版本       |
 |:-------------------------|:-----------|
 | Spigot                   | 1.8-1.20.4 |
 | Paper                    | 1.8-1.20.4 |
