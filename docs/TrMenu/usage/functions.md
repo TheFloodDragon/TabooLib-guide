@@ -13,7 +13,7 @@ import { Admonition } from '@site/src/components/GitBook';
 # 函数变量
 
 <Admonition type="info">
-函数变量内部 `{}` 若需要使用 `}` 右花括号，请转义使用 `\}` 
+函数变量内部 `{}` 若需要使用 `}` 右花括号，请转义使用 `\}`
 </Admonition>
 
 ## 菜单参数 函数

@@ -13,14 +13,14 @@ sidebar_position: 1
 >
 > 正常玩家无需设置任何权限
 
-* 名称：`trmenu` `menu` 
-* 权限: `trmenu.access` 
+* 名称：`trmenu` `menu`
+* 权限: `trmenu.access`
 
 ## List
 
 > 列出已加载的菜单
 
-* 权限: `trmenu.command.list` 
+* 权限: `trmenu.command.list`
 * 参数
   * `&lt;Filter&gt;` 过滤菜单名称
 
@@ -43,13 +43,13 @@ sidebar_position: 1
 
 > 重新载入菜单
 
-* 权限: `trmenu.command.reload` 
+* 权限: `trmenu.command.reload`
 
 ## Template
 
 > 模板创建功能，快速布局菜单（当前仅支持箱子容器）
 
-* 权限: `trmenu.command.template` 
+* 权限: `trmenu.command.template`
 * 参数
   * `&lt;Rows&gt;` 菜单的行数大小（1~6）
 
@@ -57,7 +57,7 @@ sidebar_position: 1
 
 > 测试 TrMenu 动作
 
-* 权限: `trmenu.command.action` 
+* 权限: `trmenu.command.action`
 * 参数
   * [ID] 执行动作玩家对象的名称
   * [Action] 动作行
@@ -69,7 +69,7 @@ sidebar_position: 1
 
 > 管理控制物品
 
-* 权限: `trmenu.command.item` 
+* 权限: `trmenu.command.item`
 * 参数
   * [Method] 操作类型
     * toJson 转换手中物品为 JSON 文本格式
@@ -83,7 +83,7 @@ sidebar_position: 1
 
 > 预览音效
 
-* 权限: `trmenu.command.sounds` 
+* 权限: `trmenu.command.sounds`
 * 参数
   * `&lt;Filter&gt;` 过滤音效名称
 

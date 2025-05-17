@@ -91,7 +91,7 @@ TrMenu 的 JavaScript 引擎目前提供以下函数
 ## 实例
 
 * 判断有无权限
-  * 可直接调用 player 对象的方法，`player.hasPermission("perm")` 
+  * 可直接调用 player 对象的方法，`player.hasPermission("perm")`
 
 ## utils
 
