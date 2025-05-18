@@ -28,6 +28,10 @@ TrMenu 是基于 [TabooLib](https://docs.tabooproject.org/) 开发，发布于 *
 
 TrMenu 插件的其他文档：
 
-{% embed url="https://taboo.8aka.org/TrMenu" caption="本文档镜像地址" %}
+- https://taboo.8aka.org/TrMenu
+- https://bukkit.wiki/plugins/plugins/trmenu
+- https://docs.qq.com/aio/DWWV6SFVuWmlES1po
+
+<!-- {% embed url="https://taboo.8aka.org/TrMenu" caption="本文档镜像地址" %}
 {% embed url="https://bukkit.wiki/plugins/plugins/trmenu" caption="本文档镜像地址" %}
-{% embed url="https://docs.qq.com/aio/DWWV6SFVuWmlES1po" caption="入门级学习文档" %}
+{% embed url="https://docs.qq.com/aio/DWWV6SFVuWmlES1po" caption="入门级学习文档" %} -->

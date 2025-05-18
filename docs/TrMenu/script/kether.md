@@ -9,7 +9,9 @@ sidebar_position: 2
 
 ![](https://gh-proxy.com/github.com/8aka-Team/TabooLib-guide/blob/main/static/img/icon.png)
 
-{% embed url="https://taboo.8aka.org/kether-list" caption="Kether 动作列表" %}
+- https://taboo.8aka.org/kether-list
+
+<!-- {% embed url="https://taboo.8aka.org/kether-list" caption="Kether 动作列表" %} -->
 
 ## 注意
 
