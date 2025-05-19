@@ -6,6 +6,8 @@ sidebar_position: 1
 
 欢迎来到 Chemdah Docs!
 
+本文来自：https://plugins.ptms.ink/category/%EF%B8%8Fchemdah
+
 ![](/img/chemdah.png)
 
 ---
