@@ -3,6 +3,10 @@
 
 const {themes} = require('prism-react-renderer');
 
+const IS_CHINA_SITE = process.env.CHINA === 'true';
+const ICP_LICENSE = process.env.ICP_LICENSE;
+
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     future: {
@@ -27,6 +31,13 @@ const config = {
     i18n: {
         defaultLocale: 'zh-Hans',
         locales: ['zh-Hans'],
+    },
+
+    customFields: {
+        // ICP 备案号
+        ICP_LICENSE: ICP_LICENSE,
+        // 是否为中国站点
+        IS_CHINA_SITE: IS_CHINA_SITE,
     },
 
     plugins: [
