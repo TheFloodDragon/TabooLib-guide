@@ -21,7 +21,7 @@ sidebar_position: 101
 
 仓库地址：https://github.com/ItsFlicker/document-trchat
 
-最后同步于：xxx
+最后同步于：https://github.com/ItsFlicker/document-trchat/commit/e740e2bcade4e5f7cad4356da28fe3737c54f902
 
 ## Adyeshach
 
