@@ -13,7 +13,8 @@ const config = {
         experimental_faster: true,
     },
     title: 'TabooLib',
-    url: 'https://taboo.8aka.org',
+    url: IS_CHINA_SITE ? 'https://taboo.8aka.cn' : 'https://taboo.8aka.org',
+
     baseUrl: process.env.BASE_URL ?? '/',
     onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
@@ -128,7 +129,7 @@ const config = {
                             },
                             {
                                 label: 'GitHub',
-                                href: 'https://github.com/8aka-Team/NitWikit',
+                                href: 'https://github.com/8aka-Team/TabooLib-guide',
                             },
                         ],
                     },
