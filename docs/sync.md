@@ -9,7 +9,7 @@ sidebar_position: 101
 
 仓库地址：https://www.yuque.com/sacredcraft/kether
 
-最后同步于：xxx
+最后同步于：2025/5/25
 
 ## TrMenu
 
