@@ -1,3 +1,8 @@
+---
+title: 更新日志
+sidebar_position: 12
+---
+
 # 更新日志
 
 ## VERSION 2.0

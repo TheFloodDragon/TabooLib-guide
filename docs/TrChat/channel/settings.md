@@ -1,3 +1,8 @@
+---
+title: 设置
+sidebar_position: 2
+---
+
 # 频道设置
 
 ## 选项

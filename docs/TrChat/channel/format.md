@@ -1,3 +1,8 @@
+---
+title: 消息格式
+sidebar_position: 4
+---
+
 # 消息格式
 
 ## 结构

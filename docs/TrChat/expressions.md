@@ -1,3 +1,8 @@
+---
+title: 条件与动作
+sidebar_position: 8
+---
+
 # 条件与动作
 
 在`condition`和`action`中使用，默认为Kether动作

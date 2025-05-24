@@ -19,7 +19,7 @@ sidebar_position: 1
 | Mohist            | :o:                |
 | Folia             | :o:                |
 
-::: tip
+:::tip
 TrChat 需要联网条件下安装
 
 不需要手动下载 TabooLib
@@ -32,6 +32,6 @@ TrChat 需要联网条件下安装
 * 配置[跨服功能](./proxy.md)
 * 重启服务器
 
-::: warning
+:::warning
 必须确保子服与群组端安装了**同一版本**的TrChat
 :::

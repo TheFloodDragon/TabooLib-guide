@@ -1,3 +1,8 @@
+---
+title: 命令
+sidebar_position: 5
+---
+
 # 命令
 
 ## 主命令

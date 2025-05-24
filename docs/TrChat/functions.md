@@ -1,8 +1,13 @@
+---
+title: 功能
+sidebar_position: 6
+---
+
 # 功能
 
 function.yml
 
-::: tip
+:::tip
 部分消息/声音等在lang文件中配置
 :::
 
@@ -18,7 +23,7 @@ Command-Controller:
     - 'shout{cooldown: 3}' # shout命令三秒冷却
 ```
 
-::: info
+:::info
 TrChat 仅提供一些简单命令控制功能，若有更多需求请使用其他插件
 :::
 
