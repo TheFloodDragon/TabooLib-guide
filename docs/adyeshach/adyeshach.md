@@ -7,7 +7,7 @@ sidebar_position: 6
 
 欢迎来到 Adyeshach Docs！
 
-本文来自：https://plugins.ptms.ink/category/adyeshach
+> 本文来自：https://plugins.ptms.ink/category/adyeshach
 
 ![](/img/adyeshach.png)
 
