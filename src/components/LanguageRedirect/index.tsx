@@ -58,7 +58,9 @@ export default function LanguageRedirect(): JSX.Element | null {
           <h3>语言提示</h3>
         </div>
         <div className="language-redirect-content">
-          <p>检测到您的系统语言为中文，是否跳转到中文站点以获得更好的浏览体验？</p>
+          <p>检测到您的系统语言为中文，是否跳转到中文站点以获得更好的浏览速度？<br/>
+            注：中文网站由于大陆网络环境限制，可能会与原网站内容存在少量差异。
+          </p>
         </div>
         <div className="language-redirect-actions">
           <button 
