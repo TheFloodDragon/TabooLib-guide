@@ -43,6 +43,56 @@ const config = {
 
     plugins: [
         'docusaurus-plugin-image-zoom',
+        [
+            '@docusaurus/plugin-client-redirects',
+            {
+                // 添加重定向规则处理/plugin/前缀的断链问题
+                redirects: [
+                    // 只保留无法通过createRedirects处理的特殊重定向
+                    {
+                        from: '/function/kether',
+                        to: '/kether/',
+                    },
+                    // aiyatsbus中对summer的特殊引用
+                    {
+                        from: '/summer/nereusopus', 
+                        to: '/404.html', // 重定向到404页面，因为目标不存在
+                    },
+                ],
+                // 设置通用重定向规则，将/plugin/插件名/路径重定向到/插件名/路径
+                createRedirects(existingPath) {
+                    // 存储已明确定义的重定向规则源路径
+                    const explicitRedirects = [
+                        '/function/kether',
+                        '/summer/nereusopus'
+                    ];
+                    
+                    // 匹配各个插件的路径
+                    if (existingPath.includes('/adyeshach/') || 
+                        existingPath.includes('/aiyatsbus/') ||
+                        existingPath.includes('/chemdah/') ||
+                        existingPath.includes('/TrMenu/') ||
+                        existingPath.includes('/TrChat/')) {
+                        
+                        // 从现有路径提取插件名和后续路径
+                        const pathParts = existingPath.split('/');
+                        if (pathParts.length >= 2) {
+                            const pluginName = pathParts[1];
+                            const basePath = existingPath.substring(pluginName.length + 1);
+                            const newRedirect = `/plugin/${pluginName}${basePath}`;
+                            
+                            // 确保不与明确定义的重定向规则冲突
+                            if (!explicitRedirects.includes(newRedirect)) {
+                                // 仅创建基本重定向规则，不包含锚点
+                                return [newRedirect];
+                            }
+                        }
+                    }
+                    
+                    return undefined;
+                },
+            },
+        ],
     ],
 
     themes: [

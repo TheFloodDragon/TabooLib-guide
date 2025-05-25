@@ -39,6 +39,34 @@ export default function KetherList(): JSX.Element {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const resizeHandleRef = useRef<HTMLDivElement>(null);
 
+  // URL参数处理相关函数
+  const updateUrlWithActionId = useCallback((actionId: string | null) => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (actionId) {
+        url.searchParams.set('action', actionId);
+      } else {
+        url.searchParams.delete('action');
+      }
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, []);
+
+  const getActionFromUrlParam = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const actionId = url.searchParams.get('action');
+      if (actionId && actions.length > 0) {
+        // 使用忽略大小写的方式查找动作
+        const action = actions.find(a => a.id.toLowerCase() === actionId.toLowerCase());
+        if (action) {
+          return action;
+        }
+      }
+    }
+    return null;
+  }, [actions]);
+
   // 检测屏幕尺寸
   useEffect(() => {
     const checkScreenSize = () => {
@@ -188,20 +216,44 @@ export default function KetherList(): JSX.Element {
 
   // 从模块加载数据
   useEffect(() => {
+    // 先记录URL中的action参数，避免在加载完成前丢失参数
+    let urlActionId = null;
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      urlActionId = url.searchParams.get('action');
+      if (urlActionId) {
+        console.log('URL中找到action参数:', urlActionId);
+      }
+    }
+
     const timer = setTimeout(() => {
       setModuleList(modules);
-      setActions(getAllActions());
+      const allActions = getAllActions();
+      setActions(allActions);
       setIsLoading(false);
       
       // 默认展开所有类别，无论是单个分类还是多个分类
       const allCategories = new Set<string>();
-      getAllActions().forEach(action => {
+      allActions.forEach(action => {
         if (Array.isArray(action.categories)) {
           action.categories.forEach(cat => allCategories.add(cat));
         }
       });
       setExpandedCategories(allCategories);
+
+      // 加载完动作后，检查URL参数并设置选中动作
+      if (urlActionId) {
+        console.log('尝试根据URL参数匹配动作');
+        const matchedAction = allActions.find(a => a.id.toLowerCase() === urlActionId.toLowerCase());
+        if (matchedAction) {
+          console.log('找到匹配的动作:', matchedAction.id, matchedAction.name);
+          setSelectedAction(matchedAction);
+        } else {
+          console.log('未找到匹配的动作。所有可用动作:', allActions.map(a => a.id));
+        }
+      }
     }, 500);
+    
     return () => clearTimeout(timer);
   }, []);
 
@@ -692,6 +744,23 @@ export default function KetherList(): JSX.Element {
     };
   }, [calculateGridColumns]);
 
+  // 选择某个动作
+  const selectAction = (action: KetherAction) => {
+    setSelectedAction(action);
+    // URL会通过上面的useEffect自动更新
+  };
+
+  // 关闭侧边栏
+  const closeActionSidebar = () => {
+    setSelectedAction(null);
+    // URL会通过上面的useEffect自动更新
+  };
+
+  // 当选择的动作改变时更新URL
+  useEffect(() => {
+    updateUrlWithActionId(selectedAction?.id || null);
+  }, [selectedAction, updateUrlWithActionId]);
+
   // 主渲染函数
   return (
     <div className={`${styles.ketherContainer} ${selectedAction && !isSmallScreen ? styles.withSidebar : ''}`}>
@@ -947,7 +1016,7 @@ export default function KetherList(): JSX.Element {
                         <div 
                           key={`${category}-${action.provider}-${action.id}`}
                           className={`${styles.actionCard} ${selectedAction?.id === action.id ? styles.selected : ''}`}
-                          onClick={() => setSelectedAction(action)}
+                          onClick={() => selectAction(action)}
                           style={{ borderLeft: `3px solid ${getModuleColor(action.provider)}` }}
                         >
                           <div className={styles.actionCardContent}>
@@ -1013,7 +1082,7 @@ export default function KetherList(): JSX.Element {
           <div className={styles.detailHeader} style={{ borderBottom: `2px solid ${getModuleColor(selectedAction.provider)}` }}>
             <button 
               className={styles.closeDetailButton}
-              onClick={() => setSelectedAction(null)}
+              onClick={closeActionSidebar}
             >
               <IoClose />
             </button>
@@ -1040,7 +1109,7 @@ export default function KetherList(): JSX.Element {
                       <div 
                         key={`${selectedAction.categories[0]}-${action.provider}-${action.id}`} 
                         className={`${styles.indexActionItem} ${selectedAction.id === action.id ? styles.indexActionActive : ''}`}
-                        onClick={() => setSelectedAction(action)}
+                        onClick={() => selectAction(action)}
                         style={{ borderLeft: `2px solid ${getModuleColor(action.provider)}`}}
                       >
                         {action.name}
@@ -1061,7 +1130,7 @@ export default function KetherList(): JSX.Element {
                         <div 
                           key={`${category}-${action.provider}-${action.id}`} 
                           className={`${styles.indexActionItem} ${selectedAction.id === action.id ? styles.indexActionActive : ''}`}
-                          onClick={() => setSelectedAction(action)}
+                          onClick={() => selectAction(action)}
                           style={{ borderLeft: `2px solid ${getModuleColor(action.provider)}`}}
                         >
                           {action.name}

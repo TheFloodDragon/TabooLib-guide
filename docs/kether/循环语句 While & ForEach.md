@@ -6,7 +6,6 @@ sidebar_position: 6
 # 循环语句
 
 > 使用循环语句的时候请务必小心，千万别陷入死循环了~
->
 
 ```
 while {action} then {action}
@@ -69,6 +68,7 @@ for it in range 1 to 10 then {
 
 
 <h1 id="bSBPf">Break 跳出循环</h1>
+
 如果你在循环的过程中，想要跳出（中断）循环，那么可以使用 `break` 语句。`While` 和 `ForEach` 都适用。
 
 ```ruby
