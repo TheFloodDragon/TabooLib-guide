@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 import { IoRocketOutline, IoDocumentTextOutline, IoCodeSlashOutline, IoAppsOutline } from 'react-icons/io5';
+import LanguageRedirect from '../components/LanguageRedirect';
 
 // @ts-ignore - 忽略类型错误
 // 现代像素风格Banner
@@ -70,8 +70,6 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
-  
   // 加载粒子效果和移除默认导航
   useEffect(() => {
     // 添加自定义样式以隐藏导航和页脚
@@ -139,6 +137,7 @@ export default function Home(): JSX.Element {
   return (
     <div className={styles.homepageWrapper}>
       <HomepageHeader />
+      <LanguageRedirect />
     </div>
   );
 } 

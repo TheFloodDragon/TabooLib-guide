@@ -1,0 +1,124 @@
+/* 遮罩层 */
+.language-redirect-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 弹窗 */
+.language-redirect-dialog {
+  background-color: var(--ifm-background-surface-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* 标题区域 */
+.language-redirect-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.language-redirect-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+
+/* 内容区域 */
+.language-redirect-content {
+  padding: 20px;
+}
+
+.language-redirect-content p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* 按钮区域 */
+.language-redirect-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  gap: 12px;
+}
+
+/* 按钮样式 */
+.language-redirect-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  outline: none;
+}
+
+.language-redirect-button-cancel {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-700);
+}
+
+.language-redirect-button-cancel:hover {
+  background-color: var(--ifm-color-emphasis-300);
+}
+
+.language-redirect-button-confirm {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.language-redirect-button-confirm:hover {
+  background-color: var(--ifm-color-primary-darker);
+}
+
+/* 动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 响应式调整 */
+@media (max-width: 576px) {
+  .language-redirect-dialog {
+    width: 95%;
+  }
+  
+  .language-redirect-actions {
+    flex-direction: column;
+  }
+  
+  .language-redirect-button {
+    width: 100%;
+  }
+} 
