@@ -11,6 +11,7 @@ const ICP_LICENSE = process.env.ICP_LICENSE;
 const config = {
     future: {
         experimental_faster: true,
+        v4: true,
     },
     title: 'TabooLib',
     url: IS_CHINA_SITE ? 'https://taboo.8aka.cn' : 'https://taboo.8aka.org',
@@ -48,12 +49,11 @@ const config = {
             {
                 // 添加重定向规则处理/plugin/前缀的断链问题
                 redirects: [
-                    // 只保留无法通过createRedirects处理的特殊重定向
+                    // 特殊重定向
                     {
                         from: '/function/kether',
                         to: '/kether/',
                     },
-                    // aiyatsbus中对summer的特殊引用
                     {
                         from: '/summer/nereusopus', 
                         to: '/404.html', // 重定向到404页面，因为目标不存在
@@ -61,32 +61,16 @@ const config = {
                 ],
                 // 设置通用重定向规则，将/plugin/插件名/路径重定向到/插件名/路径
                 createRedirects(existingPath) {
-                    // 存储已明确定义的重定向规则源路径
-                    const explicitRedirects = [
-                        '/function/kether',
-                        '/summer/nereusopus'
-                    ];
-                    
-                    // 匹配各个插件的路径
+                    // 只处理特定的插件路径
                     if (existingPath.includes('/adyeshach/') || 
                         existingPath.includes('/aiyatsbus/') ||
                         existingPath.includes('/chemdah/') ||
                         existingPath.includes('/TrMenu/') ||
-                        existingPath.includes('/TrChat/')) {
+                        existingPath.includes('/TrChat/') ||
+                        existingPath.includes('/chesed/')) {
                         
-                        // 从现有路径提取插件名和后续路径
-                        const pathParts = existingPath.split('/');
-                        if (pathParts.length >= 2) {
-                            const pluginName = pathParts[1];
-                            const basePath = existingPath.substring(pluginName.length + 1);
-                            const newRedirect = `/plugin/${pluginName}${basePath}`;
-                            
-                            // 确保不与明确定义的重定向规则冲突
-                            if (!explicitRedirects.includes(newRedirect)) {
-                                // 仅创建基本重定向规则，不包含锚点
-                                return [newRedirect];
-                            }
-                        }
+                        // 构建 /plugin 前缀的路径，作为源路径
+                        return [`/plugin${existingPath}`];
                     }
                     
                     return undefined;
