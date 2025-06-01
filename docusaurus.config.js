@@ -10,8 +10,11 @@ const ICP_LICENSE = process.env.ICP_LICENSE;
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     future: {
-        experimental_faster: true,
         v4: true,
+        experimental_faster: {
+            rspackBundler: true, // required flag
+            rspackPersistentCache: true, // new flag
+        },
     },
     title: 'TabooLib',
     url: IS_CHINA_SITE ? 'https://taboo.8aka.cn' : 'https://taboo.8aka.org',
