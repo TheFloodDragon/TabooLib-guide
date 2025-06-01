@@ -20,18 +20,19 @@ jobs:
         fetch-depth: 0
 
     # 设置Bun环境
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v1
+    # 设置Node.js环境
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
       with:
-        bun-version: 1.2.15
-    
+        node-version: '19'
+        cache: 'npm'
     # 安装依赖
     - name: Install Dependencies
-      run: bun install --frozen-lockfile
+      run: npm install
       
     # 编译出静态页面
     - name: Build
-      run: bun run build
+      run: npm run build
       env:
         NODE_OPTIONS: --max-old-space-size=8192
         BASE_URL: /TabooLib-guide/
