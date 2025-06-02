@@ -242,6 +242,26 @@ export const plugins: Plugin[] = [
     ]
   },
   {
+    id: 'itemtools',
+    name: 'ItemTools',
+    description: '物品工具插件',
+    category: 'item',
+    letter: 'I',
+    detail: 'ItemTools提供了强大的物品编辑与管理功能，支持自定义物品的名称、Lore、NBT、附魔以及无法破坏属性，并内置物品库系统，方便快速存储与调用物品。通过简洁的命令和灵活的API，可轻松实现物品的精细化操作，适用于各类服务器需求。',
+    links: [
+      {
+        type: 'github',
+        url: 'https://github.com/CPJiNan/ItemTools',
+        label: 'GitHub'
+      },
+      {
+        type: 'docs',
+        url: 'https://cpjinan.github.io/Wiki/ItemTools/',
+        label: '文档'
+      }
+    ]
+  },
+  {
     id: 'kalpadungeon',
     name: 'KalpaDungeon',
     description: '让你的 DungeonPlus 拥有更多功能',
@@ -422,6 +442,26 @@ export const plugins: Plugin[] = [
       {
         type: 'docs',
         url: 'https://cpjinan.github.io/Wiki/VitaSell/',
+        label: '文档'
+      }
+    ]
+  },
+  {
+    id: 'vitagem',
+    name: 'VitaGem',
+    description: '宝石镶嵌插件',
+    category: 'strengthen',
+    letter: 'V',
+    detail: 'VitaGem提供了一套高度自定义的宝石镶嵌与拆卸系统，支持概率公式计算和资源返还规则配置，可深度适配RPG、生存等多种服务器玩法。通过简单的配置，即可实现复杂的宝石交互逻辑，满足装备强化、属性加成等多样化需求。',
+    links: [
+      {
+        type: 'github',
+        url: 'https://github.com/CPJiNan/VitaGem',
+        label: 'GitHub'
+      },
+      {
+        type: 'docs',
+        url: 'https://cpjinan.github.io/Wiki/VitaGem/',
         label: '文档'
       }
     ]
