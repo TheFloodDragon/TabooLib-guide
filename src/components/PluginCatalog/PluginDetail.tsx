@@ -30,7 +30,8 @@ const PluginDetail: React.FC<PluginDetailProps> = ({ plugin, onClose }) => {
       'expansion': '拓展',
       'effect': '效果',
       'economy': '经济',
-      'ui': '界面'
+      'ui': '界面',
+      'strengthen': '强化'
     };
     
     return categoryNames[category] || category;
