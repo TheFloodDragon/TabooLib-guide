@@ -934,6 +934,26 @@ const tabooLib: KetherActionModule = {
       syntax: "player world",
       example: "\{player\} world"
     },
+    {
+      id: "import",
+      name: "Import",
+      description: "导入命名空间。",
+      provider: "TabooLib",
+      type: "public",
+      categories: ["系统配置"],
+      syntax: "import \{token\}",
+      example: "import invero"
+    },
+    {
+      id: "release",
+      name: "Release",
+      description: "释放命名空间。",
+      provider: "TabooLib",
+      type: "public",
+      categories: ["系统配置"],
+      syntax: "release \{token\}",
+      example: "release invero"
+    },
   ]
 };
 
