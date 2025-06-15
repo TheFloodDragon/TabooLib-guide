@@ -187,10 +187,31 @@ export default function KetherList(): JSX.Element {
 
   // 处理转义字符，将字符串中的'\n'转换为实际的换行符
   const parseText = (text: string) => {
-    // 正则表达式匹配转义序列的模式
-    return text.replace(/\\n/g, '\n')
-               .replace(/\\r/g, '\r')
-               .replace(/\\t/g, '\t');
+    // 创建一个临时元素用于解析HTML实体
+    const tempElement = typeof document !== 'undefined' ? document.createElement('div') : null;
+    
+    // 先处理转义序列
+    let parsedText = text.replace(/\\n/g, '\n')
+                         .replace(/\\r/g, '\r')
+                         .replace(/\\t/g, '\t');
+    
+    // 处理HTML实体（如&nbsp;, &lt;等）
+    if (tempElement) {
+      // 在浏览器环境中解析HTML实体
+      tempElement.innerHTML = parsedText;
+      parsedText = tempElement.textContent || parsedText;
+    } else {
+      // 在非浏览器环境（SSR）中，简单替换常见HTML实体
+      parsedText = parsedText
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'");
+    }
+    
+    return parsedText;
   };
 
   // 用于渲染带换行符的文本
