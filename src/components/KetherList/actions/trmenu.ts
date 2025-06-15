@@ -42,7 +42,7 @@ const trmenu: KetherActionModule = {
       type: "private",
       categories: ["经济"],
       syntax: "money \{action\}",
-      example: "print \{money\} 100"
+      example: "money 100"
     },
     {
       id: "trmenu_playerpoints",
@@ -52,7 +52,7 @@ const trmenu: KetherActionModule = {
       type: "private",
       categories: ["经济"],
       syntax: "points \{action\}",
-      example: "print \{points\} 100"
+      example: "points 100"
     },
     {
       id: "variable",

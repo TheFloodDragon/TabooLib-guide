@@ -31,8 +31,8 @@ const invero: KetherActionModule = {
       provider: "Invero",
       type: "private",
       categories: ["经济"],
-      syntax: "money get\nmoney has <action>\nmoney give <action>\nmoney take <action>\nmoney set <action>",
-      example: 'money give 1000'
+      syntax: "points get\npoints has <action>\npoints give <action>\npoints take <action>\npoints set <action>",
+      example: 'points give 1000'
     },
     {
       id: "connect",
