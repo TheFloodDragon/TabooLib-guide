@@ -64,7 +64,7 @@ kether 在真正运行之前，需要先把你写的 kether 文本解析成一�
 
 
 
-而对于公有语句，只要“**解析时的命名空间**”中包含该语句所属的命名空间，那么你就可以正常使用。否则语句解析过程中可能会出现报错。 
+而对于公有语句，只要“**解析时的命名空间**”中包含该语句所属的命名空间，那么你就可以正常使用。否则语句解析过程中可能会出现报错。
 
 
 
@@ -122,7 +122,7 @@ print trmenu:var "{meta: example}"
 
 <details>
     <summary>「展开 / 收起详情」💠 import 语句</summary>
-    <iframe src={"https://www.yuque.com/sacredcraft/kether/reference?view=doc_embed&inner=K5GJ0"} width={'100%'} height={'500'}/>
+    <iframe src={"https://www.yuque.com/sacredcraft/kether/reference?view=doc_embed&inner=gRwu7"} width={'100%'} height={'500'}/>
 </details>
 
 增加新的命名空间可以使用 `import` 语句
@@ -130,7 +130,7 @@ print trmenu:var "{meta: example}"
 
 <details>
     <summary>「展开 / 收起详情」💠 release 语句</summary>
-    <iframe src={"https://www.yuque.com/sacredcraft/kether/reference?view=doc_embed&inner=sRRQ0"} width={'100%'} height={'500'}/>
+    <iframe src={"https://www.yuque.com/sacredcraft/kether/reference?view=doc_embed&inner=AUywR"} width={'100%'} height={'500'}/>
 </details>
 
 删除命名空间可以使用 `release` 语句
