@@ -35,7 +35,7 @@ const trmenu: KetherActionModule = {
       example: "\{data\} \{set\} test \{to\} value\r\\n\{data\} \{del\} test\r\\n\r\\n\{meta\} \{set\} test \{to\} value\r\\n\{meta\} \{del\} test\r\\n\r\\nprint \{data\} \{get\} test"
     },
     {
-      id: "money",
+      id: "trmenu_money",
       name: "Money",
       description: "将动作的\{返回值\}作为 \{Vault\} 货币判断玩家是否持有。",
       provider: "TrMenu",
@@ -45,7 +45,7 @@ const trmenu: KetherActionModule = {
       example: "print \{money\} 100"
     },
     {
-      id: "playerpoints",
+      id: "trmenu_playerpoints",
       name: "PlayerPoints",
       description: "将动作的\{返回值\}作为 \{PlayerPoints\} 货币判断玩家是否持有。",
       provider: "TrMenu",

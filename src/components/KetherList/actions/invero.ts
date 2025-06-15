@@ -15,7 +15,7 @@ const invero: KetherActionModule = {
       example: "msg \"<red>Hello {{player name}}\""
     },
     {
-      id: "money",
+      id: "invero_money",
       name: "Money",
       description: "控制 Vault 经济",
       provider: "Invero",
@@ -25,7 +25,7 @@ const invero: KetherActionModule = {
       example: 'money give 1000'
     },
     {
-      id: "points",
+      id: "invero_points",
       name: "Points",
       description: "控制 PlayerPoints 经济",
       provider: "Invero",
