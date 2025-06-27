@@ -19,7 +19,7 @@ export interface KetherAction {
 
 // 导入各个模块
 import adyeshach from './adyeshach';
-import aiyatsbus from '/.aiyatsbus';
+import aiyatsbus from './aiyatsbus';
 import arim from './arim';
 import chemdah from './chemdah';
 import dungeonPlus from './dungeonPlus';
