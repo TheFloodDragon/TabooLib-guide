@@ -19,6 +19,7 @@ export interface KetherAction {
 
 // 导入各个模块
 import adyeshach from './adyeshach';
+import aiyatsbus from './aiyatsbus';
 import arim from './arim';
 import chemdah from './chemdah';
 import dungeonPlus from './dungeonPlus';
@@ -32,6 +33,7 @@ import zaphkiel from './zaphkiel';
 // 导出所有模块
 export const modules: KetherActionModule[] = [
   adyeshach,
+  aiyatsbus,
   arim,
   chemdah,
   dungeonPlus,
