@@ -503,6 +503,26 @@ const aiyatsbus: KetherActionModule = {
       categories: ["脚本控制"],
       syntax: "operation &operation_name [args &args]",
       example: "{operation} my_operation\n{operation} my_operation args &[param1, param2]"
+    },
+    {
+      id: "modifiable-var",
+      name: "Modifiable Var",
+      description: "获取附魔的可修改变量值",
+      provider: "Aiyatsbus",
+      type: "public",
+      categories: ["数据处理", "变量操作"],
+      syntax: "modifiable-var &enchant $item name",
+      example: "{modifiable-var} &enchant $diamond_sword damage"
+    },
+    {
+      id: "modifiable-var-set",
+      name: "Modifiable Var Set",
+      description: "设置附魔的可修改变量值",
+      provider: "Aiyatsbus",
+      type: "public",
+      categories: ["数据处理", "变量操作"],
+      syntax: "modifiable-var-set &enchant $item name [to] $value",
+      example: "{modifiable-var-set} &enchant $diamond_sword damage to 10\n{modifiable-var-set} &enchant $diamond_sword damage = 15"
     }
   ]
 };
