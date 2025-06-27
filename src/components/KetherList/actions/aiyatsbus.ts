@@ -415,14 +415,14 @@ const aiyatsbus: KetherActionModule = {
       example: "{give-exp} 100 to &player\n{give-exp} 100 to &player mending true"
     },
     {
-      id: "money",
+      id: "a-money",
       name: "Money",
       description: "获取玩家的经济余额。",
       provider: "Aiyatsbus",
       type: "public",
       categories: ["经济", "实体控制"],
-      syntax: "money &player",
-      example: "{money} &player"
+      syntax: "a-money &player | money &player",
+      example: "{a-money} &player\n{money} &player"
     },
     {
       id: "take-money",
