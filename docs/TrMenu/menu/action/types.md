@@ -334,7 +334,7 @@ import { Admonition } from '@site/src/components/GitBook';
 #### 配置
 
 <Tabs>
-  <Tab title="聊天框">
+  <Tab title="告示牌">
 ```yaml
 - catcher:
     amount:
