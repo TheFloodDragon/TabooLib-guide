@@ -68,8 +68,8 @@ const config = {
                     if (existingPath.includes('/adyeshach/') || 
                         existingPath.includes('/aiyatsbus/') ||
                         existingPath.includes('/chemdah/') ||
-                        existingPath.includes('/trmenu/') ||
-                        existingPath.includes('/trchat/') ||
+                        existingPath.includes('/TrMenu/') ||
+                        existingPath.includes('/TrChat/') ||
                         existingPath.includes('/chesed/')) {
                         
                         // 构建 /plugin 前缀的路径，作为源路径
