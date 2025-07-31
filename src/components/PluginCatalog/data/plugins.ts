@@ -26,13 +26,38 @@ export const plugins: Plugin[] = [
     links: [
       {
         type: 'github',
-        url: 'https://github.com/TabooLib/Adyeshach',
+        url: 'https://github.com/PolarAstrum/aiyatsbus',
         label: 'GitHub'
       },
       {
         type: 'docs',
-        url: 'https://a.ptms.ink/category/adyeshach',
+        url: 'https://wiki.polarastrum.cc/category/aiyatsbus',
         label: '文档'
+      },
+      {
+        type: 'docs',
+        url: 'https://taboo.8aka.org/category/aiyatsbus',
+        label: '笨蛋文档镜像'
+      }
+    ]
+  },
+  {
+    id: 'chesed',
+    name: 'Chesed',
+    description: '卸魔插件',
+    category: 'enchant',
+    letter: 'C',
+    detail: 'Chesed 是一款功能全面的附魔分离插件，您可以通过卸魔台，花费经验等级、游戏币或点券来拆卸装备上的附魔。',
+    links: [
+      {
+        type: 'docs',
+        url: 'https://wiki.polarastrum.cc/category/chesed',
+        label: '文档'
+      },
+      {
+        type: 'docs',
+        url: 'https://taboo.8aka.cn/chesed',
+        label: '笨蛋文档镜像'
       }
     ]
   },
@@ -53,6 +78,11 @@ export const plugins: Plugin[] = [
         type: 'docs',
         url: 'https://a.ptms.ink/category/adyeshach',
         label: '文档'
+      },
+      {
+        type: 'docs',
+        url: 'https://taboo.8aka.org/adyeshach',
+        label: '笨蛋文档镜像'
       }
     ]
   },
@@ -96,7 +126,7 @@ export const plugins: Plugin[] = [
       },
       {
         type: 'docs',
-        url: 'https://cpjinan.github.io/Wiki/AkariLevel/',
+        url: 'https://cpjinan.github.io/Wiki/AkariLevel',
         label: '文档'
       }
     ]
@@ -163,6 +193,11 @@ export const plugins: Plugin[] = [
         type: 'docs',
         url: 'https://plugins.ptms.ink/plugin/chemdah',
         label: '文档'
+      },
+      {
+        type: 'docs',
+        url: 'https://taboo.8aka.org/chemdah',
+        label: '笨蛋文档镜像'
       }
     ]
   },
@@ -338,6 +373,11 @@ export const plugins: Plugin[] = [
         type: 'docs',
         url: 'https://trchat.trixey.cc',
         label: '文档'
+      },
+      {
+        type: 'docs',
+        url: 'https://taboo.8aka.org/TrChat',
+        label: '笨蛋文档镜像'
       }
     ]
   },
